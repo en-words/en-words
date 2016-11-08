@@ -10,7 +10,8 @@
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
     "start_firebase": "firebase serve",
-    "build_prod": "ng build --prod"
+    "build_prod": "ng build --prod",
+    "deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +23,10 @@
     "@angular/platform-browser": "~2.0.0",
     "@angular/platform-browser-dynamic": "~2.0.0",
     "@angular/router": "~3.0.0",
+    "angularfire2": "^2.0.0-beta.6",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "firebase": "^3.6.0",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.6.23"
