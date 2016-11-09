@@ -1,16 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
 import {AngularFire, FirebaseListObservable} from "angularfire2";
 
 @Component({
-  selector: 'app-units',
+  selector: 'unit-list',
   templateUrl: './units.component.html'
 })
-export class UnitsComponent {
+export class UnitsComponent implements OnInit {
 
   units: FirebaseListObservable<any[]>;
 
-  constructor(af: AngularFire) {
-    this.units = af.database.list('/units');
+  constructor(private af: AngularFire) { }
+
+  ngOnInit() {
+    this.units = this.af.database.list('/units');
+  }
+
+  addUnit(newUnit: string) {
+    this.units.push({ name: newUnit });
   }
 
 }

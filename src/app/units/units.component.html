@@ -1,3 +1,6 @@
-<ul>
-  <li *ngFor="let unit of units | async"><a href="/unit/{{ unit.id }}">{{ unit.name }}</a></li>
+<ul class="nav nav-pills nav-stacked">
+  <li *ngFor="let unit of units | async"><a routerLink="/unit/{{unit.$key}}">{{unit.name}}</a></li>
 </ul>
+<button type="button" class="btn btn-success btn-sm" (click)="addUnit('Unit new')">
+  <span class="glyphicon glyphicon-plus"></span>
+</button>
