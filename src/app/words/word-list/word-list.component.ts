@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'word-list',
@@ -17,12 +18,28 @@ export class WordListComponent implements OnInit {
 
   ngOnInit() {
     this.unit = this.route.snapshot.params['id'];
-    this.words = this.af.database.list('/words', {
+    this.words = this.af.database.list('/words'); //.subscribe(words => {this.words = words; console.log('111')});
+
+    /*this.words = this.af.database.list('/words', {
       query: {
         orderByChild: 'unit',
-        equalTo: this.route.snapshot.params['id']
+        equalTo: this.unit
       }
-    });
+    });*/
+
+    //console.log(JSON.stringify(this.words));
+
+    /*{
+      query: {
+        orderByChild: 'unit',
+          equalTo: this.route.snapshot.params['id']
+      }*/
+
+/*
+    this.route.params
+      .map(params => params['id'])
+      .switchMap(id => this.af.database.list('/words'))
+      .subscribe(words => this.words = words);*/
   }
 
 }
