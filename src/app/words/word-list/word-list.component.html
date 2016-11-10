@@ -1,1 +1,22 @@
-<h3>Words</h3>
+<h3>Words - {{unit}}</h3>
+
+<button type="button" class="btn btn-default btn-sm">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
+</button>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Word</th>
+    <th>Translation</th>
+    <th>Comments</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let word of words | async">
+    <td> <a routerLink="/words/{{word.$key}}">{{word.word}}</a></td>
+    <td>{{word.translation}}</td>
+    <td>{{word.unit}}</td>
+  </tr>
+  </tbody>
+</table>

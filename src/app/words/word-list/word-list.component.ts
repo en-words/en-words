@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {ActivatedRoute} from "@angular/router";
 
@@ -11,13 +11,16 @@ export class WordListComponent implements OnInit {
 
   words: FirebaseListObservable<any[]>;
 
-  constructor(private af: AngularFire, private route: ActivatedRoute) { }
+  unit: String;
+
+  constructor(private af: AngularFire, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.unit = this.route.snapshot.params['id'];
     this.words = this.af.database.list('/words', {
       query: {
         orderByChild: 'unit',
-        equalTo: 1
+        equalTo: this.route.snapshot.params['id']
       }
     });
   }
