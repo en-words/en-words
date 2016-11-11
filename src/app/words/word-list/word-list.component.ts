@@ -11,18 +11,19 @@ export class WordListComponent implements OnInit {
 
   words: FirebaseListObservable<any[]>;
 
-  unit: String;
-
   constructor(private af: AngularFire, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.unit = this.route.snapshot.params['id'];
-    this.words = this.af.database.list('/words', {
-      query: {
-        orderByChild: 'unit',
-        equalTo: this.route.snapshot.params['id']
+    this.route.params.subscribe(
+      params => {
+        this.words = this.af.database.list('/words', {
+          query: {
+            orderByChild: 'unit',
+            equalTo: params['id']
+          }
+        });
       }
-    });
+    );
   }
 
 }
