@@ -10,3 +10,7 @@
 .border-left {
   border-left: 1px solid lightgrey;
 }
+
+.align-right {
+  float: right;
+}
