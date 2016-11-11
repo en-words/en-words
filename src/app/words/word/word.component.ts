@@ -3,19 +3,17 @@ import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'word-list',
-  templateUrl: './word-list.component.html',
-  styleUrls: ['./word-list.component.css']
+  selector: 'word',
+  templateUrl: './word.component.html'
 })
-export class WordListComponent implements OnInit {
+export class WordComponent implements OnInit {
 
-  modalTitle: string;
   words: FirebaseListObservable<any[]>;
 
   constructor(private af: AngularFire, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.route.params.subscribe(
+    /*this.route.params.subscribe(
       params => {
         this.words = this.af.database.list('/words', {
           query: {
@@ -24,21 +22,7 @@ export class WordListComponent implements OnInit {
           }
         });
       }
-    );
-  }
-
-  addWord(wordModal: any) {
-    this.modalTitle = 'New word';
-    wordModal.open();
-  }
-
-  editWord(wordModal: any, word: any) {
-    this.modalTitle = 'Edit word';
-    wordModal.open();
-  }
-
-  removeWord(wordId: string) {
-    //this.af.database.
+    );*/
   }
 
 }

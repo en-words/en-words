@@ -1,6 +1,6 @@
 <h3>Words</h3>
 
-<button type="button" class="btn btn-default btn-sm align-right"> New Word
+<button type="button" class="btn btn-default btn-sm align-right" (click)="addWord(wordModal)"> New Word
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button>
 
@@ -20,3 +20,15 @@
   </tr>
   </tbody>
 </table>
+
+<modal #wordModal>
+  <modal-header>
+    <h3>{{modalTitle}}</h3>
+  </modal-header>
+  <modal-content>
+    Hello Modal!
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-default btn-sm" (click)="wordModal.close()">Submit</button>
+  </modal-footer>
+</modal>
