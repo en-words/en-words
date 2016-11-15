@@ -1,18 +1,24 @@
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add</h4>
+<modal #wordModal>
+  <modal-header>
+    <h3>{{ wordTitle }}</h3>
+  </modal-header>
+  <modal-content>
+    <form>
+      <div class="form-group">
+        <label for="word">Word:</label>
+        <input class="form-control" id="word" [(ngModel)]="word.word" name="word">
       </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
+      <div class="form-group">
+        <label for="translation">Translation:</label>
+        <input class="form-control" id="translation" [(ngModel)]="word.translation" name="translation">
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="form-group">
+        <label for="comments">Comments:</label>
+        <input class="form-control" id="comments" [(ngModel)]="word.comments" name="comments">
       </div>
-    </div>
-
-  </div>
-</div>
+    </form>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-default btn-sm" (click)="submit()">Submit</button>
+  </modal-footer>
+</modal>

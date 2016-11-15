@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {ActivatedRoute} from "@angular/router";
+import {WordModal} from "../shared/word.modal";
+import {WordComponent} from "../word/word.component";
 
 @Component({
   selector: 'word-list',
@@ -9,36 +11,32 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class WordListComponent implements OnInit {
 
-  modalTitle: string;
-  words: FirebaseListObservable<any[]>;
+  @ViewChild(WordComponent) wordInfo: WordComponent;
+  words: FirebaseListObservable<WordModal[]>;
+  unit: string;
 
   constructor(private af: AngularFire, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(
       params => {
+        this.unit = params['id'];
         this.words = this.af.database.list('/words', {
           query: {
             orderByChild: 'unit',
-            equalTo: params['id']
+            equalTo: this.unit
           }
         });
       }
     );
   }
 
-  addWord(wordModal: any) {
-    this.modalTitle = 'New word';
-    wordModal.open();
+  addWord() {
+    this.wordInfo.newWord();
   }
 
-  editWord(wordModal: any, word: any) {
-    this.modalTitle = 'Edit word';
-    wordModal.open();
-  }
-
-  removeWord(wordId: string) {
-    //this.af.database.
+  onSubmit(word: WordModal) {
+    this.words.push(word);
   }
 
 }

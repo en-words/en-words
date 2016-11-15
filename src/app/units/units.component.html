@@ -1,7 +1,0 @@
-<ul class="nav nav-pills nav-stacked">
-  <li *ngFor="let unit of units | async" routerLinkActive="active"><a routerLink="/unit/{{unit.$key}}">{{unit.name}}</a></li>
-</ul>
-<br />
-<button type="button" class="btn btn-default btn-sm align-right" (click)="addUnit('Unit new')">
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button>

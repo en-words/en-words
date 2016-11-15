@@ -1,0 +1,16 @@
+<modal #unitModal>
+  <modal-header>
+    <h3>{{ unitTitle }}</h3>
+  </modal-header>
+  <modal-content>
+    <form>
+      <div class="form-group">
+        <label for="unit">Unit:</label>
+        <input class="form-control" id="unit" [(ngModel)]="unit.name" name="unit">
+      </div>
+    </form>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-default btn-sm" (click)="submit()">Submit</button>
+  </modal-footer>
+</modal>
