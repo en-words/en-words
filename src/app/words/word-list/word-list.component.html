@@ -9,12 +9,18 @@
   <tr>
     <th>Word</th>
     <th>Translation</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let word of words | async">
-    <td> <a routerLink="/words/{{word.$key}}">{{word.word}}</a></td>
+    <td class="valign-center"><a (click)="editWord(word.$key, word)">{{word.word}}</a></td>
     <td>{{word.translation}}</td>
+    <td>
+      <button type ="button" class = "btn btn-default btn-xs align-right" (click)="removeWord(word.$key)">
+        <span class = "glyphicon glyphicon-remove"></span>
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>

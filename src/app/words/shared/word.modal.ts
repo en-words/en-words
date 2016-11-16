@@ -1,5 +1,5 @@
 export class WordModal {
-  public key: string;
+  public id: string;
   public word: string;
   public translation: string;
   public comments: string;

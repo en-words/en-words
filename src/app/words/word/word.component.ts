@@ -26,6 +26,12 @@ export class WordComponent implements OnInit {
     this.wordModal.open();
   }
 
+  editWord(word: WordModal) {
+    this.wordTitle = 'Edit word';
+    this.word = word;
+    this.wordModal.open();
+  }
+
   submit() {
     this.onSubmit.emit(this.word);
     this.wordModal.close();

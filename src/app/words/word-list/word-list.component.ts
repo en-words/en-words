@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from "angularfire2";
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
 import {ActivatedRoute} from "@angular/router";
 import {WordModal} from "../shared/word.modal";
 import {WordComponent} from "../word/word.component";
@@ -35,8 +35,24 @@ export class WordListComponent implements OnInit {
     this.wordInfo.newWord();
   }
 
+  removeWord(wordId: string) {
+    this.af.database.object('/words/' + wordId).remove();
+  }
+
+  editWord(wordId: string, word: WordModal) {
+    var wordData: WordModal;
+    wordData = JSON.parse(JSON.stringify(word));
+    wordData.id = wordId;
+    this.wordInfo.editWord(wordData);
+  }
+
   onSubmit(word: WordModal) {
-    this.words.push(word);
+    console.log(word);
+    if(word.id) {
+      this.words.update(word.id, word);
+    } else {
+      this.words.push(word);
+    }
   }
 
 }
