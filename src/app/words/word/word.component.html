@@ -3,14 +3,14 @@
     <h3>{{ wordTitle }}</h3>
   </modal-header>
   <modal-content>
-    <form>
+    <form #wordForm="ngForm">
       <div class="form-group">
         <label for="word">Word:</label>
-        <input class="form-control" id="word" [(ngModel)]="word.word" name="word">
+        <input class="form-control" id="word" required [(ngModel)]="word.word" name="word">
       </div>
       <div class="form-group">
         <label for="translation">Translation:</label>
-        <input class="form-control" id="translation" [(ngModel)]="word.translation" name="translation">
+        <input class="form-control" id="translation" required [(ngModel)]="word.translation" name="translation">
       </div>
       <div class="form-group">
         <label for="comments">Comments:</label>
@@ -19,6 +19,6 @@
     </form>
   </modal-content>
   <modal-footer>
-    <button class="btn btn-default btn-sm" (click)="submit()">Submit</button>
+    <button class="btn btn-default btn-sm" (click)="submit()" [disabled]="!wordForm.form.valid">Submit</button>
   </modal-footer>
 </modal>

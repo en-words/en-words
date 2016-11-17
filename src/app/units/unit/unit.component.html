@@ -3,14 +3,14 @@
     <h3>{{ unitTitle }}</h3>
   </modal-header>
   <modal-content>
-    <form>
+    <form #unitForm="ngForm">
       <div class="form-group">
         <label for="unit">Unit:</label>
-        <input class="form-control" id="unit" [(ngModel)]="unit.name" name="unit">
+        <input class="form-control" id="unit" required [(ngModel)]="unit.name" name="unit">
       </div>
     </form>
   </modal-content>
   <modal-footer>
-    <button class="btn btn-default btn-sm" (click)="submit()">Submit</button>
+    <button class="btn btn-default btn-sm" (click)="submit()" [disabled]="!unitForm.form.valid">Submit</button>
   </modal-footer>
 </modal>
