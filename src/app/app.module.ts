@@ -8,6 +8,7 @@ import {UnitsModule} from "./units/units.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {WordsModule} from "./words/words.module";
 import {DashboardModule} from "./dashboard/dashboard.module";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {DashboardModule} from "./dashboard/dashboard.module";
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     UnitsModule,
     WordsModule,
     DashboardModule,

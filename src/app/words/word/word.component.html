@@ -6,15 +6,15 @@
     <form #wordForm="ngForm">
       <div class="form-group">
         <label for="word">Word:</label>
-        <input class="form-control" id="word" required [(ngModel)]="word.word" name="word">
+        <input #wordInput class="form-control" id="word" required [(ngModel)]="word.word" name="word" autofocus />
       </div>
       <div class="form-group">
         <label for="translation">Translation:</label>
-        <input class="form-control" id="translation" required [(ngModel)]="word.translation" name="translation">
+        <input class="form-control" id="translation" required [(ngModel)]="word.translation" name="translation" />
       </div>
       <div class="form-group">
         <label for="comments">Comments:</label>
-        <input class="form-control" id="comments" [(ngModel)]="word.comments" name="comments">
+        <input class="form-control" id="comments" [(ngModel)]="word.comments" name="comments" />
       </div>
     </form>
   </modal-content>
