@@ -7,6 +7,7 @@
 <table class="table">
   <thead>
   <tr>
+    <th></th>
     <th>Word</th>
     <th>Translation</th>
     <th></th>
@@ -14,6 +15,11 @@
   </thead>
   <tbody>
   <tr *ngFor="let word of words | async">
+    <td width="20px">
+      <button type ="button" class = "btn btn-default btn-xs align-right" (click)="playWord(word.word)">
+        <span class = "glyphicon glyphicon-play"></span>
+      </button>
+    </td>
     <td class="valign-center"><a (click)="editWord(word.$key, word)">{{word.word}}</a></td>
     <td>{{word.translation}}</td>
     <td>

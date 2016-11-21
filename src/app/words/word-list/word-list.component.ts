@@ -55,4 +55,8 @@ export class WordListComponent implements OnInit {
     }
   }
 
+  playWord(word: string) {
+    responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
+  }
+
 }
