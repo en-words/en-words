@@ -1,6 +1,9 @@
 <h3>Words</h3>
 
-<button type="button" class="btn btn-default btn-sm align-right" (click)="addWord()"> New
+<button type="button" id="printWord" class="btn btn-default btn-sm align-right" onclick="window.print();"> Print
+  <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+</button>
+<button type="button" id="newWord" class="btn btn-default btn-sm align-right margin-right-5" (click)="addWord()"> New
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button>
 
@@ -16,14 +19,14 @@
   <tbody>
   <tr *ngFor="let word of words | async">
     <td width="20px">
-      <button type ="button" class = "btn btn-default btn-xs align-right" (click)="playWord(word.word)">
+      <button type ="button" id="playWord" class = "btn btn-default btn-xs align-right" (click)="playWord(word.word)">
         <span class = "glyphicon glyphicon-play"></span>
       </button>
     </td>
     <td class="valign-center"><a (click)="editWord(word.$key, word)">{{word.word}}</a></td>
     <td>{{word.translation}}</td>
     <td>
-      <button type ="button" class = "btn btn-default btn-xs align-right" (click)="removeWord(word.$key)">
+      <button type ="button" id="removeWord" class = "btn btn-default btn-xs align-right" (click)="removeWord(word.$key)">
         <span class = "glyphicon glyphicon-trash"></span>
       </button>
     </td>
