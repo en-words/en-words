@@ -1,6 +1,6 @@
 import {Component, ViewChild, EventEmitter, Output, OnInit} from '@angular/core';
 
-import {UnitModal} from "../shared/unit.modal";
+import {UnitModel} from "../shared/unit.model";
 import {Modal} from "ng2-modal";
 
 @Component({
@@ -9,23 +9,23 @@ import {Modal} from "ng2-modal";
 })
 export class UnitComponent implements OnInit {
 
-  unit: UnitModal;
+  unit: UnitModel;
   unitTitle: string;
   @ViewChild(Modal) unitModal: Modal;
-  @Output() onSubmit = new EventEmitter<UnitModal>();
+  @Output() onSubmit = new EventEmitter<UnitModel>();
 
   ngOnInit() {
-    this.unit = new UnitModal();
+    this.unit = new UnitModel();
   }
 
   newUnit() {
-    this.unitTitle = 'New unit';
-    this.unit = new UnitModal();
+    this.unitTitle = 'New group';
+    this.unit = new UnitModel();
     this.unitModal.open();
   }
 
-  editUnit(unit: UnitModal) {
-    this.unitTitle = 'Edit unit';
+  editUnit(unit: UnitModel) {
+    this.unitTitle = 'Edit group';
     this.unit = unit;
     this.unitModal.open();
   }

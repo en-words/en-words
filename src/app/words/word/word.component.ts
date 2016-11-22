@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, Output, EventEmitter, Input} from '@angular/core';
 
-import {WordModal} from "../shared/word.modal";
+import {WordModel} from "../shared/word.model";
 import {Modal} from "ng2-modal";
 
 @Component({
@@ -9,24 +9,24 @@ import {Modal} from "ng2-modal";
 })
 export class WordComponent implements OnInit {
 
-  word: WordModal;
+  word: WordModel;
   wordTitle: string;
   @ViewChild(Modal) wordModal: Modal;
-  @Output() onSubmit = new EventEmitter<WordModal>();
+  @Output() onSubmit = new EventEmitter<WordModel>();
   @Input() unit: string;
 
   ngOnInit() {
-    this.word = new WordModal();
+    this.word = new WordModel();
   }
 
   newWord() {
     this.wordTitle = 'New word';
-    this.word = new WordModal();
+    this.word = new WordModel();
     this.word.unit = this.unit;
     this.wordModal.open();
   }
 
-  editWord(word: WordModal) {
+  editWord(word: WordModel) {
     this.wordTitle = 'Edit word';
     this.word = word;
     this.wordModal.open();

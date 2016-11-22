@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {AngularFire, FirebaseListObservable} from "angularfire2";
-import {UnitModal} from "../shared/unit.modal";
+import {UnitModel} from "../shared/unit.model";
 import {UnitComponent} from "../unit/unit.component";
 
 @Component({
@@ -12,7 +12,7 @@ export class UnitListComponent implements OnInit {
 
   @ViewChild(UnitComponent) unitInfo: UnitComponent;
 
-  units: FirebaseListObservable<UnitModal[]>;
+  units: FirebaseListObservable<UnitModel[]>;
 
   constructor(private af: AngularFire) { }
 
@@ -24,7 +24,7 @@ export class UnitListComponent implements OnInit {
     this.unitInfo.newUnit();
   }
 
-  onSubmit(unit: UnitModal) {
+  onSubmit(unit: UnitModel) {
     this.units.push(unit);
   }
 
