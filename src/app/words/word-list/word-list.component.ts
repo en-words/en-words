@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from "angularfire2";
+import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {ActivatedRoute} from "@angular/router";
+
 import {WordModel} from "../shared/word.model";
 import {WordComponent} from "../word/word.component";
-import {UnitModel} from "../../units/shared/unit.model";
 
 @Component({
   selector: 'word-list',
@@ -42,17 +42,16 @@ export class WordListComponent implements OnInit {
     this.af.database.object('/words/' + wordId).remove();
   }
 
-  editWord(wordId: string, word: WordModel) {
+  editWord(id: string, word: WordModel) {
     var wordData: WordModel;
     wordData = JSON.parse(JSON.stringify(word));
-    wordData.id = wordId;
+    wordData.id = id;
     this.wordInfo.editWord(wordData);
   }
 
   onSubmit(word: WordModel) {
-    console.log(word);
     if(word.id) {
-      this.words.update(word.id, word);
+      this.words.update(word.id, {word: word.word, translation: word.translation, comments: word.comments ? word.comments : ''});
     } else {
       this.words.push(word);
     }
