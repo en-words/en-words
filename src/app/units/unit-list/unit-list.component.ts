@@ -17,7 +17,12 @@ export class UnitListComponent implements OnInit {
   constructor(private af: AngularFire) { }
 
   ngOnInit() {
-    this.units = this.af.database.list('/units');
+    this.units = this.af.database.list('/units',
+      {
+        query: {
+          orderByChild: 'name'
+        }
+      });
   }
 
   addUnit() {
