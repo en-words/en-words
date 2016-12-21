@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {UnitModel} from "./unit.model";
+import {GroupModel} from "./group.model";
 import {Http} from "@angular/http";
 
 import 'rxjs/add/operator/toPromise';
@@ -10,29 +10,29 @@ export class GroupService {
 
   constructor(private http: Http) {}
 
-  getGroups(): Promise<UnitModel[]> {
+  getGroups(): Promise<GroupModel[]> {
 
     return this.http.get(`${AppSettings.REST_API_URL}/groups`)
       .toPromise()
-      .then(response => response.json() as UnitModel[])
+      .then(response => response.json() as GroupModel[])
       .catch(this.handleError);
   }
 
-  getGroup(groupId: number): Promise<UnitModel> {
+  getGroup(groupId: number): Promise<GroupModel> {
 
     return this.http.get(`${AppSettings.REST_API_URL}/groups/${groupId}`)
       .toPromise()
-      .then(response => response.json() as UnitModel)
+      .then(response => response.json() as GroupModel)
       .catch(this.handleError);
   }
 
-  saveGroup(group: UnitModel): Promise<UnitModel> {
+  saveGroup(group: GroupModel): Promise<GroupModel> {
     console.log('save: ' + JSON.stringify(group));
     return this.http.post(`${AppSettings.REST_API_URL}/groups`, group)
       .toPromise()
       .then(response => {
         console.log('response: ' + response.json());
-        return response.json() as UnitModel
+        return response.json() as GroupModel
       })
       .catch(this.handleError);
   }

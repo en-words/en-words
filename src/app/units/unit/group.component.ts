@@ -1,32 +1,32 @@
 import {Component, ViewChild, EventEmitter, Output, OnInit} from '@angular/core';
 
-import {UnitModel} from "../shared/unit.model";
+import {GroupModel} from "../shared/group.model";
 import {Modal} from "ng2-modal";
 
 @Component({
   selector: 'group-info',
-  templateUrl: './unit.component.html'
+  templateUrl: 'group.component.html'
 })
-export class UnitComponent implements OnInit {
+export class GroupComponent implements OnInit {
 
-  group: UnitModel;
+  group: GroupModel;
   groupTitle: string;
   @ViewChild(Modal) groupModal: Modal;
-  @Output() onSubmit = new EventEmitter<UnitModel>();
+  @Output() onSubmit = new EventEmitter<GroupModel>();
 
   ngOnInit() {
-    this.group = new UnitModel();
+    this.group = new GroupModel();
   }
 
-  newUnit() {
+  newGroup() {
     this.groupTitle = 'New group';
-    this.group = new UnitModel();
+    this.group = new GroupModel();
     this.groupModal.open();
   }
 
-  editUnit(unit: UnitModel) {
+  editGroup(group: GroupModel) {
     this.groupTitle = 'Edit group';
-    this.group = unit;
+    this.group = group;
     this.groupModal.open();
   }
 

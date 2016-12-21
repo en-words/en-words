@@ -1,18 +1,18 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {UnitModel} from "../shared/unit.model";
-import {UnitComponent} from "../unit/unit.component";
+import {GroupModel} from "../shared/group.model";
+import {GroupComponent} from "../unit/group.component";
 import {GroupService} from "../shared/group.service";
 
 @Component({
   selector: 'unit-list',
-  templateUrl: './unit-list.component.html'
+  templateUrl: 'group-list.component.html'
 })
-export class UnitListComponent implements OnInit {
+export class GroupListComponent implements OnInit {
 
-  @ViewChild(UnitComponent) groupInfo: UnitComponent;
+  @ViewChild(GroupComponent) groupInfo: GroupComponent;
 
-  groups: UnitModel[];
+  groups: GroupModel[];
 
   constructor(private groupService: GroupService) { }
 
@@ -26,10 +26,10 @@ export class UnitListComponent implements OnInit {
   }
 
   addGroup() {
-    this.groupInfo.newUnit();
+    this.groupInfo.newGroup();
   }
 
-  onSubmit(group: UnitModel) {
+  onSubmit(group: GroupModel) {
     console.log('Add: ' + JSON.stringify(group));
     this.groupService.saveGroup(group)
       .then(group => this.groups.push(group));

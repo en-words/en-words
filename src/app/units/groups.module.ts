@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import {CommonModule} from "@angular/common";
 
-import {UnitListComponent} from "./unit-list/unit-list.component";
+import {GroupListComponent} from "./unit-list/group-list.component";
 import {RouterModule} from "@angular/router";
 import {ModalModule} from "ng2-modal";
-import {UnitComponent} from "./unit/unit.component";
+import {GroupComponent} from "./unit/group.component";
 import {FormsModule} from "@angular/forms";
 import {GroupService} from "./shared/group.service";
 
@@ -16,15 +16,15 @@ import {GroupService} from "./shared/group.service";
     RouterModule
   ],
   declarations: [
-    UnitListComponent,
-    UnitComponent
+    GroupListComponent,
+    GroupComponent
   ],
   exports: [
-    UnitListComponent,
-    UnitComponent
+    GroupListComponent,
+    GroupComponent
   ],
   providers: [
     GroupService
   ]
 })
-export class UnitsModule { }
+export class GroupsModule { }

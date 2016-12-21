@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {AngularFireModule} from "angularfire2";
 import {firebaseConfig} from "../environments/firebase.config";
-import {UnitsModule} from "./units/units.module";
+import {GroupsModule} from "./units/groups.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {WordsModule} from "./words/words.module";
 import {DashboardModule} from "./dashboard/dashboard.module";
@@ -19,7 +19,7 @@ import {HttpModule} from "@angular/http";
     BrowserModule,
     HttpModule,
     CommonModule,
-    UnitsModule,
+    GroupsModule,
     WordsModule,
     DashboardModule,
     AppRoutingModule,
