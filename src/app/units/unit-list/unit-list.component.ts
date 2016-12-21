@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {UnitModel} from "../shared/unit.model";
 import {UnitComponent} from "../unit/unit.component";
+import {GroupService} from "../shared/group.service";
 
 @Component({
   selector: 'unit-list',
@@ -10,27 +10,29 @@ import {UnitComponent} from "../unit/unit.component";
 })
 export class UnitListComponent implements OnInit {
 
-  @ViewChild(UnitComponent) unitInfo: UnitComponent;
+  @ViewChild(UnitComponent) groupInfo: UnitComponent;
 
-  units: FirebaseListObservable<UnitModel[]>;
+  groups: UnitModel[];
 
-  constructor(private af: AngularFire) { }
+  constructor(private groupService: GroupService) { }
 
   ngOnInit() {
-    this.units = this.af.database.list('/units',
-      {
-        query: {
-          orderByChild: 'name'
-        }
-      });
+    this.getGroups();
   }
 
-  addUnit() {
-    this.unitInfo.newUnit();
+  getGroups(): void {
+    this.groupService.getGroups()
+      .then(groups => this.groups = groups);
   }
 
-  onSubmit(unit: UnitModel) {
-    this.units.push(unit);
+  addGroup() {
+    this.groupInfo.newUnit();
+  }
+
+  onSubmit(group: UnitModel) {
+    console.log('Add: ' + JSON.stringify(group));
+    this.groupService.saveGroup(group)
+      .then(group => this.groups.push(group));
   }
 
 }

@@ -17,7 +17,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let word of words | async">
+  <tr *ngFor="let word of words">
     <td width="20px">
       <button type ="button" id="playWord" class = "btn btn-default btn-xs align-right" (click)="playWord(word.word)">
         <span class = "glyphicon glyphicon-play"></span>

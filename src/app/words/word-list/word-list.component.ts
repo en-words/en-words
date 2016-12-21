@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 
 import {WordModel} from "../shared/word.model";
 import {WordComponent} from "../word/word.component";
+import {WordService} from "../shared/word.service";
 
 @Component({
   selector: 'word-list',
@@ -13,23 +14,20 @@ import {WordComponent} from "../word/word.component";
 export class WordListComponent implements OnInit {
 
   @ViewChild(WordComponent) wordInfo: WordComponent;
-  words: FirebaseListObservable<WordModel[]>;
+  words: WordModel[];
   unitName: string;
   unit: string;
 
-  constructor(private af: AngularFire, private route: ActivatedRoute) {}
+
+  constructor(private af: AngularFire, private wordService: WordService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(
       params => {
         this.unit = params['id'];
-        this.words = this.af.database.list('/words', {
-          query: {
-            orderByChild: 'unit',
-            equalTo: this.unit
-          }
-        });
+        this.words = this.wordService.getWords(this.unit);
         this.af.database.object('/units/' + this.unit).subscribe(u => this.unitName = u.name);
+        console.log(this.words);
       }
     );
   }
@@ -51,7 +49,8 @@ export class WordListComponent implements OnInit {
 
   onSubmit(word: WordModel) {
     if(word.id) {
-      this.words.update(word.id, {word: word.word, translation: word.translation, comments: word.comments ? word.comments : ''});
+      this.af.database.object('/words/' + word.id)
+        .update({word: word.word, translation: word.translation, comments: word.comments ? word.comments : ''});
     } else {
       this.words.push(word);
     }

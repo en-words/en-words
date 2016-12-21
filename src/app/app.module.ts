@@ -9,6 +9,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {WordsModule} from "./words/words.module";
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {CommonModule} from "@angular/common";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {CommonModule} from "@angular/common";
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     CommonModule,
     UnitsModule,
     WordsModule,

@@ -7,6 +7,8 @@ import {RouterModule} from "@angular/router";
 import {WordComponent} from "./word/word.component";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
+import {WordFilterPipe} from "./shared/word-filter.pipe";
+import {WordService} from "./shared/word.service";
 
 @NgModule({
     imports: [
@@ -18,11 +20,16 @@ import {FormsModule} from "@angular/forms";
     ],
     declarations: [
       WordListComponent,
-      WordComponent
+      WordComponent,
+      WordFilterPipe
+    ],
+    providers:[
+      WordService
     ],
     exports: [
       WordListComponent,
-      WordComponent
+      WordComponent,
+      WordFilterPipe
     ]
 })
 export class WordsModule {}

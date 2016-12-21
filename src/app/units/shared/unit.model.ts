@@ -1,3 +1,4 @@
 export class UnitModel {
-  public name: string;
+  public groupId: number;
+  public group: string;
 }

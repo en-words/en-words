@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 import {ModalModule} from "ng2-modal";
 import {UnitComponent} from "./unit/unit.component";
 import {FormsModule} from "@angular/forms";
+import {GroupService} from "./shared/group.service";
 
 @NgModule({
   imports: [
@@ -21,6 +22,9 @@ import {FormsModule} from "@angular/forms";
   exports: [
     UnitListComponent,
     UnitComponent
+  ],
+  providers: [
+    GroupService
   ]
 })
 export class UnitsModule { }

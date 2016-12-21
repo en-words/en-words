@@ -1,13 +1,13 @@
 <ul class="nav nav-pills nav-stacked">
-  <li *ngFor="let unit of units | async" routerLinkActive="active">
-    <a routerLink="/unit/{{unit.$key}}">{{unit.name}}</a>
+  <li *ngFor="let group of groups" routerLinkActive="active">
+    <a routerLink="/unit/{{group.groupId}}">{{group.group}}</a>
   </li>
 </ul>
 
 <div class="btn-group btn-sm align-right">
-  <button type="button" class="btn btn-default btn-sm" (click)="addUnit()">
+  <button type="button" class="btn btn-default btn-sm" (click)="addGroup()">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
   </button>
 </div>
 
-<unit-info #unitInfo (onSubmit)="onSubmit($event)"></unit-info>
+<group-info #groupInfo (onSubmit)="onSubmit($event)"></group-info>
