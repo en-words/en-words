@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import {CommonModule} from "@angular/common";
 
-import {GroupListComponent} from "./unit-list/group-list.component";
+import {GroupListComponent} from "./group-list/group-list.component";
 import {RouterModule} from "@angular/router";
 import {ModalModule} from "ng2-modal";
-import {GroupComponent} from "./unit/group.component";
+import {GroupComponent} from "./group/group.component";
 import {FormsModule} from "@angular/forms";
 import {GroupService} from "./shared/group.service";
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {GroupModel} from "../shared/group.model";
-import {GroupComponent} from "../unit/group.component";
+import {GroupComponent} from "../group/group.component";
 import {GroupService} from "../shared/group.service";
 
 @Component({
@@ -13,6 +13,7 @@ export class GroupListComponent implements OnInit {
   @ViewChild(GroupComponent) groupInfo: GroupComponent;
 
   groups: GroupModel[];
+  selectedGroup: GroupModel;
 
   constructor(private groupService: GroupService) { }
 
@@ -29,8 +30,19 @@ export class GroupListComponent implements OnInit {
     this.groupInfo.newGroup();
   }
 
+  editGroup() {
+    this.groupInfo.editGroup(this.selectedGroup);
+  }
+
+  deleteGroup() {
+    this.groupService.deleteGroup(this.selectedGroup.groupId);
+  }
+
+  selectGroup(group: GroupModel) {
+      this.selectedGroup = group;
+  }
+
   onSubmit(group: GroupModel) {
-    console.log('Add: ' + JSON.stringify(group));
     this.groupService.saveGroup(group)
       .then(group => this.groups.push(group));
   }
