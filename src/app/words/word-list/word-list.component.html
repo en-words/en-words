@@ -23,10 +23,10 @@
         <span class = "glyphicon glyphicon-play"></span>
       </button>
     </td>
-    <td class="valign-center"><a (click)="editWord(word.$key, word)">{{word.word}}</a></td>
+    <td class="valign-center"><a (click)="editWord(word.id, word)">{{word.word}}</a></td>
     <td>{{word.translation}}</td>
     <td>
-      <button type ="button" id="removeWord" class = "btn btn-default btn-xs align-right" (click)="removeWord(word.$key)">
+      <button type ="button" id="removeWord" class = "btn btn-default btn-xs align-right" (click)="removeWord(word)">
         <span class = "glyphicon glyphicon-trash"></span>
       </button>
     </td>
@@ -34,4 +34,4 @@
   </tbody>
 </table>
 
-<word-info #wordInfo [unit]="unit" (onSubmit)="onSubmit($event)"></word-info>
+<word-info #wordInfo [groupId]="group" (onSubmit)="onSubmit($event)"></word-info>

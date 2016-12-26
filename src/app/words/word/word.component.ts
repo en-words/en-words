@@ -13,7 +13,7 @@ export class WordComponent implements OnInit {
   wordTitle: string;
   @ViewChild(Modal) wordModal: Modal;
   @Output() onSubmit = new EventEmitter<WordModel>();
-  @Input() unit: string;
+  @Input() groupId: number;
 
   ngOnInit() {
     this.word = new WordModel();
@@ -22,7 +22,7 @@ export class WordComponent implements OnInit {
   newWord() {
     this.wordTitle = 'New word';
     this.word = new WordModel();
-    this.word.unit = this.unit;
+    this.word.groupId = this.groupId;
     this.wordModal.open();
   }
 

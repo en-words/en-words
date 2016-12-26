@@ -8,7 +8,7 @@ import {WordListComponent} from "./words/word-list/word-list.component";
     imports: [
         RouterModule.forRoot([
             { path: '', component: DashboardComponent },
-            { path: 'unit/:id', component: WordListComponent }
+            { path: 'group/:id', component: WordListComponent }
         ])
     ],
     exports: [

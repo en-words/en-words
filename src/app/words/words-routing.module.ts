@@ -6,7 +6,7 @@ import {WordListComponent} from "./word-list/word-list.component";
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: 'unit/:id', component: WordListComponent }
+            { path: 'group/:id', component: WordListComponent }
         ])
     ],
     exports: [

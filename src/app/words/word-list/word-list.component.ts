@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from "angularfire2";
 import {ActivatedRoute} from "@angular/router";
 
 import {WordModel} from "../shared/word.model";
@@ -15,19 +14,21 @@ export class WordListComponent implements OnInit {
 
   @ViewChild(WordComponent) wordInfo: WordComponent;
   words: WordModel[];
-  unitName: string;
-  unit: string;
+  groupName: string;
+  group: number;
 
 
-  constructor(private af: AngularFire, private wordService: WordService, private route: ActivatedRoute) {}
+  constructor(private wordService: WordService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        this.unit = params['id'];
-        this.words = this.wordService.getWords(this.unit);
-        this.af.database.object('/units/' + this.unit).subscribe(u => this.unitName = u.name);
-        console.log(this.words);
+        this.group = params['id'];
+        this.wordService.getWords(this.group).then(words => this.words = words);
+
+
+        //this.af.database.object('/units/' + this.unit).subscribe(u => this.unitName = u.name);
+        //console.log(this.words);
       }
     );
   }
@@ -36,11 +37,19 @@ export class WordListComponent implements OnInit {
     this.wordInfo.newWord();
   }
 
-  removeWord(wordId: string) {
-    this.af.database.object('/words/' + wordId).remove();
+  removeWord(word: WordModel) {
+    if(confirm(`Do you want delete the word?`)) {
+      this.wordService
+        .deleteWord(word.id)
+        .then(() => {
+          //this.words = this.words.filter(h => h !== this.selectedGroup);
+          this.words.splice(this.words.indexOf(word), 1)
+
+        });
+    }
   }
 
-  editWord(id: string, word: WordModel) {
+  editWord(id: number, word: WordModel) {
     var wordData: WordModel;
     wordData = JSON.parse(JSON.stringify(word));
     wordData.id = id;
@@ -49,15 +58,15 @@ export class WordListComponent implements OnInit {
 
   onSubmit(word: WordModel) {
     if(word.id) {
-      this.af.database.object('/words/' + word.id)
-        .update({word: word.word, translation: word.translation, comments: word.comments ? word.comments : ''});
+
     } else {
-      this.words.push(word);
+      this.wordService
+        .createWord(word)
+        .then(word => this.words.push(word));
     }
   }
 
   playWord(word: string) {
     responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
   }
-
 }
