@@ -38,7 +38,7 @@ export class GroupService {
   }
 
   deleteGroup(groupId: number) {
-
+    console.log("Delete group: " + groupId);
     this.http.delete(`${AppSettings.REST_API_URL}/groups/${groupId}`);
   }
 

@@ -15,7 +15,8 @@ export class GroupListComponent implements OnInit {
   groups: GroupModel[];
   selectedGroup: GroupModel;
 
-  constructor(private groupService: GroupService) { }
+  constructor(private groupService: GroupService) {
+  }
 
   ngOnInit() {
     this.getGroups();
@@ -35,11 +36,13 @@ export class GroupListComponent implements OnInit {
   }
 
   deleteGroup() {
+    console.log("Delete group: " + JSON.stringify(this.selectedGroup));
     this.groupService.deleteGroup(this.selectedGroup.groupId);
   }
 
-  selectGroup(group: GroupModel) {
-      this.selectedGroup = group;
+  onSelectGroup(group: GroupModel): void {
+    this.selectedGroup = group;
+
   }
 
   onSubmit(group: GroupModel) {
