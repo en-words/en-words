@@ -1,4 +1,4 @@
-<h3>{{ unitName }} words</h3>
+<h3>{{ groupName }} words</h3>
 
 <button type="button" id="printWord" class="btn btn-default btn-sm align-right" onclick="window.print();"> Print
   <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
@@ -23,10 +23,10 @@
         <span class = "glyphicon glyphicon-play"></span>
       </button>
     </td>
-    <td class="valign-center"><a (click)="editWord(word.id, word)">{{word.word}}</a></td>
+    <td class="valign-center"><a (click)="editWord(word)">{{word.word}}</a></td>
     <td>{{word.translation}}</td>
     <td>
-      <button type ="button" id="removeWord" class = "btn btn-default btn-xs align-right" (click)="removeWord(word)">
+      <button type ="button" id="removeWord" class = "btn btn-default btn-xs align-right" (click)="deleteWord(word)">
         <span class = "glyphicon glyphicon-trash"></span>
       </button>
     </td>

@@ -37,7 +37,7 @@ export class GroupListComponent implements OnInit {
   }
 
   deleteGroup() {
-    if(confirm(`Do you want delete the group ${this.selectedGroup.group} with all words?`)) {
+    if(confirm(`Do you want to delete the group ${this.selectedGroup.group} with all words?`)) {
       this.groupService
         .deleteGroup(this.selectedGroup.groupId)
         .then(() => {

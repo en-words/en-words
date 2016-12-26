@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {WordModel} from "../shared/word.model";
 import {WordComponent} from "../word/word.component";
 import {WordService} from "../shared/word.service";
+import {GroupService} from "../../groups/shared/group.service";
 
 @Component({
   selector: 'word-list',
@@ -18,17 +19,14 @@ export class WordListComponent implements OnInit {
   group: number;
 
 
-  constructor(private wordService: WordService, private route: ActivatedRoute) {}
+  constructor(private wordService: WordService, private groupService: GroupService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(
       params => {
         this.group = params['id'];
         this.wordService.getWords(this.group).then(words => this.words = words);
-
-
-        //this.af.database.object('/units/' + this.unit).subscribe(u => this.unitName = u.name);
-        //console.log(this.words);
+        this.groupService.getGroup(this.group).then(group => this.groupName = group.group);
       }
     );
   }
@@ -37,29 +35,31 @@ export class WordListComponent implements OnInit {
     this.wordInfo.newWord();
   }
 
-  removeWord(word: WordModel) {
-    if(confirm(`Do you want delete the word?`)) {
+  deleteWord(word: WordModel) {
+    if(confirm(`Do you want to delete the word?`)) {
       this.wordService
         .deleteWord(word.id)
         .then(() => {
-          //this.words = this.words.filter(h => h !== this.selectedGroup);
           this.words.splice(this.words.indexOf(word), 1)
-
         });
     }
   }
 
-  editWord(id: number, word: WordModel) {
+  editWord(word: WordModel) {
     var wordData: WordModel;
     wordData = JSON.parse(JSON.stringify(word));
-    wordData.id = id;
+    wordData.id = word.id;
     this.wordInfo.editWord(wordData);
   }
 
   onSubmit(word: WordModel) {
     if(word.id) {
-
+      // update word
+      this.wordService
+        .updateWord(word)
+        .then(word => this.words.push(word));
     } else {
+      // create a new word
       this.wordService
         .createWord(word)
         .then(word => this.words.push(word));
