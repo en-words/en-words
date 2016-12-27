@@ -33,7 +33,9 @@ export class GroupListComponent implements OnInit {
   }
 
   editGroup() {
-    this.groupInfo.editGroup(this.selectedGroup);
+    let groupData: GroupModel;
+    groupData = JSON.parse(JSON.stringify(this.selectedGroup));
+    this.groupInfo.editGroup(groupData);
   }
 
   deleteGroup() {
@@ -58,9 +60,23 @@ export class GroupListComponent implements OnInit {
   }
 
   onSubmit(group: GroupModel) {
-    this.groupService
-      .createGroup(group)
-      .then(group => this.groups.push(group));
+    if (group.groupId) {
+      // update a group
+      this.groupService
+        .updateGroup(group)
+        .then(group => {
+          for (let item in this.groups) {
+            if (this.groups[item].groupId === group.groupId) {
+              this.groups[item].group = group.group;
+            }
+          }
+        });
+    } else {
+      // create a new group
+      this.groupService
+        .createGroup(group)
+        .then(group => this.groups.push(group));
+    }
   }
 
 }

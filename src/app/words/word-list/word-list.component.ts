@@ -46,7 +46,7 @@ export class WordListComponent implements OnInit {
   }
 
   editWord(word: WordModel) {
-    var wordData: WordModel;
+    let wordData: WordModel;
     wordData = JSON.parse(JSON.stringify(word));
     wordData.id = word.id;
     this.wordInfo.editWord(wordData);
@@ -57,7 +57,15 @@ export class WordListComponent implements OnInit {
       // update word
       this.wordService
         .updateWord(word)
-        .then(word => this.words.push(word));
+        .then(word => {
+          for (let item in this.words) {
+            if (this.words[item].id === word.id) {
+              this.words[item].translation = word.translation;
+              this.words[item].word = word.word;
+              this.words[item].comments = word.comments;
+            }
+          }
+        });
     } else {
       // create a new word
       this.wordService
