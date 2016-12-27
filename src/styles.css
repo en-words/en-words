@@ -43,7 +43,7 @@
   thead { display:table-header-group }
   tfoot { display:table-footer-group }
 
-  .page-header, unit-list, #removeWord, #playWord, #newWord, #printWord{ display:none; }
+  .page-header, group-list, #removeWord, #playWord, #newWord, #printWord{ display:none; }
 
   #content {
     width: auto; margin: 0 5%;
