@@ -4,6 +4,7 @@ import {GroupModel} from "../shared/group.model";
 import {GroupComponent} from "../group/group.component";
 import {GroupService} from "../shared/group.service";
 import {Router} from "@angular/router";
+import {WordService} from "../../words/shared/word.service";
 
 @Component({
   selector: 'group-list',
@@ -16,7 +17,7 @@ export class GroupListComponent implements OnInit {
   groups: GroupModel[];
   selectedGroup: GroupModel;
 
-  constructor(private groupService: GroupService, private router: Router) {}
+  constructor(private groupService: GroupService, private router: Router, private wordService: WordService) {}
 
   ngOnInit() {
     this.getGroups();
@@ -40,6 +41,9 @@ export class GroupListComponent implements OnInit {
 
   deleteGroup() {
     if(confirm(`Do you want to delete the group ${this.selectedGroup.group} with all words?`)) {
+      this.wordService.deleteWords(this.selectedGroup.groupId)
+        .then(() => null);
+
       this.groupService
         .deleteGroup(this.selectedGroup.groupId)
         .then(() => {

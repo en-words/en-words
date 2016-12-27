@@ -55,6 +55,13 @@ export class WordService {
       .catch(this.handleError);
   }
 
+  deleteWords(groupId: number): Promise<WordModel> {
+    return this.http.delete(`${AppSettings.REST_API_URL}/words?groupId=${groupId}`, {headers: this.headers})
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
