@@ -26,7 +26,7 @@ export class GroupListComponent implements OnInit {
   getGroups(): void {
     this.groupService
       .getGroups()
-      .then(groups => this.groups = groups);
+      .then(groups => this.groups = groups.sort((a, b) => this.compareGroups(a, b)));
   }
 
   addGroup() {
@@ -74,13 +74,28 @@ export class GroupListComponent implements OnInit {
               this.groups[item].group = group.group;
             }
           }
+
+          this.groups.sort((a, b) => this.compareGroups(a, b));
         });
     } else {
       // create a new group
       this.groupService
         .createGroup(group)
-        .then(group => this.groups.push(group));
+        .then(group => {
+          this.groups.push(group);
+          this.groups.sort((a, b) => this.compareGroups(a, b));
+        });
     }
+  }
+
+  compareGroups(a: GroupModel, b: GroupModel): number {
+      if (a.group.toLowerCase() == b.group.toLowerCase())
+        return 0;
+
+      if (a.group.toLowerCase() > b.group.toLowerCase())
+        return 1;
+      else
+        return -1;
   }
 
 }
