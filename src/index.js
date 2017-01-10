@@ -11,7 +11,7 @@ ReactDOM.render(
         <Route path='/' component={App}>
             <IndexRoute component={Dashboard} />
             <Route path='dashboard' component={Dashboard} />
-            <Route path='words' component={Words} />
+            <Route path='words?groupId=:groupId' component={Words} />
         </Route>
     </Router>,
     document.getElementById('root')
