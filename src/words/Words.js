@@ -1,13 +1,70 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+import {AppSettings} from '../common/AppSettings'
 
 class Words extends Component {
-  render() {
-    return (
-        <div>
-            <h3>Words</h3>
-        </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            words: [],
+            groupId: undefined
+        };
+    }
+
+    componentDidMount() {
+        this.getWords(this.props.location.query.groupId);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.groupId === nextProps.location.query.groupId) {
+            return;
+        }
+
+        this.getWords(nextProps.location.query.groupId);
+    }
+
+    render() {
+        return (
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Word</th>
+                        <th>Translation</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                { this.state.words.map(word =>
+                    <tr key={word.id}>
+                        <td width="20px">
+                            <button type="button" id="playWord" className="btn btn-default btn-xs align-right">
+                                <span className="glyphicon glyphicon-play" />
+                            </button>
+                        </td>
+                        <td>
+                            <a>{word.word}</a>
+                        </td>
+                        <td>
+                            {word.translation}
+                        </td>
+                    </tr>)
+                }
+                </tbody>
+            </table>
+        );
+    }
+
+    getWords(groupId) {
+        axios.get(AppSettings.REST_API_URL + `words?groupId=${groupId}`)
+            .then(res => this.setState({words: res.data, groupId: groupId}));
+    }
+
+    /*playWord(word) {
+        responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
+    }*/
 }
 
 export default Words;

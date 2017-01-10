@@ -23,7 +23,10 @@ class Groups extends Component {
         return (
             <ul className="nav nav-pills nav-stacked">
                 { this.state.groups.map(group =>
-                    <li key={group.groupId}><Link to={'/words?groupId=' + group.groupId}>{group.group}</Link></li>) }
+                    <li key={group.groupId}>
+                        <Link activeClassName='active' to={`/words?groupId=${group.groupId}`}>{group.group}</Link>
+                    </li>)
+                }
             </ul>
         )
     }

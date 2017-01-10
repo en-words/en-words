@@ -10,8 +10,8 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path='/' component={App}>
             <IndexRoute component={Dashboard} />
-            <Route path='dashboard' component={Dashboard} />
-            <Route path='words?groupId=:groupId' component={Words} />
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/words' component={Words} />
         </Route>
     </Router>,
     document.getElementById('root')
