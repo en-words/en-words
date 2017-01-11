@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import responsiveVoice from '../libraries/responsivevoice.js';
+
 import {AppSettings} from '../common/AppSettings'
 
 class Words extends Component {
@@ -40,7 +42,7 @@ class Words extends Component {
                 { this.state.words.map(word =>
                     <tr key={word.id}>
                         <td width="20px">
-                            <button type="button" id="playWord" className="btn btn-default btn-xs align-right">
+                            <button type="button" id="playWord" className="btn btn-default btn-xs align-right" onClick={this.handleClick}>
                                 <span className="glyphicon glyphicon-play" />
                             </button>
                         </td>
@@ -50,6 +52,7 @@ class Words extends Component {
                         <td>
                             {word.translation}
                         </td>
+                        <td></td>
                     </tr>)
                 }
                 </tbody>
@@ -62,9 +65,15 @@ class Words extends Component {
             .then(res => this.setState({words: res.data, groupId: groupId}));
     }
 
-    /*playWord(word) {
+    handleClick(e) {
+        e.preventDefault();
+        responsiveVoice.speak('car', 'UK English Male', {lang: "en-US"});
+        console.log('The link was clicked.');
+    }
+
+    playWord(word) {
         responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
-    }*/
+    }
 }
 
 export default Words;
