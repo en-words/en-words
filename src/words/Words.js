@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import responsiveVoice from '../libraries/responsivevoice.js';
 
-import {AppSettings} from '../common/AppSettings'
+import {REST_API_URL} from '../common/AppSettings'
 
 class Words extends Component {
     constructor(props) {
@@ -61,7 +61,7 @@ class Words extends Component {
     }
 
     getWords(groupId) {
-        axios.get(AppSettings.REST_API_URL + `words?groupId=${groupId}`)
+        axios.get(REST_API_URL + `words?groupId=${groupId}`)
             .then(res => this.setState({words: res.data, groupId: groupId}));
     }
 

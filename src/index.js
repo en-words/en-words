@@ -6,6 +6,9 @@ import App from './app/App';
 import Dashboard from './dashboard/Dashboard';
 import Words from './words/Words';
 
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+
 ReactDOM.render(
     <Router history={browserHistory}>
         <Route path='/' component={App}>

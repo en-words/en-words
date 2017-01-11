@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
 
-import {AppSettings} from '../common/AppSettings'
+import {REST_API_URL} from '../common/AppSettings'
 
 class Groups extends Component {
 
@@ -15,7 +15,7 @@ class Groups extends Component {
     }
 
     componentDidMount() {
-        axios.get(AppSettings.REST_API_URL + 'groups')
+        axios.get(REST_API_URL + 'groups')
             .then(res => this.setState({groups: res.data}));
     }
 
