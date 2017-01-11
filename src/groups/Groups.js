@@ -16,19 +16,35 @@ class Groups extends Component {
 
     componentDidMount() {
         axios.get(REST_API_URL + 'groups')
-            .then(res => this.setState({groups: res.data}));
+            .then(res =>
+            {
+                let groupList = res.data;
+                groupList = groupList.sort((a, b) => this.compareGroup(a, b));
+                this.setState({groups: groupList});
+            });
     }
 
     render() {
         return (
             <ul className="nav nav-pills nav-stacked">
-                { this.state.groups.map(group =>
-                    <li key={group.groupId}>
-                        <Link activeClassName='active' to={`/words?groupId=${group.groupId}`}>{group.group}</Link>
-                    </li>)
+                {
+                    this.state.groups.map(group =>
+                        <li key={group.groupId}>
+                            <Link activeClassName='active' to={`/words?groupId=${group.groupId}`}>{group.group}</Link>
+                        </li>)
                 }
             </ul>
         )
+    }
+
+    compareGroup(a, b) {
+        if (a.group.toLowerCase() === b.group.toLowerCase())
+            return 0;
+
+        if (a.group.toLowerCase() > b.group.toLowerCase())
+            return 1;
+        else
+            return -1;
     }
 }
 
