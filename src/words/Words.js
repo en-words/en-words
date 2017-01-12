@@ -15,7 +15,8 @@ class Words extends Component {
 
         this.state = {
             words: [],
-            groupId: undefined
+            groupId: undefined,
+            groupName: ''
         };
     }
 
@@ -34,10 +35,10 @@ class Words extends Component {
     render() {
         return (
             <div>
-                <h3>Words:</h3>
+                <h3>{this.state.groupName} words:</h3>
 
                 <ButtonToolbar id="wordsToolBar" className="align-right">
-                    <Button bsSize="small" onClick={() => window.print()}>
+                    <Button bsSize="small" onClick={() => window.print()} disabled={this.state.words.length === 0}>
                         <Glyphicon glyph="print"/> Print
                     </Button>
                     <Button bsSize="small">
@@ -84,6 +85,9 @@ class Words extends Component {
     getWords(groupId) {
         axios.get(REST_API_URL + `words?groupId=${groupId}`)
             .then(res => this.setState({words: res.data, groupId: groupId}));
+
+        axios.get(REST_API_URL + `groups/${groupId}`)
+            .then(res => this.setState({groupName: res.data.group}));
     }
 
     playWord(word) {

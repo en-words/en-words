@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
 import axios from 'axios';
 
 import {REST_API_URL} from '../common/AppSettings'
+import { ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 class Groups extends Component {
 
@@ -10,7 +11,8 @@ class Groups extends Component {
         super(props);
 
         this.state = {
-            groups: []
+            groups: [],
+            selectedGroup: undefined
         };
     }
 
@@ -26,14 +28,27 @@ class Groups extends Component {
 
     render() {
         return (
-            <ul id="groupsNavBar" className="nav nav-pills nav-stacked">
-                {
-                    this.state.groups.map(group =>
+            <div>
+                <ul id="groupsNavBar" className="nav nav-pills nav-stacked">
+                    { this.state.groups.map(group =>
                         <li key={group.groupId}>
-                            <Link activeClassName='active' to={`/words?groupId=${group.groupId}`}>{group.group}</Link>
-                        </li>)
-                }
-            </ul>
+                            <Link to={`/words?groupId=${group.groupId}`}
+                                  onClick={() => this.setState({selectedGroup: {group}})}>{group.group}</Link>
+                        </li>)}
+                </ul>
+
+                <ButtonGroup className="align-right padding-top-5px">
+                    <Button bsSize="small">
+                        <Glyphicon glyph="plus"/>
+                    </Button>
+                    <Button bsSize="small" disabled={!this.state.selectedGroup}>
+                        <Glyphicon glyph="pencil"/>
+                    </Button>
+                    <Button bsSize="small" disabled={!this.state.selectedGroup}>
+                        <Glyphicon glyph="remove"/>
+                    </Button>
+                </ButtonGroup>
+            </div>
         )
     }
 

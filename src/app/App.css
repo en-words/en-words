@@ -1,0 +1,15 @@
+.border-right {
+    border-right: 1px solid lightgrey;
+}
+
+.border-left {
+    border-left: 1px solid lightgrey;
+}
+
+.align-right {
+    float: right;
+}
+
+.padding-top-5px {
+    padding-top: 5px;
+}
