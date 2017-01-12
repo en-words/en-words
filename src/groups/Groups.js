@@ -26,7 +26,7 @@ class Groups extends Component {
 
     render() {
         return (
-            <ul className="nav nav-pills nav-stacked">
+            <ul id="groupsNavBar" className="nav nav-pills nav-stacked">
                 {
                     this.state.groups.map(group =>
                         <li key={group.groupId}>
