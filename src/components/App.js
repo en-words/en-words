@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from './Header';
-import Groups from "../groups/Groups";
+import Groups from "./Groups";
 
 import './App.css';
 

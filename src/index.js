@@ -1,21 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-import App from './app/App';
-import Dashboard from './dashboard/Dashboard';
-import Words from './words/Words';
+import store from './store';
+
+import App from './components/App';
+import Dashboard from './components/Dashboard';
+import Words from './components/Words';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
 ReactDOM.render(
-    <Router history={browserHistory}>
-        <Route path='/' component={App}>
-            <IndexRoute component={Dashboard} />
-            <Route path='/dashboard' component={Dashboard} />
-            <Route path='/words' component={Words} />
-        </Route>
-    </Router>,
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path='/' component={App}>
+                <IndexRoute component={Dashboard} />
+                <Route path='/dashboard' component={Dashboard} />
+                <Route path='/words' component={Words} />
+            </Route>
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );
