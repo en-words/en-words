@@ -1,36 +1,22 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 
-import {REST_API_URL} from '../common/AppSettings'
 import { ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 class Groups extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            groups: [],
-            selectedGroup: undefined
-        };
-    }
-
-    componentDidMount() {
-        axios.get(REST_API_URL + 'groups')
-            .then(res =>
-            {
-                let groupList = res.data;
-                groupList = groupList.sort((a, b) => this.compareGroup(a, b));
-                this.setState({groups: groupList});
-            });
+    componentWillMount() {
+        this.props.fetchGroups();
     }
 
     render() {
+        console.log("Props: " + JSON.stringify(this.props));
+        const { groups, error, loading } = this.props.groups;
+
         return (
             <div>
                 <ul id="groupsNavBar" className="nav nav-pills nav-stacked">
-                    { this.state.groups.map(group =>
+                    { groups.map(group =>
                         <li key={group.groupId}>
                             <Link to={`/words?groupId=${group.groupId}`}
                                   onClick={() => this.setState({selectedGroup: {group}})}>{group.group}</Link>
@@ -41,10 +27,10 @@ class Groups extends Component {
                     <Button bsSize="small">
                         <Glyphicon glyph="plus"/>
                     </Button>
-                    <Button bsSize="small" disabled={!this.state.selectedGroup}>
+                    <Button bsSize="small">
                         <Glyphicon glyph="pencil"/>
                     </Button>
-                    <Button bsSize="small" disabled={!this.state.selectedGroup}>
+                    <Button bsSize="small">
                         <Glyphicon glyph="remove"/>
                     </Button>
                 </ButtonGroup>
