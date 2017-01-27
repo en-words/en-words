@@ -1,12 +1,14 @@
 import { FETCH_GROUPS_PENDING, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED,
-         ADD_GROUP_FULFILLED } from '../actions/groupsAction';
+         ADD_GROUP_FULFILLED,
+         SELECT_GROUP, RESET_SELECT_GROUP } from '../actions/groupsAction';
 
 const initialState = {
     groupList: {
         groups: [],
         error: null,
         loading: false
-    }
+    },
+    selectedGroup: null
 };
 
 export default function(state = initialState, action){
@@ -25,6 +27,16 @@ export default function(state = initialState, action){
         }
         case ADD_GROUP_FULFILLED:
             return state;
+        case SELECT_GROUP:
+            return {
+                ...state,
+                selectedGroup: action.payload
+            };
+        case RESET_SELECT_GROUP:
+            return {
+                ...state,
+                selectedGroup: action.payload
+            };
         default:
             return state;
     }

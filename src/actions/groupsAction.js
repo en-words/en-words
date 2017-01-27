@@ -18,6 +18,10 @@ export const EDIT_GROUP = 'EDIT_GROUP';
 // Group delete
 export const DELETE_GROUP = 'DELETE_GROUP';
 
+// Select group
+export const SELECT_GROUP = 'SELECT_GROUP';
+export const RESET_SELECT_GROUP = 'RESET_SELECT_GROUP';
+
 const GROUPS_API_URL = REST_API_URL + 'groups';
 
 export const fetchGroups = () => {
@@ -71,4 +75,19 @@ export const deleteGroup = (id) => {
     };
 };
 
+export const selectGroup = (group) => {
+
+    return {
+        type: SELECT_GROUP,
+        payload: group
+    };
+};
+
+export const resetSelectGroup = () => {
+
+    return {
+        type: RESET_SELECT_GROUP,
+        payload: null
+    };
+};
 

@@ -1,10 +1,12 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+
 import { fetchGroups, addGroup, editGroup, deleteGroup } from '../actions/groupsAction';
-import Groups from '../components/groups/Groups';
+import GroupList from '../components/groups/GroupList';
 
 const mapStateToProps = (state) => {
     return {
-        groupList: state.groups.groupList
+        groupList: state.groups.groupList,
+        selectedGroup: state.groups.selectedGroup
     };
 };
 
@@ -13,8 +15,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchGroups: () => dispatch(fetchGroups()),
         addGroup: (groupName) => dispatch(addGroup(groupName)),
         editGroup: (id) => dispatch(editGroup(id)),
-        deleteGroup: (id) => dispatch(deleteGroup(id)).catch((error) => console.log("Error: " + error))
+        deleteGroup: (id) => dispatch(deleteGroup(id)).catch((error) => console.log(error))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Groups);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupList);
