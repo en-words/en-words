@@ -11,7 +11,7 @@ export const FETCH_GROUPS_REJECTED = 'FETCH_GROUPS_REJECTED';
 export function fetchGroups() {
     const request = axios({
         method: 'get',
-        url: REST_API_URL + 'group1s',
+        url: REST_API_URL + 'groups',
         headers: []
     });
 
