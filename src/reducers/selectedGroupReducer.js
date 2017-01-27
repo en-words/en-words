@@ -1,4 +1,4 @@
 
-export function selectedGroup(state, action){
+export default function(state, action){
     return state;
 }

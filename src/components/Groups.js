@@ -10,8 +10,13 @@ class Groups extends Component {
     }
 
     render() {
-        console.log("Props: " + JSON.stringify(this.props));
-        const { groups, error, loading } = this.props.groups;
+        const { groups, error, loading } = this.props.groupList;
+
+        if(loading) {
+            return <div><h3>Groups loading...</h3></div>
+        } else if(error) {
+            return <div className="alert alert-danger">Error: {error.message}</div>
+        }
 
         return (
             <div>
@@ -38,7 +43,7 @@ class Groups extends Component {
         )
     }
 
-    compareGroup(a, b) {
+/*    compareGroup(a, b) {
         if (a.group.toLowerCase() === b.group.toLowerCase())
             return 0;
 
@@ -46,7 +51,7 @@ class Groups extends Component {
             return 1;
         else
             return -1;
-    }
+    }*/
 }
 
 export default Groups;

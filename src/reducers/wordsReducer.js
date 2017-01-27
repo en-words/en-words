@@ -1,4 +1,4 @@
 
-export function words(state, action){
+export default function(state, action){
     return state;
 }
