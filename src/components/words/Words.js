@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import responsiveVoice from '../libraries/responsivevoice.js';
+import responsiveVoice from '../../libraries/responsivevoice.js';
 
-import {REST_API_URL} from '../common/AppSettings';
+import {REST_API_URL} from '../../common/AppSettings';
 
 import { Button, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 

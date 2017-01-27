@@ -8,15 +8,67 @@ export const FETCH_GROUPS_PENDING = 'FETCH_GROUPS_PENDING';
 export const FETCH_GROUPS_FULFILLED = 'FETCH_GROUPS_FULFILLED';
 export const FETCH_GROUPS_REJECTED = 'FETCH_GROUPS_REJECTED';
 
-export function fetchGroups() {
+// Group create
+export const ADD_GROUP = 'ADD_GROUP';
+export const ADD_GROUP_FULFILLED = 'ADD_GROUP_FULFILLED';
+
+// Group edit
+export const EDIT_GROUP = 'EDIT_GROUP';
+
+// Group delete
+export const DELETE_GROUP = 'DELETE_GROUP';
+
+const GROUPS_API_URL = REST_API_URL + 'groups';
+
+export const fetchGroups = () => {
     const request = axios({
         method: 'get',
-        url: REST_API_URL + 'groups',
-        headers: []
+        url: GROUPS_API_URL
     });
 
     return {
         type: FETCH_GROUPS,
         payload: request
     };
-}
+};
+
+export const addGroup = (groupName) => {
+    const request = axios({
+        method: 'post',
+        url: GROUPS_API_URL,
+        data: {
+            group: groupName
+        }
+    });
+
+    return {
+        type: ADD_GROUP,
+        payload: request
+    };
+};
+
+export const editGroup = (id) => {
+    const request = axios({
+        method: 'get',
+        url: GROUPS_API_URL + '/' + id
+    });
+
+    return {
+        type: EDIT_GROUP,
+        payload: request
+    };
+};
+
+export const deleteGroup = (id) => {
+    const request = axios({
+        method: 'delete',
+        url: GROUPS_API_URL + '/' + id
+    });
+
+    return {
+        type: DELETE_GROUP,
+        payload: request
+    };
+};
+
+

@@ -7,7 +7,7 @@ import store from './store';
 
 import App from './components/App';
 import Dashboard from './components/Dashboard';
-import Words from './components/Words';
+import Words from './components/words/Words';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';

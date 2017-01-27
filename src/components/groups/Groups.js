@@ -35,7 +35,7 @@ class Groups extends Component {
                     <Button bsSize="small">
                         <Glyphicon glyph="pencil"/>
                     </Button>
-                    <Button bsSize="small">
+                    <Button bsSize="small" onClick={(e) => {e.preventDefault(); this.props.deleteGroup(41)}}>
                         <Glyphicon glyph="remove"/>
                     </Button>
                 </ButtonGroup>
