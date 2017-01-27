@@ -35,7 +35,7 @@ export default function(state = initialState, action){
         case RESET_SELECT_GROUP:
             return {
                 ...state,
-                selectedGroup: action.payload
+                selectedGroup: null
             };
         default:
             return state;

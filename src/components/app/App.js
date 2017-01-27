@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Header from '../containers/HeaderContainer';
-import GroupList from "../containers/GroupListContainer";
+import Header from '../../containers/HeaderContainer';
+import GroupList from "../../containers/GroupListContainer";
 
 import './App.css';
 

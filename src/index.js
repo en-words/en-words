@@ -5,8 +5,8 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import store from './store';
 
-import App from './components/App';
-import Dashboard from './components/Dashboard';
+import App from './components/app/App';
+import Dashboard from './components/dashboard/Dashboard';
 import Words from './components/words/Words';
 
 import 'bootstrap/dist/css/bootstrap.css';

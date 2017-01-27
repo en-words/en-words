@@ -86,8 +86,7 @@ export const selectGroup = (group) => {
 export const resetSelectGroup = () => {
 
     return {
-        type: RESET_SELECT_GROUP,
-        payload: null
+        type: RESET_SELECT_GROUP
     };
 };
 

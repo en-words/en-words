@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { resetSelectGroup } from '../actions/groupsAction';
-import Header from '../components/Header';
+import Header from '../components/shared/Header';
 
 const mapStateToProps = (state) => {
     return {

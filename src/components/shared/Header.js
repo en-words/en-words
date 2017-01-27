@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import { PageHeader } from 'react-bootstrap'
 
-import { APP_VERSION } from '../common/AppSettings'
+import { APP_VERSION } from '../../common/AppSettings'
 
 class Header extends Component {
 
