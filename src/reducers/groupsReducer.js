@@ -1,6 +1,9 @@
 import { FETCH_GROUPS_PENDING, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED,
-         ADD_GROUP_FULFILLED,
+         ADD_GROUP_FULFILLED, ADD_GROUP_REJECTED,
+         DELETE_GROUP_FULFILLED, DELETE_GROUP_REJECTED,
          SELECT_GROUP, RESET_SELECT_GROUP } from '../actions/groupsAction';
+
+import { browserHistory } from 'react-router';
 
 const initialState = {
     groupList: {
@@ -14,24 +17,74 @@ const initialState = {
 export default function(state = initialState, action){
 
     switch(action.type) {
+
+        // Fetch group actions
         case FETCH_GROUPS_PENDING:
             return {...state, groupList: {groups: [], error: null, loading: true}};
         case FETCH_GROUPS_FULFILLED:
             return {...state, groupList: {groups: action.payload.data, error: null, loading: false}};
         case FETCH_GROUPS_REJECTED: {
-            console.log("action: " + action.payload);
             return {
                 ...state,
                 groupList: {groups: [], error: action.payload || {message: action.payload.message}, loading: false}
             };
         }
+
+        // Add group actions
         case ADD_GROUP_FULFILLED:
-            return state;
-        case SELECT_GROUP:
             return {
                 ...state,
-                selectedGroup: action.payload
+                groupList: {groups: state.groupList.groups.concat(action.payload.data), error: null, loading: false}
             };
+        case ADD_GROUP_REJECTED:
+            return {
+                ...state,
+                groupList: {error: action.payload || {message: action.payload.message}, loading: false}
+            };
+
+        // Delete group actions
+        case DELETE_GROUP_FULFILLED:
+            return {
+                ...state,
+                groupList: {
+                    groups: state.groupList.groups.filter(group => group.groupId !== state.selectedGroup.groupId),
+                    error: null,
+                    loading: false
+                }
+            };
+        case DELETE_GROUP_REJECTED:
+            return {
+                ...state,
+                groupList: {error: action.payload || {message: action.payload.message}, loading: false}
+            };
+
+        // Select group actions
+        case SELECT_GROUP: {
+            if (action.payload !== null) {
+                return {
+                    ...state,
+                    selectedGroup: action.payload
+                };
+            } else {
+                if (state.groupList.groups.length > 0) {
+                    let selId = state.groupList.groups[state.groupList.groups.length - 1].groupId;
+                    browserHistory.push(`words?groupId=${selId}`);
+
+                    return {
+                        ...state,
+                        selectedGroup: state.groupList.groups[selId]
+                    };
+                } else {
+                    browserHistory.push('/');
+
+                    return {
+                        ...state,
+                        selectedGroup: null
+                    };
+                }
+            }
+
+        }
         case RESET_SELECT_GROUP:
             return {
                 ...state,

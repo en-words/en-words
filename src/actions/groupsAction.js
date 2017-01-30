@@ -11,12 +11,15 @@ export const FETCH_GROUPS_REJECTED = 'FETCH_GROUPS_REJECTED';
 // Group create
 export const ADD_GROUP = 'ADD_GROUP';
 export const ADD_GROUP_FULFILLED = 'ADD_GROUP_FULFILLED';
+export const ADD_GROUP_REJECTED = 'ADD_GROUP_REJECTED';
 
 // Group edit
 export const EDIT_GROUP = 'EDIT_GROUP';
 
 // Group delete
 export const DELETE_GROUP = 'DELETE_GROUP';
+export const DELETE_GROUP_FULFILLED = 'DELETE_GROUP_FULFILLED';
+export const DELETE_GROUP_REJECTED = 'DELETE_GROUP_REJECTED';
 
 // Select group
 export const SELECT_GROUP = 'SELECT_GROUP';

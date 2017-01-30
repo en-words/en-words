@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchGroups, addGroup, editGroup, deleteGroup } from '../actions/groupsAction';
+import { fetchGroups, addGroup, editGroup, deleteGroup, selectGroup } from '../actions/groupsAction';
 import GroupList from '../components/groups/GroupList';
 
 const mapStateToProps = (state) => {
@@ -15,7 +15,9 @@ const mapDispatchToProps = (dispatch) => {
         fetchGroups: () => dispatch(fetchGroups()),
         addGroup: (groupName) => dispatch(addGroup(groupName)),
         editGroup: (id) => dispatch(editGroup(id)),
-        deleteGroup: (id) => dispatch(deleteGroup(id)).catch((error) => console.log(error))
+        deleteGroup: (id) => dispatch(deleteGroup(id))
+                                .then(response => dispatch(selectGroup(null)))
+                                .catch((error) => console.log(error))
     }
 };
 
