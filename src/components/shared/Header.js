@@ -12,7 +12,7 @@ class Header extends Component {
                 e.preventDefault();
                 this.props.resetSelectGroup();
                 browserHistory.push('/');
-            }}><h1>En-Words</h1></Link><small>Version: ({APP_VERSION})</small></PageHeader>
+            }}>En-Words</Link> <small>(v. {APP_VERSION})</small></PageHeader>
         );
     }
 }

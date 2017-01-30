@@ -5,7 +5,8 @@ import GroupModalForm from '../components/groups/GroupModalForm';
 
 const mapStateToProps = (state) => {
     return {
-        showGroupForm: state.groups.showGroupForm
+        showGroupForm: state.groups.showGroupForm,
+        group: state.group
     };
 };
 
