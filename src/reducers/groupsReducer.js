@@ -1,7 +1,8 @@
 import { FETCH_GROUPS_PENDING, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED,
          ADD_GROUP_FULFILLED, ADD_GROUP_REJECTED,
          DELETE_GROUP_FULFILLED, DELETE_GROUP_REJECTED,
-         SELECT_GROUP, RESET_SELECT_GROUP } from '../actions/groupsAction';
+         SELECT_GROUP, RESET_SELECT_GROUP,
+         SHOW_GROUP_MODAL_FORM } from '../actions/groupsAction';
 
 import { browserHistory } from 'react-router';
 
@@ -89,6 +90,13 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 selectedGroup: null
+            };
+
+        // Show/Hide group modal form
+        case SHOW_GROUP_MODAL_FORM:
+            return {
+                ...state,
+                showGroupForm: action.payload
             };
         default:
             return state;

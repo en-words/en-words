@@ -3,15 +3,16 @@ import React, { Component } from 'react';
 import { ButtonGroup, Button, Glyphicon, Nav } from 'react-bootstrap';
 
 import GroupRow from '../../containers/GroupRowContainer';
+import GroupModalForm from '../../containers/GroupModalFormContainer';
 
 class GroupList extends Component {
 
     constructor(props) {
         super(props);
 
-        this.handelAddClick = this.handelAddClick.bind(this);
         this.handelEditClick = this.handelEditClick.bind(this);
         this.handelDeleteClick = this.handelDeleteClick.bind(this);
+        this.handelShowModal = this.handelShowModal.bind(this);
     }
 
     componentWillMount() {
@@ -29,22 +30,23 @@ class GroupList extends Component {
 
         return (
             <div>
-
                 <Nav bsStyle="pills" stacked>
                     { groups.map(group => <GroupRow key={group.groupId} group={group} />)}
                 </Nav>
 
                 <ButtonGroup className="align-right padding-top-5px">
-                    <Button bsSize="small" onClick={this.handelAddClick}>
+                    <Button bsSize="small"  onClick={this.handelShowModal}>
                         <Glyphicon glyph="plus"/>
                     </Button>
-                    <Button bsSize="small" onClick={this.handelEditClick} disabled={!this.props.selectedGroup}>
+                    <Button bsSize="small" onClick={this.handelShowModal} disabled={!this.props.selectedGroup}>
                         <Glyphicon glyph="pencil"/>
                     </Button>
                     <Button bsSize="small" onClick={this.handelDeleteClick} disabled={!this.props.selectedGroup}>
                         <Glyphicon glyph="remove"/>
                     </Button>
                 </ButtonGroup>
+
+                <GroupModalForm />
             </div>
         )
     }
@@ -55,12 +57,12 @@ class GroupList extends Component {
         }
     }
 
-    handelAddClick() {
-        this.props.addGroup('Test Group');
-    }
-
     handelEditClick() {
         this.props.editGroup(this.props.selectedGroup.groupId)
+    }
+
+    handelShowModal() {
+        this.props.showModal();
     }
 
 }

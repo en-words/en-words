@@ -25,6 +25,8 @@ export const DELETE_GROUP_REJECTED = 'DELETE_GROUP_REJECTED';
 export const SELECT_GROUP = 'SELECT_GROUP';
 export const RESET_SELECT_GROUP = 'RESET_SELECT_GROUP';
 
+export const SHOW_GROUP_MODAL_FORM = 'SHOW_GROUP_MODAL_FORM';
+
 const GROUPS_API_URL = REST_API_URL + 'groups';
 
 export const fetchGroups = () => {
@@ -87,9 +89,14 @@ export const selectGroup = (group) => {
 };
 
 export const resetSelectGroup = () => {
-
     return {
         type: RESET_SELECT_GROUP
     };
 };
 
+export const showGroupModalForm = (show) => {
+    return {
+        type: SHOW_GROUP_MODAL_FORM,
+        payload: show
+    }
+};
