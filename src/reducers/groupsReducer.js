@@ -21,9 +21,15 @@ export default function(state = initialState, action){
 
         // Fetch group actions
         case FETCH_GROUPS_PENDING:
-            return {...state, groupList: {groups: [], error: null, loading: true}};
+            return {
+                ...state,
+                groupList: {groups: [], error: null, loading: true}
+            };
         case FETCH_GROUPS_FULFILLED:
-            return {...state, groupList: {groups: action.payload.data, error: null, loading: false}};
+            return {
+                ...state,
+                groupList: {groups: action.payload.data, error: null, loading: false}
+            };
         case FETCH_GROUPS_REJECTED: {
             return {
                 ...state,
@@ -73,7 +79,7 @@ export default function(state = initialState, action){
 
                     return {
                         ...state,
-                        selectedGroup: state.groupList.groups[selId]
+                        selectedGroup: state.groupList.groups[state.groupList.groups.length - 1]
                     };
                 } else {
                     browserHistory.push('/');
@@ -98,6 +104,7 @@ export default function(state = initialState, action){
                 ...state,
                 showGroupForm: action.payload
             };
+
         default:
             return state;
     }
