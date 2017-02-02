@@ -16,7 +16,6 @@ class GroupModalForm extends React.Component {
         let { showGroupForm, group } = this.props;
         const title = group.groupId === -1 ? 'New group' : 'Edit group';
 
-        console.log("group: " +JSON.stringify(group));
         return (
             <Modal show={showGroupForm} onHide={this.handelCloseClick} >
                 <Modal.Header>
@@ -28,7 +27,7 @@ class GroupModalForm extends React.Component {
                         <Field model="group.groupName">
 
                             <ControlLabel>Group:</ControlLabel>
-                            <input type="text" placeholder="Enter group" autoFocus={true} className="form-control" />
+                            <input type="text" placeholder="Enter group name" autoFocus={true} className="form-control" />
                         </Field>
 
                         <div className="width-full padding-top-10px padding-bottom-5px">
@@ -37,8 +36,6 @@ class GroupModalForm extends React.Component {
                                 <Button bsStyle="primary" type="submit" bsSize="small" className="align-right padding-top-5px">Save</Button>
                             </ButtonToolbar>
                         </div>
-
-
                     </Form>
                 </Modal.Body>
             </Modal>

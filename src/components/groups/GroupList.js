@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-import { ButtonGroup, Button, Glyphicon, Nav } from 'react-bootstrap';
+import { Button, Modal } from 'antd';
+
+import { Nav } from 'react-bootstrap';
 
 import GroupRow from '../../containers/GroupRowContainer';
 import GroupModalForm from '../../containers/GroupModalFormContainer';
+
+const ButtonGroup = Button.Group;
 
 class GroupList extends Component {
 
@@ -13,6 +17,7 @@ class GroupList extends Component {
         this.handelEditClick = this.handelEditClick.bind(this);
         this.handelDeleteClick = this.handelDeleteClick.bind(this);
         this.handelShowModal = this.handelShowModal.bind(this);
+        this.confirmDeleteGroup = this.confirmDeleteGroup.bind(this);
     }
 
     componentWillMount() {
@@ -30,20 +35,14 @@ class GroupList extends Component {
 
         return (
             <div>
-                <Nav bsStyle="pills" stacked>
+                <Nav bsStyle="pills" stacked id="groupsNavBar">
                     { groups.map(group => <GroupRow key={group.groupId} group={group} />)}
                 </Nav>
 
                 <ButtonGroup className="align-right padding-top-5px">
-                    <Button bsSize="small"  onClick={this.handelShowModal}>
-                        <Glyphicon glyph="plus"/>
-                    </Button>
-                    <Button bsSize="small" onClick={this.handelShowModal} disabled={!this.props.selectedGroup}>
-                        <Glyphicon glyph="pencil"/>
-                    </Button>
-                    <Button bsSize="small" onClick={this.handelDeleteClick} disabled={!this.props.selectedGroup}>
-                        <Glyphicon glyph="remove"/>
-                    </Button>
+                    <Button onClick={this.handelShowModal} icon="plus-circle-o" />
+                    <Button onClick={this.handelShowModal} disabled={!this.props.selectedGroup} icon="edit" />
+                    <Button onClick={this.confirmDeleteGroup} disabled={!this.props.selectedGroup} icon="delete" />
                 </ButtonGroup>
 
                 <GroupModalForm />
@@ -63,6 +62,21 @@ class GroupList extends Component {
 
     handelShowModal() {
         this.props.showModal();
+    }
+
+    confirmDeleteGroup() {
+        const deleteGroup = () => {this.props.deleteGroup(this.props.selectedGroup.groupId)};
+
+        Modal.confirm({
+            title: 'Delete group',
+            content: `Do you want to delete the group "${this.props.selectedGroup.group}" with all words?`,
+            okText: 'OK',
+            cancelText: 'Cancel',
+            onOk() {
+                deleteGroup();
+            },
+            onCancel() {}
+        });
     }
 
 }
