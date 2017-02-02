@@ -13,7 +13,7 @@ class App extends Component {
                 <Header />
 
                 <div className="row">
-                    <div className="col-sm-3 border-right">
+                    <div className="col-sm-3 align-text-center ">
                         <GroupList />
                     </div>
                     <div className="col-sm-9">

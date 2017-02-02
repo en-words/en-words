@@ -32,3 +32,11 @@
     width: 100%;
     height: 34px;
 }
+
+.align-text-center {
+    text-align: center;
+}
+
+.align-text-left {
+    text-align: left;
+}
