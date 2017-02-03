@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchGroups: () => dispatch(fetchGroups()),
         addGroup: (groupName) => dispatch(addGroup(groupName)),
         editGroup: (id) => dispatch(editGroup(id)),
+        selectGroup: (id) => dispatch(selectGroup(id)),
         deleteGroup: (id) => dispatch(deleteGroup(id))
                                 .then(response => dispatch(selectGroup(null)))
                                 .catch((error) => console.log(error)),

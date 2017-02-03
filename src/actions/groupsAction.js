@@ -80,11 +80,11 @@ export const deleteGroup = (id) => {
     };
 };
 
-export const selectGroup = (group) => {
+export const selectGroup = (id) => {
 
     return {
         type: SELECT_GROUP,
-        payload: group
+        payload: id
     };
 };
 

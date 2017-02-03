@@ -32,6 +32,7 @@ class GroupList extends Component {
         return (
             <div>
                 <Menu mode="inline" onClick={(e) => {
+                        this.props.selectGroup(e.key);
                         browserHistory.push(`words?groupId=${e.key}`);}}>
 
                     { groups.map(group =>
