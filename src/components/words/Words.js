@@ -1,13 +1,49 @@
 import React, { Component } from 'react';
+
+import { Table, Button } from 'antd';
+
 import axios from 'axios';
 
 import responsiveVoice from '../../libraries/responsivevoice.js';
 
 import {REST_API_URL} from '../../common/AppSettings';
 
-import { Button, ButtonToolbar, Glyphicon } from 'react-bootstrap';
-
 import './Words.css';
+
+const ButtonGroup = Button.Group;
+
+const playWord = (word) => {
+    responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
+};
+
+const columns = [{
+        title: '',
+        dataIndex: 'play',
+        key: 'play',
+        width: '20px',
+        render: (text, record) => (
+            <Button id="playWord" icon="play-circle" onClick={() => playWord(record.word)} />
+        )
+    }, {
+        title: 'Word',
+        dataIndex: 'word',
+        key: 'word',
+        sorter: 'true',
+        render:  (text, record) => <a href="#">{record.word}</a>,
+    }, {
+        title: 'Translation',
+        dataIndex: 'translation',
+        key: 'translation',
+    }, {
+        title: '',
+        dataIndex: 'delete',
+        key: 'delete',
+        width: '20px',
+        render: (text, record) => (
+            <Button id="deleteWord" icon="delete" />
+        )
+    }];
+
 
 class Words extends Component {
     constructor(props) {
@@ -37,47 +73,18 @@ class Words extends Component {
             <div>
                 <h3>{this.state.groupName} words:</h3>
 
-                <ButtonToolbar id="wordsToolBar" className="align-right">
-                    <Button bsSize="small" onClick={() => window.print()} disabled={this.state.words.length === 0}>
-                        <Glyphicon glyph="print"/> Print
-                    </Button>
-                    <Button bsSize="small">
-                        <Glyphicon glyph="plus"/> New
-                    </Button>
-                </ButtonToolbar>
+                <ButtonGroup id="wordsToolBar" className="align-right">
+                    <Button onClick={() => window.print()} disabled={this.state.words.length === 0} icon="export">Print</Button>
+                    <Button icon="plus-circle-o">New</Button>
+                </ButtonGroup>
+                <br/> <br/>
 
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Word</th>
-                            <th>Translation</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    { this.state.words.map(word =>
-                        <tr key={word.id}>
-                            <td width="20px">
-                                <Button id="playWord" bsSize="xsmall" className="align-right" onClick={() => this.playWord(word.word)}>
-                                    <Glyphicon glyph="play"/>
-                                </Button>
-                            </td>
-                            <td>
-                                <a>{word.word}</a>
-                            </td>
-                            <td>
-                                {word.translation}
-                            </td>
-                            <td>
-                                <Button id="removeWord" bsSize="xsmall" className="align-right">
-                                    <Glyphicon glyph="trash"/>
-                                </Button>
-                            </td>
-                        </tr>)
-                    }
-                    </tbody>
-                </table>
+                <Table
+                    rowKey={record => record.id}
+                    dataSource={this.state.words}
+                    columns={columns}
+                    size="middle"
+                    pagination={false} />
             </div>
         );
     }
@@ -88,10 +95,6 @@ class Words extends Component {
 
         axios.get(REST_API_URL + `groups/${groupId}`)
             .then(res => this.setState({groupName: res.data.group}));
-    }
-
-    playWord(word) {
-        responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
     }
 }
 
