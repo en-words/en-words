@@ -31,7 +31,7 @@ class GroupList extends Component {
 
         return (
             <div>
-                <Menu mode="inline" onClick={(e) => {
+                <Menu id="groupsNavBar" mode="inline" onClick={(e) => {
                         this.props.selectGroup(e.key);
                         browserHistory.push(`words?groupId=${e.key}`);}}>
 
@@ -42,7 +42,7 @@ class GroupList extends Component {
                     )}
                 </Menu>
 
-                <ButtonGroup className="align-right padding-top-5px">
+                <ButtonGroup id="groupButtons" className="align-right padding-top-5px">
                     <Button onClick={this.handelShowModal} icon="plus-circle-o" />
                     <Button onClick={this.handelShowModal} disabled={!this.props.selectedGroup} icon="edit" />
                     <Button onClick={this.handelDeleteClick} disabled={!this.props.selectedGroup} icon="delete" />

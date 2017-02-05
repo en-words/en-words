@@ -38,7 +38,7 @@
         display: table-footer-group
     }
 
-    .page-header, group-list, #removeWord, #playWord, #wordsToolBar, #groupsNavBar {
+    .page-header, #deleteWord, #playWord, #wordsToolBar, #groupsNavBar, #groupButtons {
         display: none;
     }
 
