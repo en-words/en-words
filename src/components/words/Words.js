@@ -16,6 +16,26 @@ const playWord = (word) => {
     responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
 };
 
+const compareWord = (a, b) => {
+    if (a.word.toLowerCase() === b.word.toLowerCase())
+        return 0;
+
+    if (a.word.toLowerCase() > b.word.toLowerCase())
+        return 1;
+    else
+        return -1;
+};
+
+const compareTranslation = (a, b) => {
+    if (a.translation.toLowerCase() === b.translation.toLowerCase())
+        return 0;
+
+    if (a.translation.toLowerCase() > b.translation.toLowerCase())
+        return 1;
+    else
+        return -1;
+};
+
 const columns = [{
         title: '',
         dataIndex: 'play',
@@ -28,12 +48,13 @@ const columns = [{
         title: 'Word',
         dataIndex: 'word',
         key: 'word',
-        sorter: 'true',
+        sorter: (a, b) => compareWord(a, b),
         render:  (text, record) => <a href="#">{record.word}</a>,
     }, {
         title: 'Translation',
         dataIndex: 'translation',
         key: 'translation',
+        sorter: (a, b) => compareTranslation(a, b)
     }, {
         title: '',
         dataIndex: 'delete',
@@ -84,7 +105,8 @@ class Words extends Component {
                     dataSource={this.state.words}
                     columns={columns}
                     size="middle"
-                    pagination={false} />
+                    pagination={false}/>
+
             </div>
         );
     }
