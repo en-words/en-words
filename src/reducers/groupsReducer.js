@@ -69,7 +69,6 @@ export default function(state = initialState, action){
         case SELECT_GROUP: {
             if (action.payload !== null) {
                 let selGroups = state.groupList.groups.filter(group => group.groupId.toString() === action.payload);
-                console.log("selGroups" + JSON.stringify(selGroups));
                 let selectedGroup = null;
                 if (selGroups && selGroups.length > 0) {
                     selectedGroup = selGroups[0];

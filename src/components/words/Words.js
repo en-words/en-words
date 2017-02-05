@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-
-import { Table, Button } from 'antd';
-
-import axios from 'axios';
-
+import { Table, Button, Spin } from 'antd';
 import responsiveVoice from '../../libraries/responsivevoice.js';
-
-import {REST_API_URL} from '../../common/AppSettings';
-
 import './Words.css';
+
 
 const ButtonGroup = Button.Group;
 
@@ -67,56 +61,46 @@ const columns = [{
 
 
 class Words extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            words: [],
-            groupId: undefined,
-            groupName: ''
-        };
-    }
 
     componentDidMount() {
-        this.getWords(this.props.location.query.groupId);
+        this.props.fetchWords(this.props.location.query.groupId);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.groupId === nextProps.location.query.groupId) {
+        if (this.props.selectedGroup.groupId === nextProps.selectedGroup.groupId) {
             return;
         }
 
-        this.getWords(nextProps.location.query.groupId);
+        this.props.fetchWords(nextProps.location.query.groupId);
     }
 
     render() {
+        const { words, error, loading } = this.props.wordList;
+        const { group } = this.props.selectedGroup;
+
+        if(error) {
+            return <div className="alert alert-danger">Error: {error.message}</div>
+        }
+
         return (
             <div>
-                <h3>{this.state.groupName} words:</h3>
+                <h3>{group} words:</h3>
 
                 <ButtonGroup id="wordsToolBar" className="align-right">
-                    <Button onClick={() => window.print()} disabled={this.state.words.length === 0} icon="export">Print</Button>
+                    <Button onClick={() => window.print()} disabled={words && words.length === 0} icon="export">Print</Button>
                     <Button icon="plus-circle-o">New</Button>
                 </ButtonGroup>
                 <br/> <br/>
 
                 <Table
                     rowKey={record => record.id}
-                    dataSource={this.state.words}
+                    dataSource={words}
                     columns={columns}
                     size="middle"
-                    pagination={false}/>
-
+                    pagination={false}
+                    loading={loading}/>
             </div>
         );
-    }
-
-    getWords(groupId) {
-        axios.get(REST_API_URL + `words?groupId=${groupId}`)
-            .then(res => this.setState({words: res.data, groupId: groupId}));
-
-        axios.get(REST_API_URL + `groups/${groupId}`)
-            .then(res => this.setState({groupName: res.data.group}));
     }
 }
 

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { browserHistory } from 'react-router';
 import { Button, Modal, Spin, Menu } from 'antd';
-
 import GroupModalForm from '../../containers/GroupModalFormContainer';
+
 
 const ButtonGroup = Button.Group;
 
-class GroupList extends Component {
+class GroupList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ class GroupList extends Component {
         this.handelShowModal = this.handelShowModal.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchGroups();
     }
 
