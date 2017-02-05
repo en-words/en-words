@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from '../../containers/HeaderContainer';
-import GroupList from "../../containers/GroupListContainer";
+import Groups from "../../containers/GroupsContainer";
 
 import './App.css';
 
@@ -14,7 +14,7 @@ class App extends Component {
 
                 <div className="row">
                     <div className="col-sm-3 align-text-center ">
-                        <GroupList />
+                        <Groups />
                     </div>
                     <div className="col-sm-9">
                         {this.props.children}

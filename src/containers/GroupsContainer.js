@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { fetchGroups, addGroup, editGroup, deleteGroup, selectGroup, showGroupModalForm } from '../actions/groupsAction';
-import GroupList from '../components/groups/GroupList';
+import Groups from '../components/groups/Groups';
 
 const mapStateToProps = (state) => {
     return {
@@ -23,4 +23,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupList);
+export default connect(mapStateToProps, mapDispatchToProps)(Groups);

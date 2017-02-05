@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { showGroupModalForm, addGroup } from '../actions/groupsAction';
-import GroupModalForm from '../components/groups/GroupModalForm';
+import GroupForm from '../components/groups/GroupForm';
 
 const mapStateToProps = (state) => {
     return {
@@ -18,4 +18,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupModalForm);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupForm);

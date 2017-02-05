@@ -1,12 +1,12 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { Button, Modal, Spin, Menu } from 'antd';
-import GroupModalForm from '../../containers/GroupModalFormContainer';
+import GroupForm from '../../containers/GroupFormContainer';
 
 
 const ButtonGroup = Button.Group;
 
-class GroupList extends React.Component {
+class Groups extends React.Component {
 
     constructor(props) {
         super(props);
@@ -48,7 +48,7 @@ class GroupList extends React.Component {
                     <Button onClick={this.handelDeleteClick} disabled={!this.props.selectedGroup} icon="delete" />
                 </ButtonGroup>
 
-                <GroupModalForm />
+                <GroupForm />
             </div>
         )
     }
@@ -78,4 +78,4 @@ class GroupList extends React.Component {
 
 }
 
-export default GroupList;
+export default Groups;

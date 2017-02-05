@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Spin } from 'antd';
+import { Table, Button } from 'antd';
 import responsiveVoice from '../../libraries/responsivevoice.js';
 import './Words.css';
 
