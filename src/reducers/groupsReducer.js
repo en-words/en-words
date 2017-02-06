@@ -1,8 +1,9 @@
 import { FETCH_GROUPS_PENDING, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED,
-         ADD_GROUP_FULFILLED, ADD_GROUP_REJECTED,
+         ADD_GROUP_FULFILLED, ADD_GROUP_REJECTED, NEW_GROUP, EDIT_GROUP,
+         UPDATE_GROUP_FULFILLED, UPDATE_GROUP_REJECTED,
          DELETE_GROUP_FULFILLED, DELETE_GROUP_REJECTED,
          SELECT_GROUP, RESET_SELECT_GROUP,
-         SHOW_GROUP_MODAL_FORM } from '../actions/groupsAction';
+         CLOSE_GROUP_MODAL_FORM } from '../actions/groupsAction';
 
 import { browserHistory } from 'react-router';
 
@@ -12,7 +13,8 @@ const initialState = {
         error: null,
         loading: false
     },
-    selectedGroup: null
+    selectedGroup: null,
+    group: null
 };
 
 export default function(state = initialState, action){
@@ -44,6 +46,30 @@ export default function(state = initialState, action){
                 groupList: {groups: state.groupList.groups.concat(action.payload.data), error: null, loading: false}
             };
         case ADD_GROUP_REJECTED:
+            return {
+                ...state,
+                groupList: {error: action.payload || {message: action.payload.message}, loading: false}
+            };
+        case NEW_GROUP:
+            return {
+                ...state,
+                showGroupForm: true,
+                group: null
+            };
+        case EDIT_GROUP:
+            return {
+                ...state,
+                showGroupForm: true,
+                group: action.payload
+            };
+
+        // Update group actions
+        case UPDATE_GROUP_FULFILLED:
+            return {
+                ...state,
+                groupList: {groups: state.groupList.groups.concat(action.payload.data), error: null, loading: false}
+            };
+        case UPDATE_GROUP_REJECTED:
             return {
                 ...state,
                 groupList: {error: action.payload || {message: action.payload.message}, loading: false}
@@ -104,11 +130,12 @@ export default function(state = initialState, action){
                 selectedGroup: null
             };
 
-        // Show/Hide group modal form
-        case SHOW_GROUP_MODAL_FORM:
+
+        case CLOSE_GROUP_MODAL_FORM:
             return {
                 ...state,
-                showGroupForm: action.payload
+                showGroupForm: false,
+                group: null
             };
 
         default:

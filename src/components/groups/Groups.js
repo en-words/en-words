@@ -13,7 +13,7 @@ class Groups extends React.Component {
 
         this.handelEditClick = this.handelEditClick.bind(this);
         this.handelDeleteClick = this.handelDeleteClick.bind(this);
-        this.handelShowModal = this.handelShowModal.bind(this);
+        this.handelNewClick = this.handelNewClick.bind(this);
     }
 
     componentDidMount() {
@@ -43,8 +43,8 @@ class Groups extends React.Component {
                 </Menu>
 
                 <ButtonGroup id="groupButtons" className="align-right padding-top-5px">
-                    <Button onClick={this.handelShowModal} icon="plus-circle-o" />
-                    <Button onClick={this.handelShowModal} disabled={!this.props.selectedGroup} icon="edit" />
+                    <Button onClick={this.handelNewClick} icon="plus-circle-o" />
+                    <Button onClick={this.handelEditClick} disabled={!this.props.selectedGroup} icon="edit" />
                     <Button onClick={this.handelDeleteClick} disabled={!this.props.selectedGroup} icon="delete" />
                 </ButtonGroup>
 
@@ -54,11 +54,11 @@ class Groups extends React.Component {
     }
 
     handelEditClick() {
-        this.props.editGroup(this.props.selectedGroup.groupId)
+        this.props.editGroup(this.props.selectedGroup)
     }
 
-    handelShowModal() {
-        this.props.showModal();
+    handelNewClick() {
+        this.props.newGroup();
     }
 
     handelDeleteClick() {

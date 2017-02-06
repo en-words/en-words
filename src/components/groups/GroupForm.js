@@ -1,58 +1,89 @@
 import React from 'react';
+import { Modal, Form, Input } from 'antd';
 
-import { Button, Modal, ControlLabel, ButtonToolbar } from 'react-bootstrap';
-import { Field, Form } from 'react-redux-form';
+const FormItem = Form.Item;
 
-class GroupModalForm extends React.Component {
+const GroupModalForm = Form.create()(
+    (props) => {
+        const { visible, onCancel, onCreate, form, title } = props;
+        const { getFieldDecorator } = form;
+
+        return (
+            <Modal
+                visible={visible}
+                title={title}
+                okText="Save"
+                cancelText="Cancel"
+                onCancel={onCancel}
+                onOk={onCreate}>
+
+                <Form vertical>
+                    <FormItem label="Group">
+                        {getFieldDecorator('group', {
+                            rules: [{ required: true, message: 'Please enter the group name.' }],
+                        })(
+                            <Input />
+                        )}
+                    </FormItem>
+                </Form>
+            </Modal>
+        );
+    }
+);
+
+class GroupForm extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.handelCloseClick = this.handelCloseClick.bind(this);
         this.handelAddClick = this.handelAddClick.bind(this);
+        this.saveFormRef = this.saveFormRef.bind(this);
     }
 
     render() {
         let { showGroupForm, group } = this.props;
-        const title = group.groupId === -1 ? 'New group' : 'Edit group';
+        const title = group === null ? 'New group' : 'Edit group';
 
         return (
-            <Modal show={showGroupForm} onHide={this.handelCloseClick} >
-                <Modal.Header>
-                    <Modal.Title>{title}</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <Form model="group" onSubmit={group => this.handleSubmit(group)}>
-                        <Field model="group.groupName">
-
-                            <ControlLabel>Group:</ControlLabel>
-                            <input type="text" placeholder="Enter group name" autoFocus={true} className="form-control" />
-                        </Field>
-
-                        <div className="width-full padding-top-10px padding-bottom-5px">
-                            <ButtonToolbar className="align-right">
-                                <Button onClick={this.handelCloseClick} bsSize="small" className="align-right padding-top-5px">Close</Button>
-                                <Button bsStyle="primary" type="submit" bsSize="small" className="align-right padding-top-5px">Save</Button>
-                            </ButtonToolbar>
-                        </div>
-                    </Form>
-                </Modal.Body>
-            </Modal>
+            <GroupModalForm
+                ref={this.saveFormRef}
+                title={title}
+                visible={showGroupForm}
+                onCancel={this.handelCloseClick}
+                onCreate={this.handelAddClick} />
         )
     }
 
     handelCloseClick() {
         this.props.closeModal();
-    }
+    };
 
     handelAddClick() {
-        this.props.addGroup('Test Group 2');
-    }
+        const { group } = this.props;
+        const form = this.form;
+        form.validateFields((err, values) => {
+            if (err) {
+                return;
+            }
 
-    handleSubmit(group) {
-        this.props.addGroup(group.groupName);
-    }
+            if(group === null) {
+                this.props.addGroup(values.group);
+            } else {
+                this.props.updateGroup({
+                    groupId: group.groupId,
+                    group: values.group
+                })
+            }
+            form.resetFields();
+        });
+
+
+    };
+
+    saveFormRef(form){
+        this.form = form;
+    };
 }
 
-export default GroupModalForm;
+export default GroupForm;

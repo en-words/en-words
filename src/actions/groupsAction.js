@@ -10,11 +10,15 @@ export const FETCH_GROUPS_REJECTED = 'FETCH_GROUPS_REJECTED';
 
 // Group create
 export const ADD_GROUP = 'ADD_GROUP';
+export const NEW_GROUP = 'NEW_GROUP';
+export const EDIT_GROUP = 'EDIT_GROUP';
 export const ADD_GROUP_FULFILLED = 'ADD_GROUP_FULFILLED';
 export const ADD_GROUP_REJECTED = 'ADD_GROUP_REJECTED';
 
-// Group edit
-export const EDIT_GROUP = 'EDIT_GROUP';
+// Group update
+export const UPDATE_GROUP = 'UPDATE_GROUP';
+export const UPDATE_GROUP_FULFILLED = 'UPDATE_GROUP_FULFILLED';
+export const UPDATE_GROUP_REJECTED = 'UPDATE_GROUP_REJECTED';
 
 // Group delete
 export const DELETE_GROUP = 'DELETE_GROUP';
@@ -26,6 +30,7 @@ export const SELECT_GROUP = 'SELECT_GROUP';
 export const RESET_SELECT_GROUP = 'RESET_SELECT_GROUP';
 
 export const SHOW_GROUP_MODAL_FORM = 'SHOW_GROUP_MODAL_FORM';
+export const CLOSE_GROUP_MODAL_FORM = 'CLOSE_GROUP_MODAL_FORM';
 
 const GROUPS_API_URL = REST_API_URL + 'groups';
 
@@ -56,14 +61,18 @@ export const addGroup = (groupName) => {
     };
 };
 
-export const editGroup = (id) => {
+export const updateGroup = (group) => {
     const request = axios({
-        method: 'get',
-        url: GROUPS_API_URL + '/' + id
+        method: 'put',
+        url: GROUPS_API_URL + '/' + group.groupId,
+        data: {
+            groupId: group.groupId,
+            group: group.group
+        }
     });
 
     return {
-        type: EDIT_GROUP,
+        type: UPDATE_GROUP,
         payload: request
     };
 };
@@ -94,9 +103,21 @@ export const resetSelectGroup = () => {
     };
 };
 
-export const showGroupModalForm = (show) => {
+export const closeGroupModalForm = () => {
     return {
-        type: SHOW_GROUP_MODAL_FORM,
-        payload: show
+        type: CLOSE_GROUP_MODAL_FORM
+    }
+};
+
+export const newGroup = () => {
+    return {
+        type: NEW_GROUP
+    }
+};
+
+export const editGroup = (group) => {
+    return {
+        type: EDIT_GROUP,
+        payload: group
     }
 };
