@@ -5,7 +5,7 @@ const FormItem = Form.Item;
 
 const GroupModalForm = Form.create()(
     (props) => {
-        const { visible, onCancel, onCreate, form, title } = props;
+        const { visible, onCancel, onCreate, form, title, groupForm } = props;
         const { getFieldDecorator } = form;
 
         return (
@@ -21,6 +21,7 @@ const GroupModalForm = Form.create()(
                     <FormItem label="Group" hasFeedback>
                         {getFieldDecorator('group', {
                             rules: [{ required: true, message: 'Group name is required.' }],
+                            initialValue: !groupForm || groupForm === null ? '' : groupForm.group
                         })(
                             <Input />
                         )}
@@ -50,6 +51,7 @@ class GroupForm extends React.Component {
                 ref={this.saveFormRef}
                 title={title}
                 visible={showGroupForm}
+                groupForm={groupForm}
                 onCancel={this.handelCloseClick}
                 onCreate={this.handelAddClick} />
         )

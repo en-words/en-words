@@ -13,6 +13,7 @@ const initialState = {
         error: null,
         loading: false
     },
+    showGroupForm: false,
     selectedGroup: null,
     groupForm: null
 };
@@ -174,8 +175,7 @@ export default function(state = initialState, action){
         case CLOSE_GROUP_MODAL_FORM:
             return {
                 ...state,
-                showGroupForm: false,
-                groupForm: null
+                showGroupForm: false
             };
         case NEW_GROUP:
             return {
