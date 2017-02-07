@@ -1,66 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Table, Button } from 'antd';
 import responsiveVoice from '../../libraries/responsivevoice.js';
 import './Words.css';
+import WordForm from '../../containers/WordFormContainer';
 
 
 const ButtonGroup = Button.Group;
 
-const playWord = (word) => {
-    responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
-};
 
-const compareWord = (a, b) => {
-    if (a.word.toLowerCase() === b.word.toLowerCase())
-        return 0;
+class Words extends React.Component {
+    playWord = (word) => {
+        responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
+    };
 
-    if (a.word.toLowerCase() > b.word.toLowerCase())
-        return 1;
-    else
-        return -1;
-};
+    compareWord = (a, b) => {
+        if (a.word.toLowerCase() === b.word.toLowerCase())
+            return 0;
 
-const compareTranslation = (a, b) => {
-    if (a.translation.toLowerCase() === b.translation.toLowerCase())
-        return 0;
+        if (a.word.toLowerCase() > b.word.toLowerCase())
+            return 1;
+        else
+            return -1;
+    };
 
-    if (a.translation.toLowerCase() > b.translation.toLowerCase())
-        return 1;
-    else
-        return -1;
-};
+    compareTranslation = (a, b) => {
+        if (a.translation.toLowerCase() === b.translation.toLowerCase())
+            return 0;
 
-const columns = [{
-        title: '',
-        dataIndex: 'play',
-        key: 'play',
-        width: '20px',
-        render: (text, record) => (
-            <Button id="playWord" icon="play-circle" onClick={() => playWord(record.word)} />
-        )
-    }, {
-        title: 'Word',
-        dataIndex: 'word',
-        key: 'word',
-        sorter: (a, b) => compareWord(a, b),
-        render:  (text, record) => <a href="#">{record.word}</a>,
-    }, {
-        title: 'Translation',
-        dataIndex: 'translation',
-        key: 'translation',
-        sorter: (a, b) => compareTranslation(a, b)
-    }, {
-        title: '',
-        dataIndex: 'delete',
-        key: 'delete',
-        width: '20px',
-        render: (text, record) => (
-            <Button id="deleteWord" icon="delete" />
-        )
-    }];
-
-
-class Words extends Component {
+        if (a.translation.toLowerCase() > b.translation.toLowerCase())
+            return 1;
+        else
+            return -1;
+    };
 
     componentDidMount() {
         this.props.fetchWords(this.props.location.query.groupId);
@@ -74,6 +45,19 @@ class Words extends Component {
         this.props.fetchWords(nextProps.location.query.groupId);
     }
 
+    newWord() {
+        this.props.newWord();
+    }
+
+    deleteWord = (id) => {
+        this.props.deleteWord(id);
+    };
+
+    editWord = (word) => {
+        this.props.editWord(word);
+    };
+
+
     render() {
         const { words, error } = this.props.wordList;
         const { group } = this.props.selectedGroup;
@@ -81,7 +65,39 @@ class Words extends Component {
         let content = <Table
             rowKey={record => record.id}
             dataSource={words}
-            columns={columns}
+            columns={[{
+                         title: '',
+                         dataIndex: 'play',
+                         key: 'play',
+                         width: '20px',
+                         render: (text, record) => (
+                             <Button id="playWord" icon="play-circle" onClick={() => this.playWord(record.word)} />
+                         )
+                      },
+                      {
+                          title: 'Word',
+                          dataIndex: 'word',
+                          key: 'word',
+                          sorter: (a, b) => this.compareWord(a, b),
+                          render:  (text, record) => <a onClick={() => {
+                            this.editWord(record)}
+                          }>{record.word}</a>
+                      },
+                      {
+                          title: 'Translation',
+                          dataIndex: 'translation',
+                          key: 'translation',
+                          sorter: (a, b) => this.compareTranslation(a, b)
+                      },
+                      {
+                        title: '',
+                        dataIndex: 'delete',
+                        key: 'delete',
+                        width: '20px',
+                        render: (text, record) => (
+                        <Button id="deleteWord" icon="delete" onClick={() => this.deleteWord(record.id)} />
+                        )
+                    }]}
             size="middle"
             pagination={false}/>;
 
@@ -99,11 +115,13 @@ class Words extends Component {
 
                 <ButtonGroup id="wordsToolBar" className="align-right">
                     <Button onClick={() => window.print()} disabled={words && words.length === 0} icon="export">Print</Button>
-                    <Button icon="plus-circle-o">New</Button>
+                    <Button icon="plus-circle-o" onClick={() => this.newWord()}>New</Button>
                 </ButtonGroup>
                 <br/> <br/>
 
                 {content}
+
+                <WordForm />
             </div>
         );
     }

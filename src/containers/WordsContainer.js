@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchWords } from '../actions/wordsAction';
+import { fetchWords, deleteWord, newWord, editWord } from '../actions/wordsAction';
 import Words from '../components/words/Words';
 
 const mapStateToProps = (state) => {
@@ -12,7 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchWords: (groupId) => dispatch(fetchWords(groupId))
+        fetchWords: (groupId) => dispatch(fetchWords(groupId)),
+        deleteWord: (id) => dispatch(deleteWord(id)),
+        newWord: () => dispatch(newWord()),
+        editWord: (word) => dispatch(editWord(word))
     }
 };
 
