@@ -75,8 +75,19 @@ class Words extends Component {
     }
 
     render() {
-        const { words, error, loading } = this.props.wordList;
+        const { words, error } = this.props.wordList;
         const { group } = this.props.selectedGroup;
+
+        let content = <Table
+            rowKey={record => record.id}
+            dataSource={words}
+            columns={columns}
+            size="middle"
+            pagination={false}/>;
+
+        if(words && words.length === 0) {
+            content = <b>No words in current group</b>
+        }
 
         if(error) {
             return <div className="alert alert-danger">Error: {error.message}</div>
@@ -92,13 +103,7 @@ class Words extends Component {
                 </ButtonGroup>
                 <br/> <br/>
 
-                <Table
-                    rowKey={record => record.id}
-                    dataSource={words}
-                    columns={columns}
-                    size="middle"
-                    pagination={false}
-                    loading={loading}/>
+                {content}
             </div>
         );
     }

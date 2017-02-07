@@ -17,6 +17,16 @@ const initialState = {
     groupForm: null
 };
 
+const compareGroup = (a, b) => {
+    if (a.group.toLowerCase() === b.group.toLowerCase())
+        return 0;
+
+    if (a.group.toLowerCase() > b.group.toLowerCase())
+        return 1;
+    else
+        return -1;
+};
+
 export default function(state = initialState, action){
 
     switch(action.type) {
@@ -25,17 +35,29 @@ export default function(state = initialState, action){
         case FETCH_GROUPS_PENDING:
             return {
                 ...state,
-                groupList: {groups: [], error: null, loading: true}
+                groupList: {
+                    groups: [],
+                    error: null,
+                    loading: true
+                }
             };
         case FETCH_GROUPS_FULFILLED:
             return {
                 ...state,
-                groupList: {groups: action.payload.data, error: null, loading: false}
+                groupList: {
+                    groups: action.payload.data.sort((a, b) => compareGroup(a, b)),
+                    error: null,
+                    loading: false
+                }
             };
         case FETCH_GROUPS_REJECTED: {
             return {
                 ...state,
-                groupList: {groups: [], error: action.payload || {message: action.payload.message}, loading: false}
+                groupList: {
+                    groups: [],
+                    error: action.payload || {message: action.payload.message},
+                    loading: false
+                }
             };
         }
 
@@ -43,12 +65,21 @@ export default function(state = initialState, action){
         case ADD_GROUP_FULFILLED:
             return {
                 ...state,
-                groupList: {groups: state.groupList.groups.concat(action.payload.data), error: null, loading: false}
+                groupList: {
+                    groups: state.groupList.groups
+                        .concat(action.payload.data)
+                        .sort((a, b) => compareGroup(a, b)),
+                    error: null,
+                    loading: false
+                }
             };
         case ADD_GROUP_REJECTED:
             return {
                 ...state,
-                groupList: {error: action.payload || {message: action.payload.message}, loading: false}
+                groupList: {
+                    error: action.payload || {message: action.payload.message},
+                    loading: false
+                }
             };
 
         // Update group actions
@@ -56,22 +87,28 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 groupList: {
-                    groups: state.groupList.groups.map((group) => {
-                                    if (group.groupId === action.payload.data.groupId) {
-                                        return Object.assign({}, group, {
-                                            group: action.payload.data.group
-                                        })
-                                    }
-                                    return group
-                                }),
+                    groups: state.groupList.groups
+                        .map((group) => {
+                            if (group.groupId === action.payload.data.groupId) {
+                                return Object.assign({}, group, {
+                                    group: action.payload.data.group
+                                })
+                            }
+                            return group
+                        })
+                        .sort((a, b) => compareGroup(a, b)),
                     error: null,
-                    loading: false},
+                    loading: false
+                },
                 selectedGroup: action.payload.data
             };
         case UPDATE_GROUP_REJECTED:
             return {
                 ...state,
-                groupList: {error: action.payload || {message: action.payload.message}, loading: false}
+                groupList: {
+                    error: action.payload || {message: action.payload.message},
+                    loading: false
+                }
             };
 
         // Delete group actions
@@ -87,7 +124,10 @@ export default function(state = initialState, action){
         case DELETE_GROUP_REJECTED:
             return {
                 ...state,
-                groupList: {error: action.payload || {message: action.payload.message}, loading: false}
+                groupList: {
+                    error: action.payload || {message: action.payload.message},
+                    loading: false
+                }
             };
 
         // Select group actions
