@@ -14,7 +14,7 @@ const initialState = {
         loading: false
     },
     selectedGroup: null,
-    group: null
+    groupForm: null
 };
 
 export default function(state = initialState, action){
@@ -50,24 +50,23 @@ export default function(state = initialState, action){
                 ...state,
                 groupList: {error: action.payload || {message: action.payload.message}, loading: false}
             };
-        case NEW_GROUP:
-            return {
-                ...state,
-                showGroupForm: true,
-                group: null
-            };
-        case EDIT_GROUP:
-            return {
-                ...state,
-                showGroupForm: true,
-                group: action.payload
-            };
 
         // Update group actions
         case UPDATE_GROUP_FULFILLED:
             return {
                 ...state,
-                groupList: {groups: state.groupList.groups.concat(action.payload.data), error: null, loading: false}
+                groupList: {
+                    groups: state.groupList.groups.map((group) => {
+                                    if (group.groupId === action.payload.data.groupId) {
+                                        return Object.assign({}, group, {
+                                            group: action.payload.data.group
+                                        })
+                                    }
+                                    return group
+                                }),
+                    error: null,
+                    loading: false},
+                selectedGroup: action.payload.data
             };
         case UPDATE_GROUP_REJECTED:
             return {
@@ -131,11 +130,24 @@ export default function(state = initialState, action){
             };
 
 
+        // Modal group form
         case CLOSE_GROUP_MODAL_FORM:
             return {
                 ...state,
                 showGroupForm: false,
-                group: null
+                groupForm: null
+            };
+        case NEW_GROUP:
+            return {
+                ...state,
+                showGroupForm: true,
+                groupForm: null
+            };
+        case EDIT_GROUP:
+            return {
+                ...state,
+                showGroupForm: true,
+                groupForm: action.payload
             };
 
         default:

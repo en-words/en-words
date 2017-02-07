@@ -6,7 +6,7 @@ import GroupForm from '../components/groups/GroupForm';
 const mapStateToProps = (state) => {
     return {
         showGroupForm: state.groups.showGroupForm,
-        group: state.groups.group
+        groupForm: state.groups.groupForm
     };
 };
 
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
         addGroup: (groupName) => dispatch(addGroup(groupName))
                                     .then(dispatch(closeGroupModalForm())),
         updateGroup: (group) => dispatch(updateGroup(group))
-            .then(dispatch(closeGroupModalForm())),
+                                    .then(dispatch(closeGroupModalForm()))
     }
 };
 

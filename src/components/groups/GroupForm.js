@@ -18,9 +18,9 @@ const GroupModalForm = Form.create()(
                 onOk={onCreate}>
 
                 <Form vertical>
-                    <FormItem label="Group">
+                    <FormItem label="Group" hasFeedback>
                         {getFieldDecorator('group', {
-                            rules: [{ required: true, message: 'Please enter the group name.' }],
+                            rules: [{ required: true, message: 'Group name is required.' }],
                         })(
                             <Input />
                         )}
@@ -42,8 +42,8 @@ class GroupForm extends React.Component {
     }
 
     render() {
-        let { showGroupForm, group } = this.props;
-        const title = group === null ? 'New group' : 'Edit group';
+        let { showGroupForm, groupForm } = this.props;
+        const title = groupForm === null ? 'New group' : 'Edit group';
 
         return (
             <GroupModalForm
@@ -60,25 +60,23 @@ class GroupForm extends React.Component {
     };
 
     handelAddClick() {
-        const { group } = this.props;
+        const { groupForm } = this.props;
         const form = this.form;
         form.validateFields((err, values) => {
             if (err) {
                 return;
             }
 
-            if(group === null) {
+            if(groupForm === null) {
                 this.props.addGroup(values.group);
             } else {
                 this.props.updateGroup({
-                    groupId: group.groupId,
+                    groupId: groupForm.groupId,
                     group: values.group
                 })
             }
             form.resetFields();
         });
-
-
     };
 
     saveFormRef(form){
