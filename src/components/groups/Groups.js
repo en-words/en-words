@@ -3,7 +3,6 @@ import { browserHistory } from 'react-router';
 import { Button, Modal, Spin, Menu } from 'antd';
 import GroupForm from '../../containers/GroupFormContainer';
 
-
 const ButtonGroup = Button.Group;
 
 class Groups extends React.Component {

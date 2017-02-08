@@ -1,9 +1,8 @@
 import React from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Modal } from 'antd';
 import responsiveVoice from '../../libraries/responsivevoice.js';
 import './Words.css';
 import WordForm from '../../containers/WordFormContainer';
-
 
 const ButtonGroup = Button.Group;
 
@@ -50,13 +49,25 @@ class Words extends React.Component {
     }
 
     deleteWord = (id) => {
-        this.props.deleteWord(id);
+
+        const deleteAction = () => {this.props.deleteWord(id)};
+
+        Modal.confirm({
+            title: 'Delete word',
+            content: `Do you want to delete the word?`,
+            okText: 'OK',
+            cancelText: 'Cancel',
+            onOk() {
+                deleteAction();
+            },
+            onCancel() {}
+        });
+
     };
 
     editWord = (word) => {
         this.props.editWord(word);
     };
-
 
     render() {
         const { words, error } = this.props.wordList;
