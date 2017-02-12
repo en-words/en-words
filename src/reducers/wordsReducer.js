@@ -15,6 +15,16 @@ const initialState = {
     wordForm: null
 };
 
+const compareWord = (a, b) => {
+    if (a.id === b.id)
+        return 0;
+
+    if (a.id > b.id)
+        return 1;
+    else
+        return -1;
+};
+
 export default function(state = initialState, action){
 
     switch(action.type) {
@@ -32,7 +42,7 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 wordList: {
-                    words: action.payload.data,
+                    words: action.payload.data.sort(compareWord),
                     error: null,
                     loading: false
                 }

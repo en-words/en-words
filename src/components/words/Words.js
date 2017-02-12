@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Input, Modal } from 'antd';
 import responsiveVoice from '../../libraries/responsivevoice.js';
 import './Words.css';
 import WordForm from '../../containers/WordFormContainer';
