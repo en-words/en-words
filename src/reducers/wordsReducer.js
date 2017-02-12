@@ -2,7 +2,8 @@ import { FETCH_WORDS_PENDING, FETCH_WORDS_FULFILLED, FETCH_WORDS_REJECTED,
          ADD_WORD_FULFILLED, ADD_WORD_REJECTED,
          UPDATE_WORD_FULFILLED, UPDATE_WORD_REJECTED,
          DELETE_WORD_FULFILLED, DELETE_WORD_REJECTED,
-         CLOSE_WORD_MODAL_FORM, NEW_WORD, EDIT_WORD} from '../actions/wordsAction';
+         CLOSE_WORD_MODAL_FORM, NEW_WORD, EDIT_WORD,
+         SEARCH_WORDS_PENDING, SEARCH_WORDS_FULFILLED, SEARCH_WORDS_REJECTED } from '../actions/wordsAction';
 
 const initialState = {
     wordList: {
@@ -37,6 +38,35 @@ export default function(state = initialState, action){
                 }
             };
         case FETCH_WORDS_REJECTED: {
+            return {
+                ...state,
+                wordList: {
+                    words: [],
+                    error: action.payload || {message: action.payload.message},
+                    loading: false
+                }
+            };
+        }
+
+        // Search word actions
+        case SEARCH_WORDS_PENDING:
+            return {
+                ...state,
+                wordList: {
+                    error: null,
+                    loading: true
+                }
+            };
+        case SEARCH_WORDS_FULFILLED:
+            return {
+                ...state,
+                wordList: {
+                    words: action.payload.data,
+                    error: null,
+                    loading: false
+                }
+            };
+        case SEARCH_WORDS_REJECTED: {
             return {
                 ...state,
                 wordList: {

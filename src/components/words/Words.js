@@ -1,11 +1,12 @@
 import React from 'react';
-import { Table, Button, Modal } from 'antd';
+import { Table, Button } from 'antd';
 import responsiveVoice from '../../libraries/responsivevoice.js';
 import './Words.css';
 import WordForm from '../../containers/WordFormContainer';
 
-const ButtonGroup = Button.Group;
 
+const ButtonGroup = Button.Group;
+const Search = Input.Search;
 
 class Words extends React.Component {
     playWord = (word) => {
@@ -44,9 +45,9 @@ class Words extends React.Component {
         this.props.fetchWords(nextProps.location.query.groupId);
     }
 
-    newWord() {
+    newWord = () => {
         this.props.newWord();
-    }
+    };
 
     deleteWord = (id) => {
 
@@ -67,6 +68,10 @@ class Words extends React.Component {
 
     editWord = (word) => {
         this.props.editWord(word);
+    };
+
+    searchWords = (searchText) => {
+      this.props.searchWords(this.props.selectedGroup.groupId, searchText);
     };
 
     render() {
@@ -124,11 +129,18 @@ class Words extends React.Component {
             <div>
                 <h3>{group} words:</h3>
 
-                <ButtonGroup id="wordsToolBar" className="align-right">
-                    <Button onClick={() => window.print()} disabled={words && words.length === 0} icon="export">Print</Button>
-                    <Button icon="plus-circle-o" onClick={() => this.newWord()}>New</Button>
-                </ButtonGroup>
-                <br/> <br/>
+                <div>
+                    <Search className="align-text-left"
+                        placeholder="Search words"
+                        style={{ width: 250 }}
+                        onSearch={value => this.searchWords(value)}/>
+
+                    <ButtonGroup id="wordsToolBar" className="align-right">
+                        <Button onClick={() => window.print()} disabled={words && words.length === 0} icon="export">Print</Button>
+                        <Button icon="plus-circle-o" onClick={() => this.newWord()}>New</Button>
+                    </ButtonGroup>
+                </div>
+                <br/>
 
                 {content}
 

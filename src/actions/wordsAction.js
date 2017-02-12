@@ -8,6 +8,12 @@ export const FETCH_WORDS_PENDING = 'FETCH_WORDS_PENDING';
 export const FETCH_WORDS_FULFILLED = 'FETCH_WORDS_FULFILLED';
 export const FETCH_WORDS_REJECTED = 'FETCH_WORDS_REJECTED';
 
+// Word list
+export const SEARCH_WORDS = 'SEARCH_WORDS';
+export const SEARCH_WORDS_PENDING = 'SEARCH_WORDS_PENDING';
+export const SEARCH_WORDS_FULFILLED = 'SEARCH_WORDS_FULFILLED';
+export const SEARCH_WORDS_REJECTED = 'SEARCH_WORDS_REJECTED';
+
 // Word add
 export const ADD_WORD = 'ADD_WORD';
 export const ADD_WORD_FULFILLED = 'ADD_WORD_FULFILLED';
@@ -38,6 +44,18 @@ export const fetchWords = (groupId) => {
 
     return {
         type: FETCH_WORDS,
+        payload: request
+    };
+};
+
+export const searchWords = (groupId, searchText) => {
+    const request = axios({
+        method: 'get',
+        url: `${WORDS_API_URL}/search?groupId=${groupId}&searchText=${searchText}`
+    });
+
+    return {
+        type: SEARCH_WORDS,
         payload: request
     };
 };
