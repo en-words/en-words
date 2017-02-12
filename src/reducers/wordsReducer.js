@@ -71,7 +71,7 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 wordList: {
-                    words: action.payload.data,
+                    words: action.payload.data.sort(compareWord),
                     error: null,
                     loading: false
                 }
@@ -133,7 +133,6 @@ export default function(state = initialState, action){
 
         // Delete word actions
         case DELETE_WORD_FULFILLED:
-            console.log("action.id: " + action.id);
             return {
                 ...state,
                 wordList: {
