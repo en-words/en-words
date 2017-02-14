@@ -38,7 +38,7 @@
         display: table-footer-group
     }
 
-    .page-header, #deleteWord, #playWord, #wordsToolBar, #groupsNavBar, #groupButtons {
+    .page-header, #deleteWord, #playWord, #groupsNavBar, #groupButtons, #btnComment, #wordToolBar {
         display: none;
     }
 
@@ -53,6 +53,6 @@
     }
 
     .table, h3 {
-        font-size: 150%;
+        font-size: 16pt !important;
     }
 }

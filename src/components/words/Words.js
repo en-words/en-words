@@ -1,9 +1,8 @@
 import React from 'react';
-import { Table, Button, Input, Modal } from 'antd';
+import { Table, Button, Input, Modal, Popover } from 'antd';
 import responsiveVoice from '../../libraries/responsivevoice.js';
 import './Words.css';
 import WordForm from '../../containers/WordFormContainer';
-
 
 const ButtonGroup = Button.Group;
 const Search = Input.Search;
@@ -87,7 +86,7 @@ class Words extends React.Component {
                          key: 'play',
                          width: '20px',
                          render: (text, record) => (
-                             <Button id="playWord" icon="play-circle" onClick={() => this.playWord(record.word)} />
+                             <Button id="playWord" shape="circle" icon="play-circle" onClick={() => this.playWord(record.word)} />
                          )
                       },
                       {
@@ -106,12 +105,25 @@ class Words extends React.Component {
                           sorter: (a, b) => this.compareTranslation(a, b)
                       },
                       {
+                          title: '',
+                          dataIndex: 'comment',
+                          key: 'comment',
+                          width: '20px',
+                          render: (text, record) => {
+                              if (record.comments) {
+                                  return <Popover content={record.comments} title="Comments:" trigger="click">
+                                             <Button id="btnComment" icon="info" shape="circle"/>
+                                         </Popover>
+                              }
+                          }
+                      },
+                      {
                         title: '',
                         dataIndex: 'delete',
                         key: 'delete',
                         width: '20px',
                         render: (text, record) => (
-                        <Button id="deleteWord" icon="delete" onClick={() => this.deleteWord(record.id)} />
+                            <Button id="deleteWord" shape="circle" icon="delete" onClick={() => this.deleteWord(record.id)} />
                         )
                     }]}
             size="middle"
@@ -129,13 +141,13 @@ class Words extends React.Component {
             <div>
                 <h3>{group} words:</h3>
 
-                <div>
+                <div id="wordToolBar">
                     <Search className="align-text-left"
                         placeholder="Search words"
-                        style={{ width: 250 }}
+                        style={{ width: 200 }}
                         onSearch={value => this.searchWords(value)}/>
 
-                    <ButtonGroup id="wordsToolBar" className="align-right">
+                    <ButtonGroup className="align-right">
                         <Button onClick={() => window.print()} disabled={words && words.length === 0} icon="export">Print</Button>
                         <Button icon="plus-circle-o" onClick={() => this.newWord()}>New</Button>
                     </ButtonGroup>
