@@ -12,21 +12,11 @@ class Words extends React.Component {
         responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
     };
 
-    compareWord = (a, b) => {
-        if (a.word.toLowerCase() === b.word.toLowerCase())
+    compareData = (a, b) => {
+        if (a.toLowerCase() === b.toLowerCase())
             return 0;
 
-        if (a.word.toLowerCase() > b.word.toLowerCase())
-            return 1;
-        else
-            return -1;
-    };
-
-    compareTranslation = (a, b) => {
-        if (a.translation.toLowerCase() === b.translation.toLowerCase())
-            return 0;
-
-        if (a.translation.toLowerCase() > b.translation.toLowerCase())
+        if (a.toLowerCase() > b.toLowerCase())
             return 1;
         else
             return -1;
@@ -49,18 +39,14 @@ class Words extends React.Component {
     };
 
     deleteWord = (id) => {
-
         const deleteAction = () => {this.props.deleteWord(id)};
 
         Modal.confirm({
             title: 'Delete word',
-            content: `Do you want to delete the word?`,
-            okText: 'OK',
-            cancelText: 'Cancel',
+            content: 'Do you want to delete the word?',
             onOk() {
                 deleteAction();
-            },
-            onCancel() {}
+            }
         });
 
     };
@@ -93,7 +79,7 @@ class Words extends React.Component {
                           title: 'Word',
                           dataIndex: 'word',
                           key: 'word',
-                          sorter: (a, b) => this.compareWord(a, b),
+                          sorter: (a, b) => this.compareData(a.word, b.word),
                           render:  (text, record) => <a onClick={() => {
                             this.editWord(record)}
                           }>{record.word}</a>
@@ -102,7 +88,7 @@ class Words extends React.Component {
                           title: 'Translation',
                           dataIndex: 'translation',
                           key: 'translation',
-                          sorter: (a, b) => this.compareTranslation(a, b)
+                          sorter: (a, b) => this.compareData(a.translation, b.translation)
                       },
                       {
                           title: '',
@@ -128,10 +114,6 @@ class Words extends React.Component {
                     }]}
             size="middle"
             pagination={false}/>;
-
-        if(words && words.length === 0) {
-            content = <b>No words in current group</b>
-        }
 
         if(error) {
             return <div className="alert alert-danger">Error: {error.message}</div>

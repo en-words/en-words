@@ -37,31 +37,14 @@ class GroupForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handelCloseClick = this.handelCloseClick.bind(this);
-        this.handelAddClick = this.handelAddClick.bind(this);
         this.saveFormRef = this.saveFormRef.bind(this);
     }
 
-    render() {
-        let { showGroupForm, groupForm } = this.props;
-        const title = groupForm === null ? 'New group' : 'Edit group';
-
-        return (
-            <GroupModalForm
-                ref={this.saveFormRef}
-                title={title}
-                visible={showGroupForm}
-                groupForm={groupForm}
-                onCancel={this.handelCloseClick}
-                onCreate={this.handelAddClick} />
-        )
-    }
-
-    handelCloseClick() {
+    handelCloseClick = () => {
         this.props.closeModal();
     };
 
-    handelAddClick() {
+    handelAddClick = () => {
         const { groupForm } = this.props;
         const form = this.form;
         form.validateFields((err, values) => {
@@ -84,6 +67,21 @@ class GroupForm extends React.Component {
     saveFormRef(form){
         this.form = form;
     };
+
+    render() {
+        let { showGroupForm, groupForm } = this.props;
+        const title = groupForm === null ? 'New group' : 'Edit group';
+
+        return (
+            <GroupModalForm
+                ref={this.saveFormRef}
+                title={title}
+                visible={showGroupForm}
+                groupForm={groupForm}
+                onCancel={this.handelCloseClick}
+                onCreate={this.handelAddClick} />
+        )
+    }
 }
 
 export default GroupForm;

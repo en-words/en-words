@@ -5,8 +5,8 @@ class Dashboard extends Component {
   render() {
     return (
         <div>
-            <h3>En-Words</h3>
-            <p>This application is used as online dictionary for English course.</p>
+            <h3>Dashboard</h3>
+            <p>This application can be used as online dictionary for language courses.</p>
             <Trainings />
         </div>
     );

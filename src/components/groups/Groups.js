@@ -7,17 +7,29 @@ const ButtonGroup = Button.Group;
 
 class Groups extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.handelEditClick = this.handelEditClick.bind(this);
-        this.handelDeleteClick = this.handelDeleteClick.bind(this);
-        this.handelNewClick = this.handelNewClick.bind(this);
-    }
-
     componentDidMount() {
         this.props.fetchGroups();
     }
+
+    handelEditClick = () => {
+        this.props.editGroup(this.props.selectedGroup)
+    };
+
+    handelNewClick = () => {
+        this.props.newGroup();
+    };
+
+    handelDeleteClick = () => {
+        const deleteGroup = () => {this.props.deleteGroup(this.props.selectedGroup.groupId)};
+
+        Modal.confirm({
+            title: 'Delete group',
+            content: `Do you want to delete the group "${this.props.selectedGroup.group}" with all words?`,
+            onOk() {
+                deleteGroup();
+            }
+        });
+    };
 
     render() {
         const { groups, error, loading } = this.props.groupList;
@@ -51,30 +63,6 @@ class Groups extends React.Component {
             </div>
         )
     }
-
-    handelEditClick() {
-        this.props.editGroup(this.props.selectedGroup)
-    }
-
-    handelNewClick() {
-        this.props.newGroup();
-    }
-
-    handelDeleteClick() {
-        const deleteGroup = () => {this.props.deleteGroup(this.props.selectedGroup.groupId)};
-
-        Modal.confirm({
-            title: 'Delete group',
-            content: `Do you want to delete the group "${this.props.selectedGroup.group}" with all words?`,
-            okText: 'OK',
-            cancelText: 'Cancel',
-            onOk() {
-                deleteGroup();
-            },
-            onCancel() {}
-        });
-    }
-
 }
 
 export default Groups;

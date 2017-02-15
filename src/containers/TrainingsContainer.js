@@ -5,7 +5,8 @@ import Trainings from '../components/trainings/Trainings';
 
 const mapStateToProps = (state) => {
     return {
-        trainingList: state.trainings.trainingList
+        trainingList: state.trainings.trainingList,
+        groupList: state.groups.groupList
     };
 };
 

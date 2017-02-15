@@ -13,7 +13,7 @@ class Header extends React.Component {
 
     render() {
         return (
-            <PageHeader><Link onClick={this.handleHeaderClick}>En-Words</Link> <small>(v. {APP_VERSION})</small></PageHeader>
+            <PageHeader><Link onClick={this.handleHeaderClick}>Learn-Words</Link> <small>(v. {APP_VERSION})</small></PageHeader>
         );
     }
 }
