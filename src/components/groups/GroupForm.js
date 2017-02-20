@@ -41,6 +41,9 @@ class GroupForm extends React.Component {
     }
 
     handelCloseClick = () => {
+        // Clear fields validation
+        this.form.resetFields();
+
         this.props.closeModal();
     };
 

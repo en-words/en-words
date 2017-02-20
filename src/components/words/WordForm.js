@@ -72,6 +72,9 @@ class WordForm extends React.Component {
     }
 
     handelCloseClick() {
+        // Clear fields validation
+        this.form.resetFields();
+
         this.props.closeWordModalForm();
     };
 
