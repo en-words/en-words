@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Header from '../../containers/HeaderContainer';
+import Header from '../../components/shared/Header';
 import Groups from "../../containers/GroupsContainer";
 
 import './App.css';

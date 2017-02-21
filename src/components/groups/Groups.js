@@ -1,9 +1,10 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Modal, Spin, Menu } from 'antd';
+import { Button, Modal, Spin, Menu, Icon } from 'antd';
 import GroupForm from '../../containers/GroupFormContainer';
 
 const ButtonGroup = Button.Group;
+const SubMenu = Menu.SubMenu;
 
 class Groups extends React.Component {
 
@@ -31,6 +32,16 @@ class Groups extends React.Component {
         });
     };
 
+    handelMenuItemClick = (e) => {
+        if(e.key === 'menuDashboard') {
+            this.props.resetSelectGroup();
+            browserHistory.push('/');
+        } else if (e.key !== 'subGroups') {
+            this.props.selectGroup(e.key);
+            browserHistory.push(`words?groupId=${e.key}`);
+        }
+    };
+
     render() {
         const { groups, error, loading } = this.props.groupList;
 
@@ -42,15 +53,20 @@ class Groups extends React.Component {
 
         return (
             <div>
-                <Menu id="groupsNavBar" mode="inline" onClick={(e) => {
-                        this.props.selectGroup(e.key);
-                        browserHistory.push(`words?groupId=${e.key}`);}}>
+                <Menu id="menuSideBar" mode="inline" defaultSelectedKeys={['menuDashboard']} openKeys={['subGroups']} onClick={this.handelMenuItemClick}>
 
-                    { groups.map(group =>
-                        <Menu.Item key={group.groupId} className="align-text-left">
-                            <span className="nav-text">{group.group}</span>
-                        </Menu.Item>
-                    )}
+                    <Menu.Item key="menuDashboard" className="align-text-left">
+                        <span><Icon type="home" /><span>Dashboard</span></span>
+                    </Menu.Item>
+
+                    <SubMenu key="subGroups" className="align-text-left" title={<span><Icon type="appstore-o" /><span>Word Groups</span></span>}>
+
+                        { groups.map(group =>
+                            <Menu.Item key={group.groupId} className="align-text-left">
+                                <span className="nav-text">{group.group}</span>
+                            </Menu.Item>
+                        )}
+                    </SubMenu>
                 </Menu>
 
                 <ButtonGroup id="groupButtons" className="align-right padding-top-5px">
