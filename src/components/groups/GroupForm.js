@@ -34,21 +34,15 @@ const GroupModalForm = Form.create()(
 
 class GroupForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.saveFormRef = this.saveFormRef.bind(this);
-    }
-
     handelCloseClick = () => {
         // Clear fields validation
         this.form.resetFields();
 
-        this.props.closeModal();
+        this.props.onCloseForm();
     };
 
     handelAddClick = () => {
-        const { groupForm } = this.props;
+        const { groupForm, onCloseForm } = this.props;
         const form = this.form;
         form.validateFields((err, values) => {
             if (err) {
@@ -60,28 +54,30 @@ class GroupForm extends React.Component {
             } else {
                 this.props.updateGroup({
                     groupId: groupForm.groupId,
-                    group: values.group
-                })
+                    group: values.group});
             }
+
             form.resetFields();
+
+            onCloseForm();
         });
     };
 
-    saveFormRef(form){
+    saveFormRef = (form) => {
         this.form = form;
     };
 
     render() {
-        let { showGroupForm, groupForm } = this.props;
+        let { show, groupForm, onCloseForm } = this.props;
         const title = groupForm === null ? 'New group' : 'Edit group';
 
         return (
             <GroupModalForm
                 ref={this.saveFormRef}
                 title={title}
-                visible={showGroupForm}
+                visible={show}
                 groupForm={groupForm}
-                onCancel={this.handelCloseClick}
+                onCancel={onCloseForm}
                 onCreate={this.handelAddClick} />
         )
     }

@@ -102,22 +102,3 @@ export const resetSelectGroup = () => {
         type: RESET_SELECT_GROUP
     };
 };
-
-export const closeGroupModalForm = () => {
-    return {
-        type: CLOSE_GROUP_MODAL_FORM
-    }
-};
-
-export const newGroup = () => {
-    return {
-        type: NEW_GROUP
-    }
-};
-
-export const editGroup = (group) => {
-    return {
-        type: EDIT_GROUP,
-        payload: group
-    }
-};

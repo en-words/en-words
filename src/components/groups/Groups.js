@@ -8,16 +8,37 @@ const SubMenu = Menu.SubMenu;
 
 class Groups extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showGroupModalForm: false,
+            groupForm: null
+        }
+    }
+
     componentDidMount() {
         this.props.fetchGroups();
     }
 
     handelEditClick = () => {
-        this.props.editGroup(this.props.selectedGroup)
+        this.setState({
+            showGroupModalForm: true,
+            groupForm: this.props.selectedGroup
+        });
     };
 
     handelNewClick = () => {
-        this.props.newGroup();
+        this.setState({
+            showGroupModalForm: true,
+            groupForm: null
+        });
+    };
+
+    handelCloseGroupForm = () => {
+        this.setState({
+            showGroupModalForm: false
+        });
     };
 
     handelDeleteClick = () => {
@@ -75,7 +96,7 @@ class Groups extends React.Component {
                     <Button onClick={this.handelDeleteClick} disabled={!this.props.selectedGroup} icon="delete" />
                 </ButtonGroup>
 
-                <GroupForm />
+                <GroupForm show={this.state.showGroupModalForm} groupForm={this.state.groupForm} onCloseForm={this.handelCloseGroupForm} />
             </div>
         )
     }

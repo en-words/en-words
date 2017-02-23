@@ -1,11 +1,12 @@
 import { FETCH_GROUPS_PENDING, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED,
-         ADD_GROUP_FULFILLED, ADD_GROUP_REJECTED, NEW_GROUP, EDIT_GROUP,
+         ADD_GROUP_FULFILLED, ADD_GROUP_REJECTED,
          UPDATE_GROUP_FULFILLED, UPDATE_GROUP_REJECTED,
          DELETE_GROUP_FULFILLED, DELETE_GROUP_REJECTED,
-         SELECT_GROUP, RESET_SELECT_GROUP,
-         CLOSE_GROUP_MODAL_FORM } from '../actions/groupsAction';
+         SELECT_GROUP, RESET_SELECT_GROUP } from '../actions/groupsAction';
 
 import { browserHistory } from 'react-router';
+
+import { compareItems } from '../utils';
 
 const initialState = {
     groupList: {
@@ -13,19 +14,7 @@ const initialState = {
         error: null,
         loading: false
     },
-    showGroupForm: false,
-    selectedGroup: null,
-    groupForm: null
-};
-
-const compareGroup = (a, b) => {
-    if (a.group.toLowerCase() === b.group.toLowerCase())
-        return 0;
-
-    if (a.group.toLowerCase() > b.group.toLowerCase())
-        return 1;
-    else
-        return -1;
+    selectedGroup: null
 };
 
 export default function(state = initialState, action){
@@ -46,7 +35,7 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 groupList: {
-                    groups: action.payload.data.sort((a, b) => compareGroup(a, b)),
+                    groups: action.payload.data.sort((a, b) => compareItems(a.group.toLowerCase(), b.group.toLowerCase())),
                     error: null,
                     loading: false
                 }
@@ -69,7 +58,7 @@ export default function(state = initialState, action){
                 groupList: {
                     groups: state.groupList.groups
                         .concat(action.payload.data)
-                        .sort((a, b) => compareGroup(a, b)),
+                        .sort((a, b) => compareItems(a.group.toLowerCase(), b.group.toLowerCase())),
                     error: null,
                     loading: false
                 }
@@ -97,7 +86,7 @@ export default function(state = initialState, action){
                             }
                             return group
                         })
-                        .sort((a, b) => compareGroup(a, b)),
+                        .sort((a, b) => compareItems(a.group.toLowerCase(), b.group.toLowerCase())),
                     error: null,
                     loading: false
                 },
@@ -168,26 +157,6 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 selectedGroup: null
-            };
-
-
-        // Modal group form
-        case CLOSE_GROUP_MODAL_FORM:
-            return {
-                ...state,
-                showGroupForm: false
-            };
-        case NEW_GROUP:
-            return {
-                ...state,
-                showGroupForm: true,
-                groupForm: null
-            };
-        case EDIT_GROUP:
-            return {
-                ...state,
-                showGroupForm: true,
-                groupForm: action.payload
             };
 
         default:

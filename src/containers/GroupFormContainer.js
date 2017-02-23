@@ -1,22 +1,16 @@
 import { connect } from 'react-redux';
 
-import { addGroup, updateGroup, closeGroupModalForm } from '../actions/groupsAction';
+import { addGroup, updateGroup } from '../actions/groupsAction';
 import GroupForm from '../components/groups/GroupForm';
 
-const mapStateToProps = (state) => {
-    return {
-        showGroupForm: state.groups.showGroupForm,
-        groupForm: state.groups.groupForm
-    };
+const mapStateToProps = () => {
+    return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        closeModal: (groupName) => dispatch(closeGroupModalForm()),
-        addGroup: (groupName) => dispatch(addGroup(groupName))
-                                    .then(dispatch(closeGroupModalForm())),
+        addGroup: (groupName) => dispatch(addGroup(groupName)),
         updateGroup: (group) => dispatch(updateGroup(group))
-                                    .then(dispatch(closeGroupModalForm()))
     }
 };
 
