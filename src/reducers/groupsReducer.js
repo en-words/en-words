@@ -6,7 +6,7 @@ import { FETCH_GROUPS_PENDING, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED,
 
 import { browserHistory } from 'react-router';
 
-import { compareItems } from '../utils';
+import { compareItems } from '../utils/common';
 
 const initialState = {
     groupList: {
