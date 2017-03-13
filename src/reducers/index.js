@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
-import groups from './groupsReducer';
+import groups from '../groups/reducers/groupsReducer';
 import words from './wordsReducer';
 import trainings from './trainingsReducer';
 
 export default combineReducers({
     groups,
     words,
-    trainings
+    trainings,
+    form: formReducer
 });

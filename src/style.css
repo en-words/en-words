@@ -1,0 +1,29 @@
+@import '../node_modules/antd/dist/antd.css';
+
+.align-right {
+    float: right;
+}
+
+.padding-top-5px {
+    padding-top: 5px;
+}
+
+.align-text-center {
+    text-align: center;
+}
+
+.align-text-left {
+    text-align: left;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
+}
+
+.blue-text-color {
+    color: steelblue;
+}

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import Header from '../../components/shared/Header';
-import Groups from "../../containers/GroupsContainer";
+import Groups from "../../groups/containers/GroupsContainer";
 
-import './App.css';
+import '../../style.css';
 
 class App extends Component {
 

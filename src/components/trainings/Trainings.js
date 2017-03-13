@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Table, Button, Modal } from 'antd';
 
+import { compareItems } from '../../utils/common';
+
 class Trainings extends React.Component {
 
     componentDidMount() {
@@ -19,16 +21,6 @@ class Trainings extends React.Component {
                 deleteAction();
             }
         });
-    };
-
-    compareData = (a, b) => {
-        if (a === b)
-            return 0;
-
-        if (a > b)
-            return 1;
-        else
-            return -1;
     };
 
     render() {
@@ -54,13 +46,13 @@ class Trainings extends React.Component {
                     key: 'groupName',
                     filters: groupFilters,
                     onFilter: (value, record) => record.groupName.includes(value),
-                    sorter: (a, b) => this.compareData(a.groupName.toLowerCase(), b.groupName.toLowerCase())
+                    sorter: (a, b) => compareItems(a.groupName.toLowerCase(), b.groupName.toLowerCase())
                 },
                 {
                     title: 'Date',
                     dataIndex: 'trainingDate',
                     key: 'trainingDate',
-                    sorter: (a, b) => this.compareData(a.trainingDate.toLowerCase(), b.trainingDate.toLowerCase()),
+                    sorter: (a, b) => compareItems(a.trainingDate.toLowerCase(), b.trainingDate.toLowerCase()),
                     render:  (text, record) => {
                         return new Date(record.trainingDate).toLocaleString();
                     }
@@ -69,7 +61,7 @@ class Trainings extends React.Component {
                     title: 'Result',
                     dataIndex: 'result',
                     key: 'result',
-                    sorter: (a, b) => this.compareData(a.result, b.result),
+                    sorter: (a, b) => compareItems(a.result, b.result),
                     render:  (text, record) => `${record.result}%`
                 },
                 {

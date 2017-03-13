@@ -8,7 +8,7 @@ class Dashboard extends Component {
         <div>
             <h3>Dashboard</h3>
             <p>This application can be used as online dictionary for language courses.</p>
-            <Trainings />
+
         </div>
     );
   }
