@@ -2,17 +2,23 @@ import axios from 'axios';
 
 import * as types from '../constants/actionTypes';
 import * as urls from '../constants/apiUrls';
+import database from './../../database';
 
 export const fetchGroups = () => {
-    const request = axios({
-        method: 'get',
-        url: urls.GROUPS_API_URL
-    });
 
-    return {
-        type: types.FETCH_GROUPS,
-        payload: request
-    };
+    return dispatch => {
+        database.ref('groups').on('value', snapshot => {
+            let data = snapshot.val();
+            let result = [];
+
+            Object.keys(data).map(key => result.push({id:key, name:data[key].name}));
+
+            dispatch({
+                type: types.FETCH_GROUPS,
+                payload: result
+            })
+        })
+    }
 };
 
 export const addGroup = (groupName) => {

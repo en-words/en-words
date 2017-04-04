@@ -13,14 +13,9 @@ class GroupsContainer extends Component {
     }
 
     render() {
-        const { groups, error, loading } = this.props.groupList;
-        const { selectedGroup } = this.props;
+        const { groups, selectedGroup } = this.props;
 
-        if(loading) {
-            return <Spin/>
-        } else if(error) {
-            return <div className="alert alert-danger">Error: {error.message}</div>
-        }
+        console.log('groups: ' + JSON.stringify(groups));
 
         return (
             <div>
@@ -68,7 +63,7 @@ class GroupsContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        groupList: state.groups.groupList,
+        groups: state.groups.groups,
         selectedGroup: state.groups.selectedGroup
     };
 };

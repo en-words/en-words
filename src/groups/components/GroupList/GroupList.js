@@ -9,7 +9,7 @@ export const GroupList = (props) => {
     return (
         <Menu id="menuSideBar" mode="inline" onClick={ handelGroupItemClick } className="group-list">
             { groups.map(group =>
-                <Menu.Item key={ group.groupId } className="align-text-left">{ group.group }</Menu.Item>)
+                <Menu.Item key={ group.id } className="align-text-left">{ group.name }</Menu.Item>)
             }
         </Menu>
     )

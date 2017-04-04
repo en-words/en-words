@@ -5,11 +5,7 @@ import { browserHistory } from 'react-router';
 import { compareItems } from '../../utils/common';
 
 const initialState = {
-    groupList: {
-        groups: [],
-        error: null,
-        loading: false
-    },
+    groups: [],
     selectedGroup: null
 };
 
@@ -17,35 +13,16 @@ export default function(state = initialState, action){
 
     switch(action.type) {
 
-        // Fetch group actions
-        case types.FETCH_GROUPS_PENDING:
+        case types.FETCH_GROUPS:
             return {
                 ...state,
-                groupList: {
-                    groups: [],
-                    error: null,
-                    loading: true
-                }
+
+                //groups: Object.keys(action.payload).map((key) => {'id':key, 'name':action.payload[key]}),
+
+
+                groups: action.payload.sort((a, b) => compareItems(a.name.toLowerCase(), b.name.toLowerCase()))
+
             };
-        case types.FETCH_GROUPS_FULFILLED:
-            return {
-                ...state,
-                groupList: {
-                    groups: action.payload.data.sort((a, b) => compareItems(a.group.toLowerCase(), b.group.toLowerCase())),
-                    error: null,
-                    loading: false
-                }
-            };
-        case types.FETCH_GROUPS_REJECTED: {
-            return {
-                ...state,
-                groupList: {
-                    groups: [],
-                    error: action.payload || {message: action.payload.message},
-                    loading: false
-                }
-            };
-        }
 
         // Add group actions
         case types.ADD_GROUP_FULFILLED:
@@ -119,7 +96,7 @@ export default function(state = initialState, action){
         // Select group actions
         case types.SELECT_GROUP: {
             if (action.payload !== null) {
-                let selGroups = state.groupList.groups.filter(group => group.groupId.toString() === action.payload);
+                let selGroups = state.groups.groups.filter(group => group.id.toString() === action.payload);
                 let selectedGroup = null;
                 if (selGroups && selGroups.length > 0) {
                     selectedGroup = selGroups[0];
@@ -130,13 +107,13 @@ export default function(state = initialState, action){
                     selectedGroup: selectedGroup
                 };
             } else {
-                if (state.groupList.groups.length > 0) {
-                    let selId = state.groupList.groups[state.groupList.groups.length - 1].groupId;
+                if (state.groups.length > 0) {
+                    let selId = state.groups.groups[state.groupList.groups.length - 1].id;
                     browserHistory.push(`words?groupId=${selId}`);
 
                     return {
                         ...state,
-                        selectedGroup: state.groupList.groups[state.groupList.groups.length - 1]
+                        selectedGroup: state.groups.groups[state.groups.groups.length - 1]
                     };
                 } else {
                     browserHistory.push('/');
