@@ -16,10 +16,6 @@ export default function(state = initialState, action){
         case types.FETCH_GROUPS:
             return {
                 ...state,
-
-                //groups: Object.keys(action.payload).map((key) => {'id':key, 'name':action.payload[key]}),
-
-
                 groups: action.payload.sort((a, b) => compareItems(a.name.toLowerCase(), b.name.toLowerCase()))
 
             };
@@ -96,7 +92,7 @@ export default function(state = initialState, action){
         // Select group actions
         case types.SELECT_GROUP: {
             if (action.payload !== null) {
-                let selGroups = state.groups.groups.filter(group => group.id.toString() === action.payload);
+                let selGroups = state.groups.filter(group => group.id.toString() === action.payload);
                 let selectedGroup = null;
                 if (selGroups && selGroups.length > 0) {
                     selectedGroup = selGroups[0];
@@ -108,12 +104,12 @@ export default function(state = initialState, action){
                 };
             } else {
                 if (state.groups.length > 0) {
-                    let selId = state.groups.groups[state.groupList.groups.length - 1].id;
+                    let selId = state.groups[state.groups.length - 1].id;
                     browserHistory.push(`words?groupId=${selId}`);
 
                     return {
                         ...state,
-                        selectedGroup: state.groups.groups[state.groups.groups.length - 1]
+                        selectedGroup: state.groups[state.groups.length - 1]
                     };
                 } else {
                     browserHistory.push('/');

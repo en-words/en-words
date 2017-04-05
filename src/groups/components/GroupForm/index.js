@@ -1,3 +1,3 @@
-import GroupForm from './GroupModalForm';
+import GroupForm from './GroupForm';
 
 export default GroupForm;

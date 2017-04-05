@@ -1,10 +1,10 @@
 import React from 'react';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { Modal } from 'antd';
 
 const GroupModalForm = (props) => {
 
-    const { visible, title, onCancel, onCreate } = props;
+    const { visible, title, onCancel, onOk, groupFormData } = props;
 
     return (
         <Modal
@@ -13,12 +13,13 @@ const GroupModalForm = (props) => {
             okText="Save"
             cancelText="Cancel"
             onCancel={onCancel}
-            onOk={onCreate}>
+            onOk={onOk}>
 
             <form>
-                <FormItem label="Group">
-                    <Input name="groupName" placeholder="Enter group"/>
-                </FormItem>
+                <div>
+                    <label htmlFor="groupName">Group Name</label>
+                    <Field name="groupName" component="input" type="text" placeholder="Enter group name"/>
+                </div>
             </form>
         </Modal>
     )
@@ -28,7 +29,7 @@ GroupModalForm.propTypes = {
     visible: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,
     onCancel: React.PropTypes.func.isRequired,
-    onCreate: React.PropTypes.func.isRequired
+    onOk: React.PropTypes.func.isRequired
 };
 
 export default reduxForm({ form: 'groupForm' })(GroupModalForm);

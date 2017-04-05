@@ -2,11 +2,19 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { Spin, Modal } from 'antd';
+
 import { fetchGroups, selectGroup, deleteGroup } from '../actions/groupsAction';
-import GroupList from '../components/GroupList';
-import GroupToolBar from '../components/GroupToolBar';
+import GroupList from '../components/GroupList/index';
+import GroupToolBar from '../components/GroupToolBar/index';
+import GroupForm from '../containers/GroupFormContainer';
 
 class GroupsContainer extends Component {
+
+    state = {
+        showGroupForm: false,
+        groupFormData: null,
+        groupFormTitle: ''
+    };
 
     componentDidMount() {
         this.props.fetchGroups();
@@ -14,8 +22,6 @@ class GroupsContainer extends Component {
 
     render() {
         const { groups, selectedGroup } = this.props;
-
-        console.log('groups: ' + JSON.stringify(groups));
 
         return (
             <div>
@@ -28,6 +34,13 @@ class GroupsContainer extends Component {
                     handelEditClick={ this.handelEditClick }
                     handelDeleteClick={ this.handelDeleteClick }
                     selectedGroup={ selectedGroup }/>
+
+                <GroupForm
+                    groupFormData={ this.state.groupFormData }
+                    visible={ this.state.showGroupForm }
+                    title={ this.state.groupFormTitle }
+                    onCancel={ this.handelCloseGroupFormClick }
+                    onOk={ this.handelNewClick }/>
             </div>
         )
     }
@@ -39,15 +52,17 @@ class GroupsContainer extends Component {
 
     handelNewClick = () => {
         this.setState({
-            showGroupModalForm: true,
-            groupForm: null
+            showGroupForm: true,
+            groupForm: null,
+            groupFormTitle: 'New group'
         });
     };
 
     handelEditClick = () => {
         this.setState({
-            showGroupModalForm: true,
-            groupForm: this.props.selectedGroup
+            showGroupForm: true,
+            groupForm: this.props.selectedGroup,
+            groupFormTitle: 'Edit group'
         });
     };
 
@@ -55,16 +70,28 @@ class GroupsContainer extends Component {
 
         Modal.confirm({
             title: 'Delete group',
-            content: `Do you want to delete the group "${this.props.selectedGroup.group}" with all words?`,
-            onOk: () => this.props.deleteGroup(this.props.selectedGroup.groupId)
+            content: `Do you want to delete the group "${this.props.selectedGroup.name}" with all words?`,
+            onOk: () => this.props.deleteGroup(this.props.selectedGroup.id)
         });
     };
+
+    handelCloseGroupFormClick = () => {
+        this.setState({
+            showGroupForm: false
+        });
+    }
+
+    handelCloseGroupFormClick = () => {
+        this.setState({
+            showGroupForm: false
+        });
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
-        groups: state.groups.groups,
-        selectedGroup: state.groups.selectedGroup
+        groups: state.groupsData.groups,
+        selectedGroup: state.groupsData.selectedGroup
     };
 };
 

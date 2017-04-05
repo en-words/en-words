@@ -6,7 +6,7 @@ import words from './wordsReducer';
 import trainings from './trainingsReducer';
 
 export default combineReducers({
-    groups,
+    groupsData: groups,
     words,
     trainings,
     form: formReducer

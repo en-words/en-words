@@ -6,7 +6,7 @@ import Words from '../components/words/Words';
 const mapStateToProps = (state) => {
     return {
         wordList: state.words.wordList,
-        selectedGroup: state.groups.selectedGroup
+        selectedGroup: state.groupsData.selectedGroup
     };
 };
 
