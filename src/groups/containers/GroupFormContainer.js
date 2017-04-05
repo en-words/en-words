@@ -1,4 +1,3 @@
-import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
 import GroupForm from '../components/GroupForm/index';

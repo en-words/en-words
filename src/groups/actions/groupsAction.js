@@ -21,18 +21,9 @@ export const fetchGroups = () => {
     }
 };
 
-export const addGroup = (groupName) => {
-    const request = axios({
-        method: 'post',
-        url: urls.GROUPS_API_URL,
-        data: {
-            group: groupName
-        }
-    });
-
-    return {
-        type: types.ADD_GROUP,
-        payload: request
+export const addGroup = (name) => {
+    return dispatch => {
+        database.ref().child('groups').push({name});
     };
 };
 

@@ -1,9 +1,9 @@
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { Spin, Modal } from 'antd';
+import { Modal } from 'antd';
 
-import { fetchGroups, selectGroup, deleteGroup } from '../actions/groupsAction';
+import { fetchGroups, selectGroup, addGroup, deleteGroup } from '../actions/groupsAction';
 import GroupList from '../components/GroupList/index';
 import GroupToolBar from '../components/GroupToolBar/index';
 import GroupForm from '../containers/GroupFormContainer';
@@ -40,7 +40,7 @@ class GroupsContainer extends Component {
                     visible={ this.state.showGroupForm }
                     title={ this.state.groupFormTitle }
                     onCancel={ this.handelCloseGroupFormClick }
-                    onOk={ this.handelNewClick }/>
+                    onOk={ this.handelOkGroupFormClick }/>
             </div>
         )
     }
@@ -81,10 +81,12 @@ class GroupsContainer extends Component {
         });
     }
 
-    handelCloseGroupFormClick = () => {
+    handelOkGroupFormClick = (values) => {
         this.setState({
             showGroupForm: false
         });
+
+        this.props.addGroup(values.name);
     }
 }
 
@@ -99,6 +101,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchGroups: () => dispatch(fetchGroups()),
         selectGroup: (id) => dispatch(selectGroup(id)),
+        addGroup: (name) => dispatch(addGroup(name)),
         deleteGroup: (id) => dispatch(deleteGroup(id))
             .then(response => dispatch(selectGroup(null)))
     }
