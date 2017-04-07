@@ -11,7 +11,7 @@ export const fetchGroups = () => {
             let data = snapshot.val();
             let result = [];
 
-            Object.keys(data).map(key => result.push({id:key, name:data[key].name}));
+            Object.keys(data).map(key => result.push({id:key, groupName:data[key].groupName}));
 
             dispatch({
                 type: types.FETCH_GROUPS,

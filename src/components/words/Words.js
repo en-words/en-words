@@ -23,15 +23,15 @@ class Words extends React.Component {
     };
 
     componentDidMount() {
-        this.props.fetchWords(this.props.location.query.groupId);
+        //this.props.fetchWords(this.props.location.query.groupId);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.selectedGroup.groupId === nextProps.selectedGroup.groupId) {
+        if (this.props.selectedGroup.id === nextProps.selectedGroup.id) {
             return;
         }
 
-        this.props.fetchWords(nextProps.location.query.groupId);
+        //this.props.fetchWords(nextProps.location.query.groupId);
     }
 
     newWord = () => {
@@ -60,7 +60,7 @@ class Words extends React.Component {
     };
 
     render() {
-        const { words, error } = this.props.wordList;
+        /*const { words, error } = this.props.wordList;
         const { group } = this.props.selectedGroup;
 
         let content = <Table
@@ -118,12 +118,12 @@ class Words extends React.Component {
         if(error) {
             return <div className="alert alert-danger">Error: {error.message}</div>
         }
-
+*/
         return (
             <div>
-                <h3>{group} words:</h3>
+                {/*<h3>{group} words:</h3>*/}
 
-                <div id="wordToolBar">
+                {/*<div id="wordToolBar">
                     <Search className="align-text-left"
                         placeholder="Search words"
                         style={{ width: 200 }}
@@ -138,7 +138,7 @@ class Words extends React.Component {
 
                 {content}
 
-                <WordForm />
+                <WordForm />*/}
             </div>
         );
     }

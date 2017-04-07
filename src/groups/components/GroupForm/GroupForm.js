@@ -2,38 +2,38 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Modal, Input } from 'antd';
 
-const GroupForm = (props) => {
+class GroupForm extends React.Component {
 
-    const { visible, title, onCancel, onOk } = props;
+    render() {
+        const {visible, title, onCancel, onOk} = this.props;
 
-    const renderField = ({ label, placeholder, type }) => (
-        <div>
-            <label>{label}</label>
+        const renderField = ({input, label, placeholder, type}) => (
             <div>
-                <Input name={name} placeholder={placeholder} type={type}/>
+                <label>{label}</label>
+                <Input {...input} placeholder={placeholder} type={type}/>
             </div>
-        </div>
-    );
+        );
 
-    return (
-        <Modal
-            visible={visible}
-            title={title}
-            okText="Save"
-            cancelText="Cancel"
-            onCancel={onCancel}
-            onOk={onOk}>
+        return (
+            <Modal
+                visible={visible}
+                title={title}
+                okText="Save"
+                cancelText="Cancel"
+                onCancel={onCancel}
+                onOk={onOk}>
 
-            <form>
-                <Field name="name"
-                       label="Group name"
-                       component={renderField}
-                       type="text"
-                       placeholder="Enter group name"/>
-            </form>
-        </Modal>
-    )
-};
+                <form>
+                    <Field name="groupName"
+                           label="Group name:"
+                           component={renderField}
+                           type="text"
+                           placeholder="Enter group name"/>
+                </form>
+            </Modal>
+        )
+    }
+}
 
 GroupForm.propTypes = {
     visible: React.PropTypes.bool.isRequired,
@@ -42,4 +42,7 @@ GroupForm.propTypes = {
     onOk: React.PropTypes.func.isRequired
 };
 
-export default reduxForm({ form: 'groupForm' })(GroupForm);
+export default reduxForm({
+    form: 'groupForm',
+    enableReinitialize: true
+})(GroupForm);

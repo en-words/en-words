@@ -5,7 +5,7 @@ import WordForm from '../components/words/WordForm';
 
 const mapStateToProps = (state) => {
     return {
-        selectedGroup: state.groups.selectedGroup,
+        selectedGroup: state.groupsData.selectedGroup,
         showWordForm: state.words.showWordForm,
         wordForm: state.words.wordForm
     };

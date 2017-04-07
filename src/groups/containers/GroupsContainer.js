@@ -6,13 +6,13 @@ import { Modal } from 'antd';
 import { fetchGroups, selectGroup, addGroup, deleteGroup } from '../actions/groupsAction';
 import GroupList from '../components/GroupList/index';
 import GroupToolBar from '../components/GroupToolBar/index';
-import GroupForm from '../containers/GroupFormContainer';
+import ModalGroupForm from '../containers/GroupFormContainer';
 
 class GroupsContainer extends Component {
 
     state = {
         showGroupForm: false,
-        groupFormData: null,
+        groupFormData: {groupname: ''},
         groupFormTitle: ''
     };
 
@@ -35,8 +35,8 @@ class GroupsContainer extends Component {
                     handelDeleteClick={ this.handelDeleteClick }
                     selectedGroup={ selectedGroup }/>
 
-                <GroupForm
-                    groupFormData={ this.state.groupFormData }
+                <ModalGroupForm
+                    initialValues={ this.state.groupFormData }
                     visible={ this.state.showGroupForm }
                     title={ this.state.groupFormTitle }
                     onCancel={ this.handelCloseGroupFormClick }
@@ -53,7 +53,7 @@ class GroupsContainer extends Component {
     handelNewClick = () => {
         this.setState({
             showGroupForm: true,
-            groupForm: null,
+            groupFormData: {groupName: ''},
             groupFormTitle: 'New group'
         });
     };
@@ -61,7 +61,7 @@ class GroupsContainer extends Component {
     handelEditClick = () => {
         this.setState({
             showGroupForm: true,
-            groupForm: this.props.selectedGroup,
+            groupFormData: this.props.selectedGroup,
             groupFormTitle: 'Edit group'
         });
     };
@@ -70,7 +70,7 @@ class GroupsContainer extends Component {
 
         Modal.confirm({
             title: 'Delete group',
-            content: `Do you want to delete the group "${this.props.selectedGroup.name}" with all words?`,
+            content: `Do you want to delete the group "${this.props.selectedGroup.groupName}" with all words?`,
             onOk: () => this.props.deleteGroup(this.props.selectedGroup.id)
         });
     };
@@ -79,14 +79,14 @@ class GroupsContainer extends Component {
         this.setState({
             showGroupForm: false
         });
-    }
+    };
 
-    handelOkGroupFormClick = (values) => {
+    handelOkGroupFormClick = (group) => {
         this.setState({
             showGroupForm: false
         });
 
-        this.props.addGroup(values.name);
+        this.props.addGroup(group.groupName);
     }
 }
 
