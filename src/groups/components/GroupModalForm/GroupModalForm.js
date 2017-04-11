@@ -17,7 +17,7 @@ const GroupModalForm = (props) => {
             onOk={onCreate}>
 
             <Form layout="vertical">
-                <FormItem label="Group" hasFeedback>
+                <FormItem label="Group name:" hasFeedback>
                     {getFieldDecorator('groupName', {
                         rules: [{ required: true, message: 'Group name is required.' }],
                         initialValue: !groupForm || groupForm === null ? '' : groupForm.groupName
