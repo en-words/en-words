@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { Modal } from 'antd';
 
-import { fetchGroups, selectGroup, addGroup, deleteGroup } from '../actions/groupsAction';
+import { fetchGroups, selectGroup, deleteGroup } from '../actions/groupsAction';
 import GroupList from '../components/GroupList/index';
 import GroupToolBar from '../components/GroupToolBar/index';
-import ModalGroupForm from '../containers/GroupFormContainer';
+import ModalGroupForm from './GroupModalFormContainer';
 
 class GroupsContainer extends Component {
 
     state = {
         showGroupForm: false,
-        groupFormData: {groupname: ''},
+        groupFormData: {groupName: ''},
         groupFormTitle: ''
     };
 
@@ -36,11 +36,10 @@ class GroupsContainer extends Component {
                     selectedGroup={ selectedGroup }/>
 
                 <ModalGroupForm
-                    initialValues={ this.state.groupFormData }
                     visible={ this.state.showGroupForm }
                     title={ this.state.groupFormTitle }
-                    onCancel={ this.handelCloseGroupFormClick }
-                    onOk={ this.handelOkGroupFormClick }/>
+                    groupForm={ this.state.groupFormData }
+                    onClose={ this.handelCloseGroupFormClick } />
             </div>
         )
     }
@@ -53,7 +52,7 @@ class GroupsContainer extends Component {
     handelNewClick = () => {
         this.setState({
             showGroupForm: true,
-            groupFormData: {groupName: ''},
+            groupFormData: null,
             groupFormTitle: 'New group'
         });
     };
@@ -80,14 +79,6 @@ class GroupsContainer extends Component {
             showGroupForm: false
         });
     };
-
-    handelOkGroupFormClick = (group) => {
-        this.setState({
-            showGroupForm: false
-        });
-
-        this.props.addGroup(group.groupName);
-    }
 }
 
 const mapStateToProps = (state) => {
@@ -101,9 +92,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchGroups: () => dispatch(fetchGroups()),
         selectGroup: (id) => dispatch(selectGroup(id)),
-        addGroup: (name) => dispatch(addGroup(name)),
         deleteGroup: (id) => dispatch(deleteGroup(id))
-            .then(response => dispatch(selectGroup(null)))
     }
 };
 

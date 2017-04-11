@@ -8,3 +8,7 @@ export const compareItems = (a, b) => {
     else
         return -1;
 };
+
+export const compareStrItems = (a, b) => {
+    return a.localeCompare(b);
+};

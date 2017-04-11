@@ -27,9 +27,9 @@ class Words extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.selectedGroup.id === nextProps.selectedGroup.id) {
-            return;
-        }
+        //if (this.props.selectedGroup.id === nextProps.selectedGroup.id) {
+        //    return;
+        //}
 
         //this.props.fetchWords(nextProps.location.query.groupId);
     }
@@ -60,9 +60,9 @@ class Words extends React.Component {
     };
 
     render() {
-        /*const { words, error } = this.props.wordList;
-        const { group } = this.props.selectedGroup;
+        const { selectedGroup } = this.props;
 
+    /*
         let content = <Table
             rowKey={record => record.id}
             dataSource={words}
@@ -121,7 +121,7 @@ class Words extends React.Component {
 */
         return (
             <div>
-                {/*<h3>{group} words:</h3>*/}
+                <h3>{selectedGroup.groupName} words:</h3>
 
                 {/*<div id="wordToolBar">
                     <Search className="align-text-left"
