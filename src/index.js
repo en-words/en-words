@@ -9,7 +9,7 @@ import store from './store';
 
 import App from './components/app/App';
 import Dashboard from './components/dashboard/Dashboard';
-import Words from './containers/WordsContainer';
+import Words from './words/containers/WordListContainer';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Table, Button, Input, Modal, Popover } from 'antd';
-import responsiveVoice from '../../libraries/responsivevoice.js';
-import './Words.css';
-import WordForm from '../../containers/WordFormContainer';
+import { Table, Button, Input, Modal } from 'antd';
+import responsiveVoice from '../../../libraries/responsivevoice.js';
+import './WordList.css';
 
 const ButtonGroup = Button.Group;
 const Search = Input.Search;

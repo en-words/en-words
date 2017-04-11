@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { addWord, updateWord, closeWordModalForm } from '../actions/wordsAction';
-import WordForm from '../components/words/WordForm';
+import WordForm from '../components/WordModalForm/WordForm';
 
 const mapStateToProps = (state) => {
     return {
