@@ -1,6 +1,6 @@
 import { FETCH_TRAININGS_PENDING, FETCH_TRAININGS_FULFILLED, FETCH_TRAININGS_REJECTED,
          ADD_TRAINING_FULFILLED, ADD_TRAINING_REJECTED,
-         DELETE_TRAINING_FULFILLED, DELETE_TRAINING_REJECTED } from '../actions/trainingsAction';
+         DELETE_TRAINING_FULFILLED, DELETE_TRAINING_REJECTED } from './../actions/dashboardAction';
 
 const initialState = {
     trainingList: {

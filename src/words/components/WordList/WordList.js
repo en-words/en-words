@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { Table, Button, Input, Modal } from 'antd';
 import responsiveVoice from '../../../libraries/responsivevoice.js';
 import './WordList.css';

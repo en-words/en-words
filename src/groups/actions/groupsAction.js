@@ -8,7 +8,9 @@ export const fetchGroups = () => {
                 let data = snapshot.val();
                 let result = [];
 
-                Object.keys(data).map(key => result.push({id:key, groupName:data[key].groupName}));
+                if(data) {
+                    Object.keys(data).map(key => result.push({id: key, groupName: data[key].groupName}));
+                }
 
                 dispatch({
                     type: types.FETCH_GROUPS,
@@ -55,5 +57,11 @@ export const selectGroup = (id) => {
     return {
         type: types.SELECT_GROUP,
         payload: id
+    };
+};
+
+export const clearSelectGroup = () => {
+    return {
+        type: types.CLEAR_SELECT_GROUP,
     };
 };

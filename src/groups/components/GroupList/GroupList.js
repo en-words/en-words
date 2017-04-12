@@ -2,12 +2,22 @@ import React from 'react';
 import { Menu } from 'antd';
 import './GroupList.css';
 
-export const GroupList = (props) => {
+const GroupList = (props) => {
 
-    const { groups, handelGroupItemClick } = props;
+    const { groups, handelGroupItemClick, selectedGroup } = props;
+
+    if(groups.length === 0) {
+        return (
+            <div className="align-text-left">
+                <span>No groups</span><br/>
+            </div>
+        )
+    }
 
     return (
-        <Menu id="menuSideBar" mode="inline" onClick={ handelGroupItemClick }  className="group-list">
+        <Menu id="menuSideBar" mode="inline" onClick={ handelGroupItemClick }
+              selectedKeys={selectedGroup ? [selectedGroup.id] : []}  className="group-list">
+
             { groups.map(group =>
                 <Menu.Item key={ group.id } className="align-text-left">{ group.groupName }</Menu.Item>)
             }

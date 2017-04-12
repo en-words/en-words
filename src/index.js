@@ -7,8 +7,8 @@ import enUS from 'antd/lib/locale-provider/en_US';
 
 import store from './store';
 
-import App from './components/app/App';
-import Dashboard from './components/dashboard/Dashboard';
+import App from './app/components/App';
+import Dashboard from './dashboard/components/Dashboard';
 import Words from './words/containers/WordListContainer';
 
 import 'bootstrap/dist/css/bootstrap.css';

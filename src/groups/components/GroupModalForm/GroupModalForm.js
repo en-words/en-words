@@ -30,12 +30,4 @@ const GroupModalForm = (props) => {
     );
 };
 
-GroupModalForm.propTypes = {
-    //visible: React.PropTypes.boolean.isRequired,
-    //title: React.PropTypes.string.isRequired,
-    //onCancel: mReact.PropTypes.func.isRequired,
-    //onCreate: React.PropTypes.func.isRequired,
-    //groupForm: React.PropTypes.object
-};
-
 export default Form.create()(GroupModalForm);

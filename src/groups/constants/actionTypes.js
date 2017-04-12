@@ -1,3 +1,3 @@
 export const FETCH_GROUPS = 'FETCH_GROUPS';
-
 export const SELECT_GROUP = 'SELECT_GROUP';
+export const CLEAR_SELECT_GROUP = 'CLEAR_SELECT_GROUP';

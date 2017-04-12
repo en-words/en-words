@@ -29,8 +29,9 @@ class GroupModalFormContainer extends React.Component {
                 })
             }
             form.resetFields();
+            this.props.onClose();
         });
-        this.props.onClose();
+
     };
 
     handelCancelClick = () => {

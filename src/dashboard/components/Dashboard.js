@@ -2,12 +2,10 @@ import React from 'react';
 
 import { Table, Button, Modal } from 'antd';
 
-import { compareItems } from '../../utils/common';
-
 class Trainings extends React.Component {
 
     componentDidMount() {
-        this.props.fetchTrainings();
+        //this.props.fetchTrainings();
     }
 
     deleteTraining = (id) => {
@@ -24,7 +22,7 @@ class Trainings extends React.Component {
     };
 
     render() {
-        const { trainings, error } = this.props.trainingList;
+       /* const { trainings, error } = this.props.trainingList;
         const { groups } = this.props.groupList;
         const groupFilters = groups.map(group => { return {text: group.group, value: group.group}} );
 
@@ -46,13 +44,13 @@ class Trainings extends React.Component {
                     key: 'groupName',
                     filters: groupFilters,
                     onFilter: (value, record) => record.groupName.includes(value),
-                    sorter: (a, b) => compareItems(a.groupName.toLowerCase(), b.groupName.toLowerCase())
+                    //sorter: (a, b) => compareItems(a.groupName.toLowerCase(), b.groupName.toLowerCase())
                 },
                 {
                     title: 'Date',
                     dataIndex: 'trainingDate',
                     key: 'trainingDate',
-                    sorter: (a, b) => compareItems(a.trainingDate.toLowerCase(), b.trainingDate.toLowerCase()),
+                    //sorter: (a, b) => compareItems(a.trainingDate.toLowerCase(), b.trainingDate.toLowerCase()),
                     render:  (text, record) => {
                         return new Date(record.trainingDate).toLocaleString();
                     }
@@ -61,7 +59,7 @@ class Trainings extends React.Component {
                     title: 'Result',
                     dataIndex: 'result',
                     key: 'result',
-                    sorter: (a, b) => compareItems(a.result, b.result),
+                    //sorter: (a, b) => compareItems(a.result, b.result),
                     render:  (text, record) => `${record.result}%`
                 },
                 {
@@ -88,11 +86,11 @@ class Trainings extends React.Component {
                 }]}
             size="middle"
             pagination={false}/>;
-
+*/
         return (
             <div>
                 <b>Training result:</b>
-                {content}
+                {/*{content}*/}
             </div>
         )
     }

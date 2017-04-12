@@ -51,6 +51,12 @@ export default function(state = initialState, action){
 
         }
 
+        case types.CLEAR_SELECT_GROUP:
+            return {
+                ...state,
+                selectedGroup: null
+            };
+
         default:
             return state;
     }

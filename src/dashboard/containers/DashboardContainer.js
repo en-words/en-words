@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import { fetchTrainings, deleteTraining } from '../actions/trainingsAction';
-import Trainings from '../components/trainings/Trainings';
+import { fetchTrainings, deleteTraining } from '../actions/dashboardAction';
+import Trainings from '../components/Dashboard';
 
 const mapStateToProps = (state) => {
     return {

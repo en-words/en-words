@@ -12,11 +12,12 @@ class GroupListContainer extends Component {
     }
 
     render() {
-        const { groups } = this.props;
+        const { groups, selectedGroup } = this.props;
 
         return (
             <GroupList
                 groups={ groups }
+                selectedGroup={ selectedGroup }
                 handelGroupItemClick={ this.handelGroupItemClick }/>
         );
     }
@@ -29,7 +30,8 @@ class GroupListContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        groups: state.groupsData.groups
+        groups: state.groupsData.groups,
+        selectedGroup: state.groupsData.selectedGroup
     };
 };
 
