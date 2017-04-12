@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import GroupModalForm from '../components/GroupModalForm';
+import GroupModalForm from '../components/GroupModalForm/index';
 import * as actions from '../actions/groupsAction';
 
 class GroupModalFormContainer extends React.Component {
@@ -43,7 +43,7 @@ class GroupModalFormContainer extends React.Component {
     };
 
     render() {
-        let { visible, title, groupForm, onClose } = this.props;
+        let { visible, title, groupForm } = this.props;
 
         return (
             <GroupModalForm
@@ -63,4 +63,5 @@ const mapDispatchToProps = (dispatch) => {
         updateGroup: (group) => dispatch(actions.updateGroup(group))
     }
 };
+
 export default connect(null, mapDispatchToProps)(GroupModalFormContainer);
