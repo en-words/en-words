@@ -6,7 +6,7 @@ import './WordToolBar.css';
 WordToolBar.propTypes = {
     words: PropTypes.array,
     onSearchWord: PropTypes.func.isRequired,
-    onNewWord: PropTypes.func
+    onNewWord: PropTypes.func.isRequired
 };
 
 function WordToolBar({words = [], onSearchWord, onNewWord}) {

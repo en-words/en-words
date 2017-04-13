@@ -3,18 +3,17 @@ import { connect } from 'react-redux';
 
 import WordList from './WordListContainer';
 import WordToolBar from './WordToolBarContainer';
+import WordModalFormContainer from './WordModalFormContainer';
 
 class WordPageContainer extends React.Component {
 
-    static propTypes = {
-        selectedGroup: PropTypes.object
+    state = {
+        showWordForm: false,
+        wordFormData: null
     };
 
-    static defaultProps = {
-        selectedGroup: {
-            id: '-1',
-            groupName: ''
-        }
+    static propTypes = {
+        selectedGroup: PropTypes.object
     };
 
     render() {
@@ -24,12 +23,32 @@ class WordPageContainer extends React.Component {
             <div>
                 <h3>{selectedGroup.groupName} words:</h3>
 
-                <WordToolBar /><br/>
+                <WordToolBar
+                    onNewWord={this.handelNewWordClick}/><br/>
 
                 <WordList />
+
+                <WordModalFormContainer
+                    visible={this.state.showWordForm}
+                    wordForm={this.state.wordFormData}
+                    onCloseModalForm={this.handelCloseModalForm}/>
             </div>
         );
     }
+
+    handelCloseModalForm = () => {
+        this.setState({
+            showWordForm: false,
+            wordFormData: null
+        });
+    };
+
+    handelNewWordClick = () => {
+        this.setState({
+            showWordForm: true,
+            wordFormData: null
+        });
+    };
 }
 
 const mapStateToProps = (state) => {

@@ -1,24 +1,88 @@
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { addWord, updateWord, closeWordModalForm } from '../actions/wordsAction';
-import WordForm from '../components/WordModalForm/WordForm';
+import * as actions from '../actions/wordsAction';
+import WordModalForm from '../components/WordModalForm/WordModalForm';
+
+
+class WordModalFormContainer extends React.Component {
+
+    static propTypes = {
+        visible: PropTypes.bool.isRequired,
+        wordForm: PropTypes.object,
+        selectedGroup: PropTypes.object.isRequired,
+        onCloseModalForm: PropTypes.func.isRequired,
+        addWord: PropTypes.func.isRequired,
+        updateWord: PropTypes.func.isRequired,
+    };
+
+    render() {
+        let { visible, wordForm } = this.props;
+        const title = wordForm === null ? 'New word' : 'Edit word';
+
+        return (
+            <WordModalForm
+                ref={this.saveFormRef}
+                title={title}
+                visible={visible}
+                wordForm={wordForm}
+                onCancel={this.handelCloseClick}
+                onCreate={this.handelAddClick} />
+        )
+    }
+
+    handelCloseClick = () => {
+        this.form.resetFields();
+        this.props.onCloseModalForm();
+    };
+
+    handelAddClick = () => {
+        const { wordForm, selectedGroup, addWord, updateWord, onCloseModalForm } = this.props;
+        const form = this.form;
+
+        form.validateFields((err, values) => {
+            if (err) {
+                return;
+            }
+
+            if(wordForm === null) {
+                addWord({
+                    word: values.word,
+                    translation: values.translation,
+                    groupId: selectedGroup.id,
+                    comments: values.comments
+                });
+            } else {
+                updateWord({
+                    id: wordForm.id,
+                    word: values.word,
+                    translation: values.translation,
+                    groupId: selectedGroup.id,
+                    comments: values.comments
+                });
+            }
+            form.resetFields();
+            onCloseModalForm();
+        });
+    };
+
+    saveFormRef = (form) => {
+        this.form = form;
+    };
+}
+
 
 const mapStateToProps = (state) => {
     return {
-        selectedGroup: state.groupsData.selectedGroup,
-        showWordForm: state.words.showWordForm,
-        wordForm: state.words.wordForm
+        selectedGroup: state.groupsData.selectedGroup
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        closeWordModalForm: () => dispatch(closeWordModalForm()),
-        addWord: (word) => dispatch(addWord(word))
-                                    .then(dispatch(closeWordModalForm())),
-        updateWord: (word) => dispatch(updateWord(word))
-                                    .then(dispatch(closeWordModalForm()))
+        addWord: (word) => dispatch(actions.addWord(word)),
+        updateWord: (word) => dispatch(actions.updateWord(word))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WordForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WordModalFormContainer);

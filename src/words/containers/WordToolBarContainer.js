@@ -12,13 +12,6 @@ class WordToolBarContainer extends React.Component {
         onNewWord: PropTypes.func
     };
 
-    static defaultProps = {
-        selectedGroup: {
-            id: '-1',
-            groupName: ''
-        }
-    };
-
     searchWords = (searchText) => {
         this.props.searchWords(this.props.selectedGroup.groupId, searchText);
     };

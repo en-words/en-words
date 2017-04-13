@@ -29,7 +29,7 @@ function WordList({words = [], onPlayWord, onUpdateWord, onDeleteWord}) {
                     title: 'Word',
                     dataIndex: 'word',
                     key: 'word',
-                    //sorter: (a, b) => this.compareData(a.word, b.word),
+                    sorter: (a, b) => a.word.localeCompare(b.word, undefined, {numeric: true, sensitivity: 'base'}),
                     render:  (text, record) =>
                         <a onClick={() => onUpdateWord(record)}>{record.word}</a>
                 },
@@ -37,7 +37,7 @@ function WordList({words = [], onPlayWord, onUpdateWord, onDeleteWord}) {
                     title: 'Translation',
                     dataIndex: 'translation',
                     key: 'translation',
-                    //sorter: (a, b) => this.compareData(a.translation, b.translation)
+                    sorter: (a, b) => a.translation.localeCompare(b.translation, undefined, {numeric: true, sensitivity: 'base'})
                 },
                 {
                     title: '',

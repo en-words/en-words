@@ -16,13 +16,6 @@ class WordListContainer extends React.Component {
         deleteWord: PropTypes.func.isRequired
     };
 
-    static defaultProps = {
-        selectedGroup: {
-            id: '-1',
-            groupName: ''
-        }
-    };
-
     componentDidMount() {
         this.props.fetchWords(this.props.selectedGroup.id);
     }
@@ -47,7 +40,7 @@ class WordListContainer extends React.Component {
                 words={words}
                 onPlayWord={this.handlePlayWord}
                 onUpdateWord={this.handleUpdateWord}
-                onDeleteWord={this.handleDeleteWord} />
+                onDeleteWord={this.handleDeleteWord}/>
         );
     }
 
@@ -63,7 +56,7 @@ class WordListContainer extends React.Component {
         Modal.confirm({
             title: 'Delete word',
             content: 'Do you want to delete the word?',
-            onOk: () => this.props.deleteWord(id)
+            onOk: () => this.props.deleteWord(this.props.selectedGroup.id, id)
         });
 
     };
@@ -79,7 +72,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchWords: (groupId) => dispatch(actions.fetchWords(groupId)),
-        deleteWord: (id) => dispatch(actions.deleteWord(id)),
+        deleteWord: (groupId, id) => dispatch(actions.deleteWord(groupId, id)),
         updateWord: (word) => dispatch(actions.updateWord())
     }
 };

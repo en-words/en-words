@@ -30,15 +30,32 @@ export const searchWords = (groupId, searchText) => {
 
 };
 
-export const addWord = (word) => {
-
+export const addWord = (wordData) => {
+    return dispatch => {
+        database.ref(`words/${wordData.groupId}`)
+            .push({
+                word: wordData.word,
+                translation: wordData.translation,
+                comments: wordData.comments
+            })
+    }
 };
 
-export const updateWord = (word) => {
-
+export const updateWord = (wordData) => {
+    return dispatch => {
+        database.ref(`words/${wordData.groupId}/${wordData.id}`)
+            .set({
+                word: wordData.word,
+                translation: wordData.translation,
+                comments: wordData.comments
+            })
+    }
 };
 
-export const deleteWord = (id) => {
-
+export const deleteWord = (groupId, id) => {
+    return dispatch => {
+        database.ref(`words/${groupId}/${id}`)
+            .remove()
+    }
 };
 

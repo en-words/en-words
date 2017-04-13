@@ -11,15 +11,13 @@ export default function(state = initialState, action){
         case types.FETCH_WORDS:
             return {
                 ...state,
-                words: action.payload.sort((a, b) =>
-                    a.id.localeCompare(b.id, undefined, {numeric: true, sensitivity: 'base'}))
+                words: action.payload
             };
 
         case types.SEARCH_WORDS:
             return {
                 ...state,
-                words: action.payload.data.sort((a, b) =>
-                    a.id.localeCompare(b.id, undefined, {numeric: true, sensitivity: 'base'}))
+                words: action.payload
             };
 
         default:
