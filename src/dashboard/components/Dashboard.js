@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Table, Button, Modal } from 'antd';
+import { Modal } from 'antd';
 
 class Trainings extends React.Component {
 

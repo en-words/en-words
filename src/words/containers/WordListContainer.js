@@ -1,14 +1,26 @@
-import React from "react";
-import {connect} from "react-redux";
-import {browserHistory} from "react-router";
-import {Table, Button, Input, Modal} from "antd";
-import * as actions from "./../actions/wordsAction";
+import React, { PropTypes } from "react";
+import { connect } from "react-redux";
+import { Modal } from "antd";
 import responsiveVoice from "../../libraries/responsivevoice.js";
+
+import WordList from './../components/WordList/WordList';
+import * as actions from "./../actions/wordsAction";
 
 class WordListContainer extends React.Component {
 
-    playWord = (word) => {
-        responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
+    static propTypes = {
+        words: PropTypes.array,
+        selectedGroup: PropTypes.object,
+        fetchWords: PropTypes.func.isRequired,
+        updateWord: PropTypes.func.isRequired,
+        deleteWord: PropTypes.func.isRequired
+    };
+
+    static defaultProps = {
+        selectedGroup: {
+            id: '-1',
+            groupName: ''
+        }
     };
 
     componentDidMount() {
@@ -16,14 +28,38 @@ class WordListContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        /*if (this.props.selectedGroup.id === nextProps.selectedGroup.id) {
-         return;
-         }
+        if (this.props.selectedGroup.id === nextProps.selectedGroup.id) {
+             return;
+        }
 
-         this.props.fetchWords(nextProps.location.query.groupId);*/
+        this.props.fetchWords(nextProps.selectedGroup.id);
     }
 
-    deleteWord = (id) => {
+    render() {
+        const { words } = this.props;
+
+        if(!words) {
+            return <p>No words</p>
+        }
+
+        return (
+            <WordList
+                words={words}
+                onPlayWord={this.handlePlayWord}
+                onUpdateWord={this.handleUpdateWord}
+                onDeleteWord={this.handleDeleteWord} />
+        );
+    }
+
+    handlePlayWord = (word) => {
+        responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
+    };
+
+    handleUpdateWord = (word) => {
+        this.props.updateWord(word);
+    };
+
+    handleDeleteWord = (id) => {
         Modal.confirm({
             title: 'Delete word',
             content: 'Do you want to delete the word?',
@@ -31,78 +67,7 @@ class WordListContainer extends React.Component {
         });
 
     };
-
-    editWord = (word) => {
-        this.props.editWord(word);
-    };
-
-    render() {
-
-        let content = <Table
-            rowKey={record => record.id}
-            dataSource={words}
-            columns={[{
-                    title: '',
-                    dataIndex: 'play',
-                    key: 'play',
-                    width: '20px',
-                    render: (text, record) => (
-                        <Button id="playWord" shape="circle" icon="play-circle" onClick={() => this.playWord(record.word)}/>
-                    )
-                },
-                {
-                    title: 'Word',
-                    dataIndex: 'word',
-                    key: 'word',
-                    //sorter: (a, b) => this.compareData(a.word, b.word),
-                    render: (text, record) => <a onClick={() => {
-                        this.editWord(record)
-                    }
-                    }>{record.word}</a>
-                },
-                {
-                    title: 'Translation',
-                    dataIndex: 'translation',
-                    key: 'translation',
-                    //sorter: (a, b) => this.compareData(a.translation, b.translation)
-                },
-                {
-                    title: '',
-                    dataIndex: 'comment',
-                    key: 'comment',
-                    width: '20px',
-                    render: (text, record) => {
-                        if (record.comments) {
-                            return <Popover content={record.comments} title="Comments:" trigger="click">
-                                <Button id="btnComment" icon="info" shape="circle"/>
-                            </Popover>
-                        }
-                    }
-                },
-                {
-                    title: '',
-                    dataIndex: 'delete',
-                    key: 'delete',
-                    width: '20px',
-                    render: (text, record) => (
-                        <Button id="deleteWord" shape="circle" icon="delete"
-                                onClick={() => this.deleteWord(record.id)}/>
-                    )
-                }]}
-            size="middle"
-            pagination={false}/>;
-
-        if (error) {
-            return <div className="alert alert-danger">Error: {error.message}</div>
-        }
-        return (
-            <div>
-                {content}
-            </div>
-        );
-    }
 }
-
 
 const mapStateToProps = (state) => {
     return {
@@ -113,7 +78,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchWords: (groupId) => dispatch(actions.fetchWords(groupId))
+        fetchWords: (groupId) => dispatch(actions.fetchWords(groupId)),
+        deleteWord: (id) => dispatch(actions.deleteWord(id)),
+        updateWord: (word) => dispatch(actions.updateWord())
     }
 };
 

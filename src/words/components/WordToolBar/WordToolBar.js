@@ -1,36 +1,30 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Button, Input } from 'antd';
-import '../WordList/WordList.css';
 
-const ButtonGroup = Button.Group;
-const Search = Input.Search;
+import './WordToolBar.css';
 
-class WordToolBar extends React.Component {
+WordToolBar.propTypes = {
+    words: PropTypes.array,
+    onSearchWord: PropTypes.func.isRequired,
+    onNewWord: PropTypes.func
+};
 
-    searchWords = (searchText) => {
-      this.props.searchWords(this.props.selectedGroup.groupId, searchText);
-    };
+function WordToolBar({words = [], onSearchWord, onNewWord}) {
 
+    return (
+        <div id="wordToolBar">
+            <Input.Search
+                className="align-text-left"
+                placeholder="Search words"
+                style={{ width: 200 }}
+                onSearch={onSearchWord}/>
 
-    render() {
-
-        const { onSearchWord, onNewWord, words } = this.props;
-
-        return (
-
-            <div id="wordToolBar">
-                <Search className="align-text-left"
-                        placeholder="Search words"
-                        style={{ width: 200 }}
-                        onSearch={value => onSearchWord(value)}/>
-
-                <ButtonGroup className="align-right">
-                    <Button onClick={() => window.print()} disabled={words && words.length === 0} icon="export">Print</Button>
-                    <Button icon="plus-circle-o" onClick={() => onNewWord()}>New</Button>
-                </ButtonGroup>
-            </div>
-        );
-    }
+            <Button.Group className="align-right">
+                <Button onClick={() => window.print()} disabled={words && words.length === 0} icon="export">Print</Button>
+                <Button icon="plus-circle-o" onClick={onNewWord}>New</Button>
+            </Button.Group>
+        </div>
+    );
 }
 
 export default WordToolBar;

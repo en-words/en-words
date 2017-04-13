@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  ResponsiveVoice JS v1.5.0
 
