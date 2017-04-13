@@ -15,14 +15,14 @@ class HeaderContainer extends Component {
     }
 
     handelHeaderClick = () => {
-        this.props.clearSelectGroup();
+        this.props.clearSelectedGroup();
         browserHistory.push('');
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        clearSelectGroup: () => dispatch(actions.clearSelectGroup())
+        clearSelectedGroup: () => dispatch(actions.clearSelectedGroup())
     }
 };
 

@@ -60,7 +60,7 @@ export const selectGroup = (id) => {
     };
 };
 
-export const clearSelectGroup = () => {
+export const clearSelectedGroup = () => {
     return {
         type: types.CLEAR_SELECT_GROUP,
     };
