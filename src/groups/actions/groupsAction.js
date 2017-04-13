@@ -42,9 +42,10 @@ export const updateGroup = (group) => {
 
 export const deleteGroup = (id) => {
     return dispatch => {
-        database.ref(`groups/${id}`)
-            .remove()
+        database.ref(`groups/${id}`).remove()
             .then(() => {
+                database.ref(`words/${id}`).remove();
+
                 dispatch({
                     type: types.SELECT_GROUP,
                     payload: null
