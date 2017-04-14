@@ -12,10 +12,6 @@ class WordToolBarContainer extends React.Component {
         onNewWord: PropTypes.func
     };
 
-    searchWords = (searchText) => {
-        this.props.searchWords(this.props.selectedGroup.groupId, searchText);
-    };
-
     render() {
         const { words, onNewWord } = this.props;
 
@@ -26,6 +22,10 @@ class WordToolBarContainer extends React.Component {
                 onNewWord={onNewWord}/>
         );
     }
+
+    searchWords = (searchText) => {
+        this.props.searchWords(this.props.selectedGroup.id, searchText);
+    };
 }
 
 const mapStateToProps = (state) => {

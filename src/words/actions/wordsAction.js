@@ -9,7 +9,7 @@ export const fetchWords = (groupId) => {
                 let result = [];
 
                 if(data) {
-                    Object.keys(data).map(key => result.push({
+                    Object.keys(data).forEach(key => result.push({
                         id: key,
                         word: data[key].word,
                         translation: data[key].translation,
@@ -25,9 +25,33 @@ export const fetchWords = (groupId) => {
     }
 };
 
-
 export const searchWords = (groupId, searchText) => {
+    return dispatch => {
+        database.ref(`words/${groupId}`)
+            .on('value', snapshot => {
+                let data = snapshot.val();
+                let result = [];
 
+                if(data) {
+                    Object.keys(data).forEach(key => {
+                            if (data[key].word.includes(searchText)) {
+                                result.push({
+                                    id: key,
+                                    word: data[key].word,
+                                    translation: data[key].translation,
+                                    comments: data[key].comments
+                                })
+                            }
+                        }
+                    )
+                }
+
+                dispatch({
+                    type: types.SEARCH_WORDS,
+                    payload: result
+                })
+            })
+    }
 };
 
 export const addWord = (wordData) => {
