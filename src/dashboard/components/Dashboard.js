@@ -89,8 +89,9 @@ class Trainings extends React.Component {
 */
         return (
             <div>
-                <b>Training result:</b>
+                {/*<b>Training result:</b>*/}
                 {/*{content}*/}
+                <p>This application can be used as online dictionary for learning foreign languages.</p>
             </div>
         )
     }
