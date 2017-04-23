@@ -1,4 +1,4 @@
 
-export const APP_VERSION = '0.0.4';
+export const APP_VERSION = '1.0.0';
 
-export const BUILD_TYPE = 'dev'; //'prod'
+export const BUILD_TYPE = 'prod'; //'prod'

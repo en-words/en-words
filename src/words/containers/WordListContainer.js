@@ -12,8 +12,8 @@ class WordListContainer extends React.Component {
         words: PropTypes.array,
         selectedGroup: PropTypes.object,
         fetchWords: PropTypes.func.isRequired,
-        updateWord: PropTypes.func.isRequired,
-        deleteWord: PropTypes.func.isRequired
+        deleteWord: PropTypes.func.isRequired,
+        onEditWord: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -29,7 +29,7 @@ class WordListContainer extends React.Component {
     }
 
     render() {
-        const { words } = this.props;
+        const { words, onEditWord } = this.props;
 
         if(!words) {
             return <p>No words</p>
@@ -39,17 +39,13 @@ class WordListContainer extends React.Component {
             <WordList
                 words={words}
                 onPlayWord={this.handlePlayWord}
-                onUpdateWord={this.handleUpdateWord}
-                onDeleteWord={this.handleDeleteWord}/>
+                onDeleteWord={this.handleDeleteWord}
+                onEditWord={onEditWord}/>
         );
     }
 
     handlePlayWord = (word) => {
         responsiveVoice.speak(word, 'UK English Male', {lang: "en-US"});
-    };
-
-    handleUpdateWord = (word) => {
-        this.props.updateWord(word);
     };
 
     handleDeleteWord = (id) => {

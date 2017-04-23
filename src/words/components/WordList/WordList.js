@@ -6,11 +6,11 @@ import './WordList.css';
 WordList.propTypes = {
     words: PropTypes.array,
     onPlayWord: PropTypes.func.isRequired,
-    onUpdateWord: PropTypes.func.isRequired,
-    onDeleteWord: PropTypes.func.isRequired
+    onDeleteWord: PropTypes.func.isRequired,
+    onEditWord: PropTypes.func.isRequired
 };
 
-function WordList({words = [], onPlayWord, onUpdateWord, onDeleteWord}) {
+function WordList({words = [], onPlayWord, onDeleteWord, onEditWord}) {
 
     return (
         <Table
@@ -31,7 +31,7 @@ function WordList({words = [], onPlayWord, onUpdateWord, onDeleteWord}) {
                     key: 'word',
                     sorter: (a, b) => a.word.localeCompare(b.word, undefined, {numeric: true, sensitivity: 'base'}),
                     render:  (text, record) =>
-                        <a onClick={() => onUpdateWord(record)}>{record.word}</a>
+                        <a onClick={() => onEditWord(record)}>{record.word}</a>
                 },
                 {
                     title: 'Translation',

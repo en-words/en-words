@@ -26,7 +26,8 @@ class WordPageContainer extends React.Component {
                 <WordToolBar
                     onNewWord={this.handelNewWordClick}/><br/>
 
-                <WordList />
+                <WordList
+                    onEditWord={this.handelEditWordClick}/>
 
                 <WordModalFormContainer
                     visible={this.state.showWordForm}
@@ -47,6 +48,13 @@ class WordPageContainer extends React.Component {
         this.setState({
             showWordForm: true,
             wordFormData: null
+        });
+    };
+
+    handelEditWordClick = (word) => {
+        this.setState({
+            showWordForm: true,
+            wordFormData: word
         });
     };
 }
