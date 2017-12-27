@@ -1,0 +1,5 @@
+Update libs:
+    npm-check-updates -u
+    npm install
+
+To see which modules are outdated, just run: npm outdated

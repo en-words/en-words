@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Menu } from 'antd';
+import { Link } from 'react-router-dom';
 import './GroupList.css';
 
 const GroupList = (props) => {
 
-    const { groups, handelGroupItemClick, selectedGroup } = props;
+    const { groups, selectedGroup } = props;
 
     if(groups.length === 0) {
         return (
@@ -15,19 +17,20 @@ const GroupList = (props) => {
     }
 
     return (
-        <Menu id="menuSideBar" mode="inline" onClick={ handelGroupItemClick }
+        <Menu id="menuSideBar" mode="inline"
               selectedKeys={selectedGroup ? [selectedGroup.id] : []}  className="group-list">
 
             { groups.map(group =>
-                <Menu.Item key={ group.id } className="align-text-left">{ group.groupName }</Menu.Item>)
+                <Menu.Item key={ group.id } className="align-text-left">
+                    <Link to={`/words/${group.id}`}>{group.groupName}</Link>
+                </Menu.Item>)
             }
         </Menu>
     )
 };
 
 GroupList.propTypes = {
-    groups: React.PropTypes.array.isRequired,
-    handelGroupItemClick: React.PropTypes.func.isRequired
+    groups: PropTypes.array.isRequired
 };
 
 export default GroupList;

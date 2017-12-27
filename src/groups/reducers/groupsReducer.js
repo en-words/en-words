@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-import { browserHistory } from 'react-router';
+//import { browserHistory } from 'react-router-dom';
 
 const initialState = {
     groups: [],
@@ -32,15 +32,15 @@ export default function(state = initialState, action){
                 };
             } else {
                 if (state.groups.length > 0) {
-                    let selId = state.groups[state.groups.length - 1].id;
-                    browserHistory.push(`words?groupId=${selId}`);
+                    //let selId = state.groups[state.groups.length - 1].id;
+                    //browserHistory.push(`words?groupId=${selId}`);
 
                     return {
                         ...state,
                         selectedGroup: state.groups[state.groups.length - 1]
                     };
                 } else {
-                    browserHistory.push('/');
+                    //browserHistory.push('/');
 
                     return {
                         ...state,

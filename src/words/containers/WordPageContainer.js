@@ -1,28 +1,36 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import WordList from './WordListContainer';
 import WordToolBar from './WordToolBarContainer';
 import WordModalFormContainer from './WordModalFormContainer';
+import * as actions from "../../groups/actions/groupsAction";
 
 class WordPageContainer extends React.Component {
 
-    state = {
-        showWordForm: false,
-        wordFormData: null
-    };
+    constructor (props) {
+        super(props);
 
-    static propTypes = {
-        selectedGroup: PropTypes.object
-    };
+        this.state = {
+            showWordForm: false,
+            wordFormData: null
+        };
+
+        this.props.selectGroup(this.props.match.params.groupId);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.match.params.groupId === nextProps.match.params.groupId) {
+            return;
+        }
+
+        this.props.selectGroup(nextProps.match.params.groupId);
+    }
 
     render() {
-        const { selectedGroup } = this.props;
-
         return (
             <div>
-                <h3>{selectedGroup.groupName} words:</h3>
-
                 <WordToolBar
                     onNewWord={this.handelNewWordClick}/><br/>
 
@@ -59,10 +67,15 @@ class WordPageContainer extends React.Component {
     };
 }
 
-const mapStateToProps = (state) => {
-    return {
-        selectedGroup: state.groupsData.selectedGroup
-    };
+WordPageContainer.propTypes = {
+    selectedGroup: PropTypes.object
 };
 
-export default connect(mapStateToProps, null)(WordPageContainer);
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        selectGroup: (id) => dispatch(actions.selectGroup(id))
+    }
+};
+
+export default connect(null, mapDispatchToProps)(WordPageContainer);

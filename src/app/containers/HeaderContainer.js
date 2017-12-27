@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+//import { browserHistory } from 'react-router-dom';
 import * as actions from './../../groups/actions/groupsAction';
 
 import Header from './../components/Header';
@@ -16,7 +16,7 @@ class HeaderContainer extends Component {
 
     handelHeaderClick = () => {
         this.props.clearSelectedGroup();
-        browserHistory.push('');
+        //browserHistory.push('');
     };
 }
 

@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+//import { browserHistory } from 'react-router-dom';
 import * as actions from '../actions/groupsAction';
 
 import GroupList from './../components/GroupList/index';
@@ -24,7 +24,7 @@ class GroupListContainer extends Component {
 
     handelGroupItemClick = (e) => {
         this.props.selectGroup(e.key);
-        browserHistory.push(`words?groupId=${e.key}`);
+        //browserHistory.push(`words?groupId=${e.key}`);
     };
 }
 
