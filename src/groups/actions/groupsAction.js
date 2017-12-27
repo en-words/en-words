@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import database from './../../database';
+import database from '../../database';
 
 export const fetchGroups = () => {
     return dispatch => {

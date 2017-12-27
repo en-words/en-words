@@ -6,11 +6,13 @@ import promise from 'redux-promise-middleware';
 import groups from './groups/reducers/groupsReducer';
 import words from './words/reducers/wordsReducer';
 import dashboard from './dashboard/reducers/dashboardReducer';
+import users from './users/reducers/usersReducer';
 import {BUILD_TYPE} from './common/AppSettings';
 
 const reducer = combineReducers({
     groupsData: groups,
     wordsData: words,
+    userData: users,
     dashboardData: dashboard
 });
 

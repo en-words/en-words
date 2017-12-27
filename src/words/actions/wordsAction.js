@@ -1,9 +1,9 @@
 import * as types from '../constants/actionTypes';
-import database from './../../database';
+import firebase from './../../firebase';
 
 export const fetchWords = (groupId) => {
     return dispatch => {
-        database.ref(`words/${groupId}`)
+        firebase.database().ref(`words/${groupId}`)
             .on('value', snapshot => {
                 let data = snapshot.val();
                 let result = [];
@@ -27,7 +27,7 @@ export const fetchWords = (groupId) => {
 
 export const searchWords = (groupId, searchText) => {
     return dispatch => {
-        database.ref(`words/${groupId}`)
+        firebase.database().ref(`words/${groupId}`)
             .on('value', snapshot => {
                 let data = snapshot.val();
                 let result = [];
@@ -56,7 +56,7 @@ export const searchWords = (groupId, searchText) => {
 
 export const addWord = (wordData) => {
     return dispatch => {
-        database.ref(`words/${wordData.groupId}`)
+        firebase.database().ref(`words/${wordData.groupId}`)
             .push({
                 word: wordData.word,
                 translation: wordData.translation,
@@ -67,7 +67,7 @@ export const addWord = (wordData) => {
 
 export const updateWord = (wordData) => {
     return dispatch => {
-        database.ref(`words/${wordData.groupId}/${wordData.id}`)
+        firebase.database().ref(`words/${wordData.groupId}/${wordData.id}`)
             .set({
                 word: wordData.word,
                 translation: wordData.translation,
@@ -78,7 +78,7 @@ export const updateWord = (wordData) => {
 
 export const deleteWord = (groupId, id) => {
     return dispatch => {
-        database.ref(`words/${groupId}/${id}`)
+        firebase.database().ref(`words/${groupId}/${id}`)
             .remove()
     }
 };
