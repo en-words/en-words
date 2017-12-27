@@ -63,7 +63,7 @@ function WordList({words = [], onPlayWord, onDeleteWord, onEditWord}) {
                     )
                 }]}
             size="middle"
-            pagination={false}/>
+            pagination={true}/>
     );
 }
 
