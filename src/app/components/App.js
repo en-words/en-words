@@ -30,6 +30,7 @@ class App extends Component {
                 <Sider
                     trigger={null}
                     collapsible
+                    breakpoint="lg"
                     collapsedWidth="0"
                     style={{ background: '#fff' }}
                     collapsed={this.state.collapsed}

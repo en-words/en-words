@@ -7,6 +7,7 @@ import enUS from 'antd/lib/locale-provider/en_US';
 
 import store from './store';
 import App from './app/components/App';
+import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -18,3 +19,5 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+
+registerServiceWorker();
