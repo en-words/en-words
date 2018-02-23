@@ -62,8 +62,8 @@ function WordList({words = [], onPlayWord, onDeleteWord, onEditWord}) {
                         <Button id="deleteWord" shape="circle" icon="delete" onClick={() => onDeleteWord(record.id)} />
                     )
                 }]}
-            size="middle"
-            pagination={true}/>
+            size="small"
+            pagination={false}/>
     );
 }
 

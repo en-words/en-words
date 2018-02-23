@@ -8,9 +8,6 @@ import enUS from 'antd/lib/locale-provider/en_US';
 import store from './store';
 import App from './app/components/App';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-
 ReactDOM.render(
     <Provider store={store}>
         <LocaleProvider locale={enUS}>

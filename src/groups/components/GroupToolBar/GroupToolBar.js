@@ -7,7 +7,7 @@ const GroupToolBar = (props) => {
     const { onNewGroup, onEditGroup, onDeleteGroup, selectedGroup } = props;
 
     return (
-        <Button.Group id="groupButtons" className="align-right padding-top-5px">
+        <Button.Group id="groupButtons" className="align-right padding-top-5px padding-right-15px">
             <Button onClick={onNewGroup} icon="plus-circle-o" />
             <Button onClick={onEditGroup} disabled={!selectedGroup} icon="edit" />
             <Button onClick={onDeleteGroup} disabled={!selectedGroup} icon="delete" />

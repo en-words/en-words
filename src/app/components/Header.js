@@ -10,7 +10,7 @@ const Header = () => {
 
     return (
         <PageHeader>
-            <Link to="/">Learn-Words</Link> <small>(v. {APP_VERSION})</small>
+            <Link to="/">Ln-Words</Link> <small>(v. {APP_VERSION})</small>
         </PageHeader>
     );
 
